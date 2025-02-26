@@ -21,7 +21,7 @@ jobs:
 
       - name: Merge to Feature Branches
         run: |
-          for branch in kavindu; do
+          for branch in member/kavindu member/dilanka member/geenuth member/rayon member/venul member/savina; do
             git checkout $branch
             git merge master || true
             git push origin $branch
