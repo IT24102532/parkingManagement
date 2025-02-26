@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Remove this after creating the branches
+.github/workflows/sync.yml
+
 ### IntelliJ IDEA ###
 .idea/
 .idea/modules.xml
