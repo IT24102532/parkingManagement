@@ -1,0 +1,25 @@
+{
+  "name": "oopapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:sass": "sass src/main/webapp/scss:src/main/webapp/css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IT24102532/parkingManagement.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/IT24102532/parkingManagement/issues"
+  },
+  "homepage": "https://github.com/IT24102532/parkingManagement#readme",
+  "devDependencies": {
+    "sass": "^1.85.1"
+  }
+}
