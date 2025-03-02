@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+body {
+  background-color: hsl(47, 69%, 97%);
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  overflow: hidden;
+  height: 100vh;
+}
+.container .nav-bar {
+  position: fixed;
+  right: 20px;
+  height: 50px;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  z-index: 9999;
+}
+.container .nav-bar .nav-link {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: black;
+  text-decoration: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .nav-bar .nav-link:nth-child(1) {
+  margin-right: 10px;
+}
+.container .nav-bar .ctr {
+  background-color: hsl(52, 88%, 54%);
+}
+.container .hero-container {
+  position: fixed;
+  margin: 20px 0;
+  left: 20px;
+  width: 30vw;
+  height: calc(100vh - 150px);
+  padding: 50px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .hero-container .hero-title {
+  position: relative;
+  top: -20px;
+  z-index: 10;
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: white;
+  width: 350px;
+  line-height: 60px;
+}
+.container .hero-container .hero-title > p {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .hero-container .hero-underline {
+  position: relative;
+  z-index: 11;
+  top: -125px;
+  left: 145px;
+}
+.container .hero-container .hero-underline svg {
+  scale: 1.2;
+}
+.container .hero-container .hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+}
+.container .hero-container .hero-image.active {
+  left: 0;
+  opacity: 1;
+}
+.container .hero-container .hero-image.exit {
+  opacity: 0;
+}
