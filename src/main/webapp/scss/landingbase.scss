@@ -1,0 +1,8 @@
+@use "variables";
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background-color: variables.$global-background;
+  font-family: variables.$global-font-family;
+}

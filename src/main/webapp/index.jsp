@@ -8,11 +8,20 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="manifest" href="images/site.webmanifest">
+
+    <link rel="stylesheet" href="css/landingbase.css">
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<div class="container">
+    <div class="nav-bar">
+        <a href="" class="nav-link">sign up</a>
+        <a href="" class="nav-link">sign in</a>
+    </div>
+    <div class="hero-container">
+        <img src="" alt="hero image" class="hero-image">
+    </div>
+</div>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/utils.js"></script>
 </body>
 </html>
