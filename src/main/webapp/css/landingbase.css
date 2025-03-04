@@ -82,3 +82,41 @@ body {
 .container .hero-container .hero-image.exit {
   opacity: 0;
 }
+.container .content-sec {
+  position: absolute;
+  left: 42vw;
+  top: 10%;
+}
+.container .content-sec .main-sec {
+  position: relative;
+}
+.container .content-sec .main-sec img {
+  width: 100px;
+}
+.container .content-sec .main-sec .thumbs-up {
+  width: 40px;
+  position: absolute;
+  top: 110px;
+  left: 400px;
+  transform: rotate(20deg);
+}
+.container .content-sec .main-sec .content-title {
+  font-size: 1.35rem;
+}
+.container .content-sec .main-sec .content-desc {
+  font-size: 0.8rem;
+  width: 350px;
+}
+.container .btn {
+  font-family: "Inter", sans-serif;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: black;
+  text-decoration: none !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
