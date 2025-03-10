@@ -2,6 +2,8 @@
 body {
   background-color: hsl(47, 69%, 97%);
   font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
@@ -11,6 +13,7 @@ body {
 .container .nav-bar {
   position: fixed;
   right: 20px;
+  top: 20px;
   height: 50px;
   color: black;
   display: flex;
@@ -36,12 +39,18 @@ body {
   position: fixed;
   margin: 20px 0;
   left: 20px;
-  width: 30vw;
+  width: 33vw;
   height: calc(100vh - 150px);
   padding: 50px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .hero-container .squibbles {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 200px;
 }
 .container .hero-container .hero-title {
   position: relative;
@@ -84,7 +93,7 @@ body {
 }
 .container .content-sec {
   position: absolute;
-  left: 42vw;
+  left: 44vw;
   top: 10%;
 }
 .container .content-sec .main-sec {
@@ -106,6 +115,51 @@ body {
 .container .content-sec .main-sec .content-desc {
   font-size: 0.8rem;
   width: 350px;
+  padding-bottom: 10px;
+}
+.container .content-sec .main-sec .excited-yellow {
+  position: relative;
+  width: 30px;
+  top: -15px;
+  left: -15px;
+}
+.container .content-sec .insta-sec {
+  position: relative;
+  right: -420px;
+  padding: 40px;
+  display: grid;
+  text-align: end;
+  justify-content: center;
+  justify-items: end;
+}
+.container .content-sec .insta-sec .insta-logo {
+  width: 120px;
+}
+.container .content-sec .insta-sec .small-car {
+  position: absolute;
+  left: 0;
+  width: 30px;
+  top: 130px;
+}
+.container .content-sec .insta-sec .insta-title {
+  font-size: 1.35rem;
+}
+.container .content-sec .insta-sec .insta-underline {
+  position: absolute;
+  bottom: 100px;
+  right: 200px;
+}
+.container .content-sec .insta-sec .insta-desc {
+  font-size: 0.8rem;
+  width: 350px;
+}
+.container .content-sec .insta-sec .btn {
+  margin: 0;
+}
+.container .content-sec .insta-sec .insta-stars {
+  position: absolute;
+  bottom: 20px;
+  right: 200px;
 }
 .container .btn {
   font-family: "Inter", sans-serif;
@@ -119,4 +173,74 @@ body {
   margin-right: 10px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+.container .btn .ctr button:hover, .container .btn .secondary button:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .ctr {
+  background-color: hsl(52, 88%, 54%);
+}
+.container .secondary {
+  background-color: hsla(250, 100%, 69%, 0.5);
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: hsl(52, 88%, 54%);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.floating-button:active {
+  transform: scale(0.9);
+}
+
+.blur {
+  filter: blur(5px);
+}
+
+.menu {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+  font-family: "Inter", sans-serif;
+}
+
+.menu button:hover {
+  background: hsl(250, 100%, 69%);
+  color: white;
 }
