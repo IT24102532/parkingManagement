@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/landingbase.css">
 </head>
 <body>
-<div class="container">
+<div class="container" id="container">
     <div class="nav-bar">
         <div class="nav-links">
             <a href="" class="nav-link">sign up</a>
@@ -25,6 +25,7 @@
         <img src="${pageContext.request.contextPath}/images/bg3.jpg" alt="hero image" class="hero-image">
         <img src="${pageContext.request.contextPath}/images/bg4.jpg" alt="hero image" class="hero-image">
         <img src="${pageContext.request.contextPath}/images/bg5.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}/images/squibbles.svg" alt="squibbles" class="squibbles">
         <p class="hero-title">find the perfect spot for your car!</p>
         <p>
             <span class="hero-underline">
@@ -40,10 +41,32 @@
             <p class="content-desc">Your car deserves a safe place while you're away. Reserve a spot in seconds and park stress-free</p>
             <button class="btn secondary">find out how it works</button>
             <button class="btn ctr">get started</button>
+            <img src="${pageContext.request.contextPath}/images/excited.svg" alt="thumbs up" class="excited-yellow">
+
+        </div>
+        <div class="insta-sec">
+            <img src="${pageContext.request.contextPath}/images/insta_logo_yellow.png" alt="Park Me Insta" class="insta-logo">
+            <img src="${pageContext.request.contextPath}/images/fi-rs-car.png" alt="Park Me Insta" class="small-car">
+            <p class="insta-title"><span style="font-weight: 600">not staying for long?</span>—we got you!</p>
+            <p class="insta-desc">coming for a drop by? don’t worry, with our introduced <span style="font-weight: 500; color: hsl(250, 100%, 69%, 100%)">park.me insta</span> , you can park for shorter durations!</p>
+            <button class="btn secondary">get started with insta~</button>
+            <img src="${pageContext.request.contextPath}/images/stars.svg" alt="Park Me Insta" class="insta-stars">
+
         </div>
     </div>
-</div>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/utils.js"></script>
+
+</div>
+<button class="floating-button" id="menu-toggle">
+    <img src="${pageContext.request.contextPath}/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
+</button>
+<div class="menu" id="menu">
+    <button onclick="location.href='#home'">Home</button>
+    <button onclick="location.href='#about'">About</button>
+    <button onclick="location.href='#services'">Services</button>
+    <button onclick="location.href='#contact'">Contact</button>
+</div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/slideshow.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/hover-menu.js"></script>
 </body>
 </html>

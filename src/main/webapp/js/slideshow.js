@@ -29,3 +29,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set interval for the slideshow
     setInterval(showNextImage, 5000); // Change image every 5 seconds
 });
+

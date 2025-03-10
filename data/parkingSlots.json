@@ -1,0 +1,22 @@
+[
+  {
+    "slotId": "S001",
+    "type": "insta",
+    "location": "LAX",
+    "pricePerHour": 10.0,
+    "pricePerDay": null,
+    "maxDurationHours": 1,
+    "isAvailable": true,
+    "bookedDates": ["2023-10-01T14:00:00Z"]
+  },
+  {
+    "slotId": "S002",
+    "type": "long-term",
+    "location": "LAX",
+    "pricePerHour": null,
+    "pricePerDay": 30.0,
+    "maxDurationHours": null,
+    "isAvailable": true,
+    "bookedDates": []
+  }
+]
