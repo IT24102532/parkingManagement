@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.servlets;
 
 import java.io.*;
 
