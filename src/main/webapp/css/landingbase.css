@@ -18,18 +18,18 @@ body {
   color: black;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   z-index: 9999;
 }
 .container .nav-bar .nav-link {
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: #fff;
   color: black;
   text-decoration: none !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.container .nav-bar .nav-link:nth-child(1) {
+.container .nav-bar .nav-link:not(:last-child) {
   margin-right: 10px;
 }
 .container .nav-bar .ctr {
@@ -62,7 +62,7 @@ body {
   width: 350px;
   line-height: 60px;
 }
-.container .hero-container .hero-title > p {
+.container .hero-container .hero-title p {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .container .hero-container .hero-underline {
@@ -85,11 +85,7 @@ body {
   transition: opacity 2s ease-in-out, transform 2s ease-in-out;
 }
 .container .hero-container .hero-image.active {
-  left: 0;
   opacity: 1;
-}
-.container .hero-container .hero-image.exit {
-  opacity: 0;
 }
 .container .content-sec {
   position: absolute;
@@ -165,7 +161,7 @@ body {
   font-family: "Inter", sans-serif;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: #fff;
   color: black;
   text-decoration: none !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -174,7 +170,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-.container .btn .ctr button:hover, .container .btn .secondary button:hover {
+.container .btn:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .container .ctr {
@@ -202,7 +198,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
-
 .floating-button:active {
   transform: scale(0.9);
 }
@@ -222,12 +217,10 @@ body {
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
 .menu.show {
   opacity: 1;
   visibility: visible;
 }
-
 .menu button {
   padding: 10px 20px;
   border: none;
@@ -239,7 +232,6 @@ body {
   transition: background 0.3s;
   font-family: "Inter", sans-serif;
 }
-
 .menu button:hover {
   background: hsl(250, 100%, 69%);
   color: white;
