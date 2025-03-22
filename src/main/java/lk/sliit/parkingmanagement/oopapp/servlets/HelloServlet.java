@@ -60,12 +60,13 @@ public class HelloServlet extends HttpServlet {
                 .map(u -> {
                     try {
                         return Integer.parseInt(u.getUserId().substring(1));
-                    } catch (Exception e) {
+                    } catch (NumberFormatException | NullPointerException e) {
                         return 0;
                     }
                 })
-                .max()
+                .max(Integer::compareTo)
                 .orElse(0) + 1;
+
 
         if (userHelper.findOne(user -> user.getEmail().equalsIgnoreCase(email)) != null) {
             System.out.println("User already exists");
