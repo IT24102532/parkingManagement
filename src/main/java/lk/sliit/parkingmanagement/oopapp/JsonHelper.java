@@ -17,14 +17,18 @@ public class JsonHelper<T> {
     private final Type listType;
 
     public JsonHelper(String filePath, Class<T> type) {
+        this.filePath = filePath;
 
         RuntimeTypeAdapterFactory<User> typeFactory = RuntimeTypeAdapterFactory
                 .of(User.class, "userType")
                 .registerSubtype(Customer.class, "user")
                 .registerSubtype(Admin.class, "admin");
 
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
-        this.filePath = filePath;
+        this.gson = new GsonBuilder()
+                .registerTypeAdapterFactory(typeFactory)
+                .setPrettyPrinting()
+                .create();
+
         this.listType = TypeToken.getParameterized(ArrayList.class, type).getType();
     }
 
@@ -41,18 +45,25 @@ public class JsonHelper<T> {
 
     // Create/Update entire file
     public void writeAll(List<T> entries) {
-        try (Writer writer = new FileWriter(filePath)) {
+        System.out.println("JSON file path: " + new File(filePath).getAbsolutePath());
+        File file = new File(filePath);
+        file.getParentFile().mkdirs(); // Ensure directory exists
+        System.out.println("Writing to: " + file.getAbsolutePath()); // Debug log
+        try (Writer writer = new FileWriter(file)) {
             gson.toJson(entries, writer);
+            System.out.println("Successfully wrote JSON"); // Debug log
         } catch (IOException e) {
-            throw new RuntimeException("Failed to write JSON file", e);
+            System.out.println("Failed to write JSON: " + e.getMessage());
         }
     }
 
     // Add new entry
     public void create(T entry) {
         List<T> entries = readAll();
+        System.out.println("Before adding: " + entries.size());  // Debug log
         entries.add(entry);
         writeAll(entries);
+        System.out.println("After adding: " + entries.size());
     }
 
     // Find by predicate (e.g., ID match)

@@ -23,6 +23,6 @@
 <p>Car Type: ${user.carType}</p>
 <p>License Plate: ${user.licensePlate}</p>
 <p>Card Number: ${user.paymentDetails.cardNumber}</p>
-<p>Expiry Date: ${user.paymentDetails.expiryDate}</p>
+<p>Expiry Date: ${user.paymentDetails.expiry}</p>
 </body>
 </html>

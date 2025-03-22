@@ -19,16 +19,28 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
+        System.out.println("Searching for email: " + email);
+        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
+
 
         if (email != null) {
-            JsonHelper<User> userJsonHelper = new JsonHelper<>("data/users.json", User.class);
-            User user = userJsonHelper.findOne(user1 -> user1.getEmail().equals(email));
+            JsonHelper<User> userJsonHelper = new JsonHelper<>(usersFilePath, User.class);
+            List<User> users = userJsonHelper.readAll();
+            System.out.println("Total users in file: " + users.size());
+            User user = userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email));
+            System.out.println("User found: " + (user != null ? user.toString() : "null"));
 
             if (user != null) {
-                request.setAttribute("user", user);
+                System.out.println("Actual class of user: " + user.getClass().getSimpleName());
+                if (user instanceof Customer) {
+                    request.setAttribute("user", (Customer) user);  // Cast User to Customer
+                    System.out.println("Forwarding a Customer object to JSP");
+                } else {
+                    request.setAttribute("user", user);
+                    System.out.println("Forwarding a User object to JSP");
+                }
                 RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
                 rd.forward(request, response);
-
             }
             else {
                 response.getWriter().println("User Not Found");
@@ -50,10 +62,12 @@ public class HelloServlet extends HttpServlet {
         String cardNumber = request.getParameter("cardNumber");
         String expiryDate = request.getParameter("expiryDate");
 
-        JsonHelper<User> userHelper = new JsonHelper<User>("data/users.json", User.class);
+        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
+
+        JsonHelper<User> userHelper = new JsonHelper<User>(usersFilePath, User.class);
         PaymentDetails card = new PaymentDetails(cardNumber, expiryDate);
 
-        System.out.println("Absolute path: " + new File("data/users.json").getAbsolutePath());
+        System.out.println("Absolute path: " + new File("WEB-INF/data/users.json").getAbsolutePath());
 
         List<User> users = userHelper.readAll();
         int userId = users.stream()
@@ -77,7 +91,7 @@ public class HelloServlet extends HttpServlet {
             Admin newAdmin = new Admin(username, email, ("A" + userId), passwordHash);
             userHelper.create(newAdmin);
         }
-
+        try { Thread.sleep(100); } catch (InterruptedException ignored) {}
         response.sendRedirect(request.getContextPath() + "/signup?email=" + email);
     }
 

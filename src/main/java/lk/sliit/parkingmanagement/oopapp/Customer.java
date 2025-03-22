@@ -31,7 +31,7 @@ public class Customer extends User {
 
     @Override
     public String toString() {
-        return super.toString() + " RegularUser{" +
+        return super.toString() + " Customer{" +
                 "carType='" + carType + '\'' +
                 ", licensePlate='" + licensePlate + '\'' +
                 ", paymentDetails=" + paymentDetails +
