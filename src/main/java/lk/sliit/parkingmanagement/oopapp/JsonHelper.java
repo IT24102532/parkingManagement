@@ -3,6 +3,7 @@ package lk.sliit.parkingmanagement.oopapp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.*;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ public class JsonHelper<T> {
     private final Type listType;
 
     public JsonHelper(String filePath, Class<T> type) {
+
+        RuntimeTypeAdapterFactory<User> typeFactory = RuntimeTypeAdapterFactory
+                .of(User.class, "userType")
+                .registerSubtype(Customer.class, "user")
+                .registerSubtype(Admin.class, "admin");
+
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.filePath = filePath;
         this.listType = TypeToken.getParameterized(ArrayList.class, type).getType();
