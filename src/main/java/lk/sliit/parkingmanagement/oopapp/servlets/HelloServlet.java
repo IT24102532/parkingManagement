@@ -1,36 +1,99 @@
 package lk.sliit.parkingmanagement.oopapp.servlets;
 
 import java.io.*;
+import java.util.List;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import lk.sliit.parkingmanagement.oopapp.*;
 
 @WebServlet(name = "signup", value = "/signup")
 public class HelloServlet extends HttpServlet {
     private String message;
 
     public void init() {
-        message = "Hello World!";
+        message = "USer Doesn't exist";
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String email = request.getParameter("email");
+        System.out.println("Searching for email: " + email);
+        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
 
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+
+        if (email != null) {
+            JsonHelper<User> userJsonHelper = new JsonHelper<>(usersFilePath, User.class);
+            List<User> users = userJsonHelper.readAll();
+            System.out.println("Total users in file: " + users.size());
+            User user = userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email));
+            System.out.println("User found: " + (user != null ? user.toString() : "null"));
+
+            if (user != null) {
+                System.out.println("Actual class of user: " + user.getClass().getSimpleName());
+                if (user instanceof Customer) {
+                    request.setAttribute("user", (Customer) user);  // Cast User to Customer
+                    System.out.println("Forwarding a Customer object to JSP");
+                } else {
+                    request.setAttribute("user", user);
+                    System.out.println("Forwarding a User object to JSP");
+                }
+                RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+                rd.forward(request, response);
+            }
+            else {
+                response.getWriter().println("User Not Found");
+            }
+        }
+        else {
+            response.getWriter().println(message);
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("name");
-        message = "Hello " + username + "!";
-        System.out.println(username);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String userType = request.getParameter("userType");
+        String carType = request.getParameter("carType");
+        String licensePlate = request.getParameter("license");
+        String passwordHash = PasswordHasher.hashPassword(password);
+        String cardNumber = request.getParameter("cardNumber");
+        String expiryDate = request.getParameter("expiryDate");
+
+        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
+
+        JsonHelper<User> userHelper = new JsonHelper<User>(usersFilePath, User.class);
+        PaymentDetails card = new PaymentDetails(cardNumber, expiryDate);
+
+        System.out.println("Absolute path: " + new File("WEB-INF/data/users.json").getAbsolutePath());
+
+        List<User> users = userHelper.readAll();
+        int userId = users.stream()
+                .map(u -> {
+                    try {
+                        return Integer.parseInt(u.getUserId().substring(1));
+                    } catch (NumberFormatException | NullPointerException e) {
+                        return 0;
+                    }
+                })
+                .max(Integer::compareTo)
+                .orElse(0) + 1;
 
 
+        if (userHelper.findOne(user -> user.getEmail().equalsIgnoreCase(email)) != null) {
+            System.out.println("User already exists");
+        } else if (userType.equalsIgnoreCase("user")) {
+            Customer newUser = new Customer(username, email, ("U" + userId), passwordHash, carType, licensePlate, card);
+            userHelper.create(newUser);
+        } else if (userType.equalsIgnoreCase("admin")) {
+            Admin newAdmin = new Admin(username, email, ("A" + userId), passwordHash);
+            userHelper.create(newAdmin);
+        }
+        try { Thread.sleep(100); } catch (InterruptedException ignored) {}
+        response.sendRedirect(request.getContextPath() + "/signup?email=" + email);
     }
 
-    public void destroy() {
-    }
+    public void destroy() {}
 }

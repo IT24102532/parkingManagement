@@ -3,6 +3,7 @@ package lk.sliit.parkingmanagement.oopapp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.*;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -16,8 +17,18 @@ public class JsonHelper<T> {
     private final Type listType;
 
     public JsonHelper(String filePath, Class<T> type) {
-        this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.filePath = filePath;
+
+        RuntimeTypeAdapterFactory<User> typeFactory = RuntimeTypeAdapterFactory
+                .of(User.class, "userType")
+                .registerSubtype(Customer.class, "user")
+                .registerSubtype(Admin.class, "admin");
+
+        this.gson = new GsonBuilder()
+                .registerTypeAdapterFactory(typeFactory)
+                .setPrettyPrinting()
+                .create();
+
         this.listType = TypeToken.getParameterized(ArrayList.class, type).getType();
     }
 
@@ -28,24 +39,31 @@ public class JsonHelper<T> {
         try (Reader reader = new FileReader(filePath)) {
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
-            return new ArrayList<>(); // Return empty list if file doesn't exist
+            return new ArrayList<>();
         }
     }
 
     // Create/Update entire file
     public void writeAll(List<T> entries) {
-        try (Writer writer = new FileWriter(filePath)) {
+        System.out.println("JSON file path: " + new File(filePath).getAbsolutePath());
+        File file = new File(filePath);
+        file.getParentFile().mkdirs();
+        System.out.println("Writing to: " + file.getAbsolutePath());
+        try (Writer writer = new FileWriter(file)) {
             gson.toJson(entries, writer);
+            System.out.println("Successfully wrote JSON");
         } catch (IOException e) {
-            throw new RuntimeException("Failed to write JSON file", e);
+            System.out.println("Failed to write JSON: " + e.getMessage());
         }
     }
 
     // Add new entry
     public void create(T entry) {
         List<T> entries = readAll();
+        System.out.println("Before adding: " + entries.size());
         entries.add(entry);
         writeAll(entries);
+        System.out.println("After adding: " + entries.size());
     }
 
     // Find by predicate (e.g., ID match)
@@ -108,7 +126,7 @@ public class JsonHelper<T> {
         }
     }
 
-    private String getDateField(T entry) { // Remove unused parameter
+    private String getDateField(T entry) {
         try {
             return (String) entry.getClass().getDeclaredField("date").get(entry);
         } catch (Exception e) {
