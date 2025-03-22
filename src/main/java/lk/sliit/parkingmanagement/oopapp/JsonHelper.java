@@ -39,7 +39,7 @@ public class JsonHelper<T> {
         try (Reader reader = new FileReader(filePath)) {
             return gson.fromJson(reader, listType);
         } catch (IOException e) {
-            return new ArrayList<>(); // Return empty list if file doesn't exist
+            return new ArrayList<>();
         }
     }
 
@@ -47,11 +47,11 @@ public class JsonHelper<T> {
     public void writeAll(List<T> entries) {
         System.out.println("JSON file path: " + new File(filePath).getAbsolutePath());
         File file = new File(filePath);
-        file.getParentFile().mkdirs(); // Ensure directory exists
-        System.out.println("Writing to: " + file.getAbsolutePath()); // Debug log
+        file.getParentFile().mkdirs();
+        System.out.println("Writing to: " + file.getAbsolutePath());
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(entries, writer);
-            System.out.println("Successfully wrote JSON"); // Debug log
+            System.out.println("Successfully wrote JSON");
         } catch (IOException e) {
             System.out.println("Failed to write JSON: " + e.getMessage());
         }
@@ -60,7 +60,7 @@ public class JsonHelper<T> {
     // Add new entry
     public void create(T entry) {
         List<T> entries = readAll();
-        System.out.println("Before adding: " + entries.size());  // Debug log
+        System.out.println("Before adding: " + entries.size());
         entries.add(entry);
         writeAll(entries);
         System.out.println("After adding: " + entries.size());
@@ -126,7 +126,7 @@ public class JsonHelper<T> {
         }
     }
 
-    private String getDateField(T entry) { // Remove unused parameter
+    private String getDateField(T entry) {
         try {
             return (String) entry.getClass().getDeclaredField("date").get(entry);
         } catch (Exception e) {
