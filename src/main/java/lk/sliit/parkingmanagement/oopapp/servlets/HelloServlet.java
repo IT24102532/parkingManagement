@@ -9,7 +9,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.*;
 
-@WebServlet(name = "signup", value = "/signup")
+@WebServlet(name = "test", value = "/test")
 public class HelloServlet extends HttpServlet {
     private String message;
 
