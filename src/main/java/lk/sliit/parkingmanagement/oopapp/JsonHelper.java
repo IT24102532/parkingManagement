@@ -24,6 +24,11 @@ public class JsonHelper<T> {
                 .registerSubtype(Customer.class, "user")
                 .registerSubtype(Admin.class, "admin");
 
+        RuntimeTypeAdapterFactory<ParkingSlot> typeAdapterFactory = RuntimeTypeAdapterFactory
+                .of(ParkingSlot.class, "lotType")
+                .registerSubtype(InstaSlot.class, "insta")
+                .registerSubtype(LongTermSlot.class, "longterm");
+
         this.gson = new GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
                 .setPrettyPrinting()
