@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+body {
+  background-color: #FDFBF4;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container, .form, label, input, .input {
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  width: 90%;
+  height: 90vh;
+  margin: 40px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.container .left {
+  display: flex;
+  flex-direction: column;
+}
+.container .left .logo {
+  width: 100px;
+  position: absolute;
+  top: 70px;
+  left: 110px;
+}
+.container .left .bg-img {
+  width: 600px;
+  border-radius: 10px;
+  height: 100%;
+}
+.container .right {
+  width: 100%;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .right .title {
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+.container .right .login-form {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  align-items: center;
+}
+.container .right .login-form label {
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  margin-bottom: 15px;
+}
+.container .right .login-form .forgot-pw {
+  text-decoration: underline;
+  margin: 20px;
+  font-size: 0.8rem;
+  color: #3a3a3a;
+}
+.container .right .login-form .input {
+  padding: 10px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+}
+.container .right .login-form .email-input {
+  margin-bottom: 30px;
+}
+.container .right .login-form .form-btn {
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background: hsl(52, 88%, 54%);
+  font-weight: 500;
+  cursor: pointer;
+}
+.container .right .login-form .form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+}
+.container .right .login-form .input, .container .right .login-form .form-btn {
+  width: 250px;
+}
+.container .right .other-options {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  font-size: 0.95rem;
+  margin-top: 20px;
+  color: gray;
+}
+.container .right .other-options .register-icon {
+  display: flex;
+}
+.container .right .other-options .register-icon img {
+  width: 16px;
+  margin-right: 5px;
+}
+.container .right .other-options .register-icon img svg {
+  color: #3a3a3a;
+}
