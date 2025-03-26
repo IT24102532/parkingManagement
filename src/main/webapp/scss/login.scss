@@ -1,0 +1,132 @@
+@use "variables" as *;
+
+body {
+  background-color: $background-color;
+  font-family: $global-font-family;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container, .form, label, input, .input {
+  font-family: $global-font-family;
+}
+
+.container {
+  width: 90%;
+  height: 90vh;
+  margin: 40px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: $global-box-shadow;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+
+    .logo {
+      width: 100px;
+      position: absolute;
+      top: 70px;
+      left: 110px;
+    }
+
+    .bg-img {
+      width: 600px;
+      border-radius: 10px;
+      height: 100%;
+    }
+  }
+
+  .right {
+    width: 100%;
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      font-weight: 500;
+      margin-bottom: 50px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      width: 340px;
+      align-items: center;
+
+      label {
+        font-size: 0.9rem;
+        color: #3a3a3a;
+        margin-bottom: 15px;
+      }
+
+      .forgot-pw {
+        text-decoration: underline;
+        margin: 20px;
+        font-size: 0.8rem;
+        color: #3a3a3a;
+      }
+
+      .input {
+        padding: 10px;
+        border: 1px solid #c6c6c6;
+        border-radius: 5px;
+        box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .email-input {
+        margin-bottom: 30px;
+      }
+
+      .form-btn {
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        color: black;
+        background: $global-primary;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .form-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .input, .form-btn {
+        width: 250px;
+      }
+    }
+
+    .other-options {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-content: center;
+      align-self: center;
+      font-size: 0.95rem;
+      margin-top: 20px;
+      color: gray;
+
+      .register-icon {
+        display: flex;
+
+        img {
+          width: 16px;
+          margin-right: 5px;
+
+          svg {
+            color: #3a3a3a;
+          }
+        }
+      }
+    }
+  }
+}
