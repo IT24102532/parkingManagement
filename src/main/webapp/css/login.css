@@ -105,6 +105,9 @@ body {
 .container .right .other-options .register-icon {
   display: flex;
 }
+.container .right .other-options .register-icon a {
+  color: gray;
+}
 .container .right .other-options .register-icon img {
   width: 16px;
   margin-right: 5px;

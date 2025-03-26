@@ -36,7 +36,7 @@
             <input class="form-btn" type="submit" value="continue">
         </form>
         <div class="other-options">
-            <p class="register">already have an account?</p>
+            <p class="register">don't have an account?</p>
             <p class="register-icon">
                 <span>
                     <img src="${pageContext.request.contextPath}/images/fi-rr-user.svg" alt="">

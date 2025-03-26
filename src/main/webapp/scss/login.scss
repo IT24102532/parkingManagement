@@ -118,6 +118,10 @@ body {
       .register-icon {
         display: flex;
 
+        a {
+          color: gray;
+        }
+
         img {
           width: 16px;
           margin-right: 5px;
