@@ -8,23 +8,23 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.*;
+import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 @WebServlet(name = "test", value = "/test")
 public class HelloServlet extends HttpServlet {
     private String message;
+    private String userFilePath = FileConfig.INSTANCE.getUsersPath();
 
     public void init() {
-        message = "USer Doesn't exist";
+        message = "User Doesn't exist";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
         System.out.println("Searching for email: " + email);
-        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
-
 
         if (email != null) {
-            JsonHelper<User> userJsonHelper = new JsonHelper<>(usersFilePath, User.class);
+            JsonHelper<User> userJsonHelper = new JsonHelper<>(userFilePath, User.class);
             List<User> users = userJsonHelper.readAll();
             System.out.println("Total users in file: " + users.size());
             User user = userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email));
@@ -62,12 +62,10 @@ public class HelloServlet extends HttpServlet {
         String cardNumber = request.getParameter("cardNumber");
         String expiryDate = request.getParameter("expiryDate");
 
-        String usersFilePath = getServletContext().getRealPath("/WEB-INF/data/users.json");
-
-        JsonHelper<User> userHelper = new JsonHelper<User>(usersFilePath, User.class);
+        JsonHelper<User> userHelper = new JsonHelper<User>(userFilePath, User.class);
         PaymentDetails card = new PaymentDetails(cardNumber, expiryDate);
 
-        System.out.println("Absolute path: " + new File("WEB-INF/data/users.json").getAbsolutePath());
+        System.out.println("Absolute path: " + new File(userFilePath).getAbsolutePath());
 
         List<User> users = userHelper.readAll();
         int userId = users.stream()
@@ -92,7 +90,7 @@ public class HelloServlet extends HttpServlet {
             userHelper.create(newAdmin);
         }
         try { Thread.sleep(100); } catch (InterruptedException ignored) {}
-        response.sendRedirect(request.getContextPath() + "/signup?email=" + email);
+        response.sendRedirect(request.getContextPath() + "/test?email=" + email);
     }
 
     public void destroy() {}
