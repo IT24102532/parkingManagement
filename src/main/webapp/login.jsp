@@ -25,7 +25,7 @@
     </div>
     <div class="right">
         <h1 class="title">sign in</h1>
-        <form name="LoginForm"  action="../login" method="post" class="login-form">
+        <form name="LoginForm"  action="./login" method="post" class="login-form">
             <label for="email">email</label>
             <input class="input email-input" type="email" id="email" name="email" placeholder="example@email.com">
 

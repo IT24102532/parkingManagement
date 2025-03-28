@@ -16,7 +16,7 @@
     <div class="nav-bar">
         <div class="nav-links">
             <a href="" class="nav-link">sign up</a>
-            <a href="" class="nav-link ctr">sign in</a>
+            <a href="./login" class="nav-link ctr">sign in</a>
         </div>
     </div>
     <div class="hero-container">

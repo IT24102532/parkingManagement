@@ -6,47 +6,75 @@ import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.PasswordHasher;
 import lk.sliit.parkingmanagement.oopapp.User;
+import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
+    private final String userFilePath = FileConfig.INSTANCE.getUsersPath();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+
         if (session != null && session.getAttribute("user") != null) {
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
+            return;
         }
-        else {
-            response.sendRedirect("login.jsp");
-        }
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JsonHelper<User> userJsonHelper = new JsonHelper<User>("/WEB-INF/data/users.json", User.class);
+        JsonHelper<User> userJsonHelper = new JsonHelper<User>(userFilePath, User.class);
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = Optional.ofNullable(request.getParameter("email")).orElse("").trim();
+        String password = Optional.ofNullable(request.getParameter("password")).orElse("").trim();
 
-        User user = userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email));
-
-        if (user == null) {
-            request.setAttribute("error", "User not found");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (email.isEmpty() || password.isEmpty()) {
+            request.setAttribute("error", "Please fill all the required fields");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        boolean pwMatch = PasswordHasher.verifyPassword(password, user.getHashedPassword());
+        Optional<User> userOpt = Optional.ofNullable(userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email)));
 
-        if (pwMatch) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            response.sendRedirect("dashboard.jsp");
+        if (userOpt.isEmpty()) {
+            request.setAttribute("error", "Email or password is incorrect");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
         }
-        else {
-            request.setAttribute("error", "Invalid email or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+
+        User user = userOpt.get();
+        boolean isPasswordValid = false;
+        try {
+             isPasswordValid = PasswordHasher.verifyPassword(password, user.getHashedPassword());
+            System.out.println("Password Hasher Called");
         }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Password Hasher Failed", e);
+            request.setAttribute("error", "Internal server error. Please try again.");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }
+
+        if (!isPasswordValid) {
+            request.setAttribute("error", "Incorrect password");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        session = request.getSession(true);
+        session.setAttribute("user", user);
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
     }
 }
