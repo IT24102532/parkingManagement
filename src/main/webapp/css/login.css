@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-  width: 90%;
+  width: 70%;
   height: 90vh;
   margin: 40px;
   display: flex;
@@ -25,15 +25,16 @@ body {
 .container .left {
   display: flex;
   flex-direction: column;
+  width: 50%;
+  position: relative;
 }
 .container .left .logo {
   width: 100px;
   position: absolute;
-  top: 70px;
-  left: 110px;
+  top: 50px;
+  left: 50px;
 }
 .container .left .bg-img {
-  width: 600px;
   border-radius: 10px;
   height: 100%;
 }
