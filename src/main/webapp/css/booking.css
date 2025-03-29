@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body {
+    background-color: #FDFBF4;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container, .form, label, input, .input {
+    font-family: "Inter", sans-serif;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Add border to the table */
+}
+
+table td {
+    padding: 10px;
+    font-size: 14px;
+    color: #3a3a3a;
+    border: 1px solid #ccc; /* Add border to each table cell */
+}
+
+table td:first-child {
+    font-weight: 600;
+}
+
+.container {
+    width: 70%;
+    height: 90vh;
+    margin: 40px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container .left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+}
+
+.container .left .logo {
+    width: 100px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.container .left .bg-img {
+    border-radius: 10px;
+    height: 100%;
+}
+
+.container .right {
+    width: 100%;
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .right .title {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.checkout-btn {
+    background: hsl(52, 88%, 54%);
+    color: black;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+}
+
+.change-btn {
+    background: none;
+    color: gray;
+    text-decoration: none;
+    font-size: 14px; /* Ensure same font size */
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 12px; /* Same padding */
+    border-radius: 5px; /* Same border-radius */
+    margin-top: 10px; /* Ensure same margin as checkout button */
+}
+
+.choice-container {
+    width: 100%;
+    border: 1px solid #c6c6c6;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+
+.change-btn:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.info {
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+    margin-top: 80px;
+    max-width: 80%;
+}
