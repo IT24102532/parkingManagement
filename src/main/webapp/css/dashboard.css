@@ -29,14 +29,72 @@
   display: flex;
   align-items: center;
 }
+.container .dashboard .action-bar .action-left .location-info {
+  margin-left: 20px;
+  padding: 10px;
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .dashboard .action-bar .action-left .location-info svg {
+  margin-right: 10px;
+}
 .container .dashboard .action-bar .action-right {
   justify-self: flex-end;
+  gap: 20px;
+}
+.container .dashboard .action-bar .action-right .new-slot-btn {
+  padding: 10px 25px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border: none;
+  border-radius: 5px;
+  background: hsl(52, 88%, 54%);
+  color: black;
+}
+.container .dashboard .action-bar .action-right .new-slot-btn svg {
+  margin-right: 10px;
+}
+.container .dashboard .action-bar .action-right .profile-btn {
+  height: 40px;
+  width: 40px;
 }
 .container .dashboard .dash-top {
   grid-area: 2/1/3/4;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.container .dashboard .dash-top .section {
+  border-radius: 10px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+}
+.container .dashboard .dash-top .sc-gray {
+  background: rgba(199, 199, 199, 0.231372549);
+  border: 1px solid gainsboro;
+}
+.container .dashboard .dash-top .sc {
+  border: 1px solid gainsboro;
+}
+.container .dashboard .dash-top .sc-white {
+  border: none;
+  box-shadow: none;
 }
 .container .dashboard .dash-bottom {
   grid-area: 3/1/4/4;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.container .dashboard .dash-bottom .chart, .container .dashboard .dash-bottom .customers {
+  border-radius: 10px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid gainsboro;
+}
+.container .dashboard .dash-bottom .chart {
+  grid-area: 1/1/3/3;
+}
+.container .dashboard .dash-bottom .customers {
+  grid-area: 1/3/3/4;
 }
