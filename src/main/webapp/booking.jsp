@@ -29,7 +29,7 @@
       <tr><td>registration number</td><td>${user.licensePlate}</td></tr>
     </table>
 
-    <button class="checkout-btn">continue to checkout</button>
+    <button onclick="" class="checkout-btn">continue to checkout</button>
     <button class="change-btn">← find a different choice</button>
     <p class="info">did you know? <br> for every long duration parking, you get a 2-hour grace period where you're not overcharged for overstaying</p>
   </div>
