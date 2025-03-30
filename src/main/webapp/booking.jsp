@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kavindu
-  Date: 3/10/2025
-  Time: 4:55 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,15 +24,13 @@
       <tr><td>type</td><td><%= request.getAttribute("type") %></td></tr>
       <tr><td>start date</td><td><%= request.getAttribute("startDate") %></td></tr>
       <tr><td>end date</td><td><%= request.getAttribute("endDate") %></td></tr>
-      <tr><td>vehicle</td><td><%= request.getAttribute("vehicle") %></td></tr>
-      <tr><td>registration number</td><td><%= request.getAttribute("registrationNumber") %></td></tr>
+      <tr><td>vehicle</td><td>${user.carType}</td></tr>
+      <tr><td>registration number</td><td>${user.licensePlate}</td></tr>
     </table>
 
     <button class="checkout-btn">continue to checkout</button>
-    <div class="choice-container">
-      <button class="change-btn">← find a different choice</button>
-    </div>
-    <p class="info">did you know? <br> for every long duration parking, you get a 2-hour grace period where you're not overcharged for overstaying</p>
+    <button class="change-btn">← find a different choice</button>
+    <p class="info">did you knaow? <br> for every long duration parking, you get a 2-hour grace period where you're not overcharged for overstaying</p>
   </div>
 </div>
 </body>

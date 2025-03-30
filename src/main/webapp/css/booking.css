@@ -17,17 +17,17 @@ body {
 
 
 table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    border: 1px solid #ccc; /* Add border to the table */
+    border: 1px solid #ccc;
 }
 
 table td {
     padding: 10px;
     font-size: 14px;
     color: #3a3a3a;
-    border: 1px solid #ccc; /* Add border to each table cell */
+    border: 1px solid #ccc;
 }
 
 table td:first-child {
@@ -79,7 +79,7 @@ table td:first-child {
 }
 
 .checkout-btn {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border: none;
     border-radius: 5px;
@@ -87,6 +87,7 @@ table td:first-child {
     font-weight: 500;
     cursor: pointer;
     margin-top: 10px;
+    height: 40px;
 }
 
 .checkout-btn {
@@ -103,23 +104,16 @@ table td:first-child {
     background: none;
     color: gray;
     text-decoration: none;
-    font-size: 14px; /* Ensure same font size */
+    font-size: 14px;
     font-weight: 500;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    padding: 12px; /* Same padding */
-    border-radius: 5px; /* Same border-radius */
-    margin-top: 10px; /* Ensure same margin as checkout button */
-}
-
-.choice-container {
-    width: 100%;
     border: 1px solid #c6c6c6;
-    border-radius: 8px;
+    cursor: pointer;
+    width: 90%;
+    padding: 12px;
+    border-radius: 5px;
     margin-top: 10px;
+    height: 40px;
     text-align: center;
-    background-color: #f9f9f9;
 }
 
 
