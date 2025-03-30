@@ -18,8 +18,8 @@
     <img class="bg-img" src="${pageContext.request.contextPath}/images/bg3.jpg" alt="Car">
   </div>
   <div class="right">
-    <h2 class="title">book a spot</h2>
-    <p>your choice~</p>
+    <h2 class="title">book your spot</h2>
+    <p class="desc">your choice~</p>
     <table class="booking-details">
       <tr><td>location</td><td><%= request.getAttribute("location") %></td></tr>
       <tr><td>type</td><td><%= request.getAttribute("type") %></td></tr>
