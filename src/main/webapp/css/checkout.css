@@ -9,6 +9,54 @@ body {
     height: 100vh;
 }
 
+.card-box {
+    position: relative;
+    background: #2a72c5;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    height: 140px;
+}
+
+.card-title {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 0px;
+}
+
+.card-user, .card-number, .fingerprint{
+    position: absolute;
+    left: 15px;
+    font-size: 14px;
+}
+
+.fingerprint{
+    bottom: 60px;
+    margin: 5px 0;
+}
+.card-user {
+    bottom: 30px;
+    margin: 5px 0;
+}
+
+.card-number {
+    bottom: 10px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.card-user {
+    font-weight: normal;
+}
+
 .container {
     display: flex;
     width: 80%;
@@ -63,23 +111,54 @@ h2 {
 
 .summary-box {
     background: #f0f0f0;
-    padding: 15px;
+    padding: 25px; /* Increased padding */
     border-radius: 8px;
     margin-bottom: 20px;
+    min-height: 150px; /* Adjusted height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the content inside */
 }
 
 .summary-box p {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0;
+    font-size: 16px; /* Slightly larger text */
+    margin: 8px 0; /* Increased spacing */
+}
+
+.total, .discount, .subtotal {
+    font-size: 18px; /* Make key amounts stand out */
 }
 
 .total {
     font-weight: bold;
+    position: relative;
+}
+
+.total::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    border-bottom: 1px solid darkgray;
+    margin-top: 10px;
 }
 
 .discount {
     color: green;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.discount::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    border-bottom: 1px solid darkgray;
 }
 
 .subtotal {
@@ -124,7 +203,7 @@ h2 {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #ccc; /* Box around it */
+    border: 1px solid #ccc;
     border-radius: 5px;
     color: #4a4a4a;
     cursor: pointer;
