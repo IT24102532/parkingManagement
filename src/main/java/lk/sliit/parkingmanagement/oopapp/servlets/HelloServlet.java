@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.*;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
-@WebServlet(name = "test", value = "/test")
+@WebServlet(name = "test", value = "/test1")
 public class HelloServlet extends HttpServlet {
     private String message;
     private String userFilePath = FileConfig.INSTANCE.getUsersPath();
