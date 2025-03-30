@@ -1,134 +1,79 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-<<<<<<< Updated upstream
-
-body {
-    background-color: #FDFBF4;
-    font-family: "Inter", sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container .right .booking-details {
+  width: 90%;
+  border-collapse: separate;
+  margin-bottom: 40px;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
-
-
-.container, .form, label, input, .input {
-    font-family: "Inter", sans-serif;
+.container .right .booking-details tbody tr:first-child td:first-child {
+  border-top-left-radius: 8px;
 }
-
-
-table {
-    width: 90%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+.container .right .booking-details tbody tr:first-child td:last-child {
+  border-top-right-radius: 8px;
 }
-
-table td {
-    padding: 10px;
-    font-size: 14px;
-    color: #3a3a3a;
-    border: 1px solid #ccc;
+.container .right .booking-details tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
 }
-
-table td:first-child {
-    font-weight: 600;
+.container .right .booking-details tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
 }
-
-.container {
-    width: 70%;
-    height: 90vh;
-    margin: 40px;
-    display: flex;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.container .right .booking-details th, .container .right .booking-details td {
+  padding: 10px;
+  border: 1px solid #e7e7e7;
+  text-align: left;
 }
-
-.container .left {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    position: relative;
+.container .right .booking-details td {
+  padding: 10px;
+  font-size: 14px;
+  color: #3a3a3a;
 }
-
-.container .left .logo {
-    width: 100px;
-    position: absolute;
-    top: 50px;
-    left: 50px;
+.container .right .booking-details td:first-child {
+  font-weight: 600;
 }
-
-.container .left .bg-img {
-    border-radius: 10px;
-    height: 100%;
+.container .right .checkout-btn {
+  font-family: "Inter", sans-serif;
+  width: 90%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
-
-.container .right {
-    width: 100%;
-    background-color: white;
-    padding: 50px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.container .right .checkout-btn {
+  background: hsl(52, 88%, 54%);
+  color: black;
 }
-
-.container .right .title {
-    font-weight: 500;
-    margin-bottom: 20px;
+.container .right .checkout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
 }
-
-.checkout-btn {
-    width: 90%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 10px;
-    height: 40px;
+.container .right .change-btn {
+  font-family: "Inter", sans-serif;
+  background: #f6f6f6;
+  color: gray;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #c6c6c6;
+  cursor: pointer;
+  width: 90%;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 20px;
+  height: 40px;
+  text-align: center;
 }
-
-.checkout-btn {
-    background: hsl(52, 88%, 54%);
-    color: black;
+.container .right .change-btn:hover {
+  color: black;
+  background: white;
 }
-
-.checkout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+.container .right .info {
+  font-size: 12px;
+  color: gray;
+  text-align: center;
+  margin-top: 30px;
+  max-width: 80%;
 }
-
-.change-btn {
-    background: none;
-    color: gray;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    border: 1px solid #c6c6c6;
-    cursor: pointer;
-    width: 90%;
-    padding: 12px;
-    border-radius: 5px;
-    margin-top: 10px;
-    height: 40px;
-    text-align: center;
-}
-
-
-.change-btn:hover {
-    color: black;
-    text-decoration: underline;
-}
-
-.info {
-    font-size: 12px;
-    color: gray;
-    text-align: center;
-    margin-top: 80px;
-    max-width: 80%;
-}
-=======
->>>>>>> Stashed changes

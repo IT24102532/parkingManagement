@@ -14,7 +14,7 @@
     <link rel="manifest" href="images/site.webmanifest">
 
     <link rel="stylesheet" href="css/login.css">
-
+    <link rel="stylesheet" href="css/dual_container_global.css">
     <title>park.me | continue →</title>
 </head>
 <body>

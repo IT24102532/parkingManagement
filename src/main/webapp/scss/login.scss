@@ -1,56 +1,7 @@
 @use "variables" as *;
 
-body {
-  background-color: $background-color;
-  font-family: $global-font-family;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container, .form, label, input, .input {
-  font-family: $global-font-family;
-}
-
 .container {
-  width: 70%;
-  height: 90vh;
-  margin: 40px;
-  display: flex;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: $global-box-shadow;
-
-  .left {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    position: relative;
-
-    .logo {
-      width: 100px;
-      position: absolute;
-      top: 50px;
-      left: 50px;
-    }
-
-    .bg-img {
-      border-radius: 10px;
-      height: 100%;
-    }
-  }
-
   .right {
-    width: 100%;
-    background-color: white;
-    padding: 50px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
     .title {
       font-weight: 500;
       margin-bottom: 50px;
