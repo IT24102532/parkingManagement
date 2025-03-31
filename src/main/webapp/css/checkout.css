@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card-box {
+    position: relative;
+    background: #2a72c5;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    height: 140px;
+}
+
+.card-title {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 0px;
+}
+
+.card-user, .card-number, .fingerprint{
+    position: absolute;
+    left: 15px;
+    font-size: 14px;
+}
+
+.fingerprint{
+    bottom: 60px;
+    margin: 5px 0;
+}
+.card-user {
+    bottom: 30px;
+    margin: 5px 0;
+}
+
+.card-number {
+    bottom: 10px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.card-user {
+    font-weight: normal;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+    flex: 1;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 60px;
+}
+
+.bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.right {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-section {
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    color: #4a4a4a;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.summary-box {
+    background: #f0f0f0;
+    padding: 25px; /* Increased padding */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    min-height: 150px; /* Adjusted height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the content inside */
+}
+
+.summary-box p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px; /* Slightly larger text */
+    margin: 8px 0; /* Increased spacing */
+}
+
+.total, .discount, .subtotal {
+    font-size: 18px; /* Make key amounts stand out */
+}
+
+.total {
+    font-weight: bold;
+    position: relative;
+}
+
+.total::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    border-bottom: 1px solid darkgray;
+    margin-top: 10px;
+}
+
+.discount {
+    color: green;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+
+.discount::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    border-bottom: 1px solid darkgray;
+}
+
+.subtotal {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.payment-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.payment-options button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #f1f1f1;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.payment-options button.active {
+    background: black;
+    color: white;
+}
+
+.pay-btn {
+    width: 100%;
+    background: hsl(52, 88%, 54%);
+    color: black;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.change-mind {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #4a4a4a;
+    cursor: pointer;
+}
