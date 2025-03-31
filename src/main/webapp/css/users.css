@@ -1,0 +1,234 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.sidebar {
+    width: 40px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dashboard-content {
+    display: flex;
+    gap: 20px;
+}
+
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+
+}
+
+.right-section .user-details .user-details-header h2{
+    margin-top: 0px;
+}
+
+.right-section {
+    width: 50%;
+}
+
+.user-details{
+    height: 558px;
+}
+
+.user-details-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-details-header button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user-details-header button.ban {
+    background-color: firebrick;
+    color: white;
+}
+
+.user-details-header button.edit {
+    background-color: grey;
+    color:white ;
+}
+
+table {
+    margin-top: 111px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.card, .new-accounts-card {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.new-accounts-card {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.new-accounts-header a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.new-accounts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.new-account-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.new-account-item:last-child {
+    border-bottom: none;
+}
+
+.new-account-avatar img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.new-account-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-account-location::before {
+    content: "📍";
+    margin-right: 3px;
+}
+
+
+
+header input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+
+.card.users {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.users-header h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.5em;
+}
+
+.users-header hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin-bottom: 20px;
+}
+
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    grid-row-gap: 35px;
+}
+
+.user-stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.stat-number::before {
+    content: "↗";
+    color: green;
+    margin-right: 5px;
+}
