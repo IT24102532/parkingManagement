@@ -5,10 +5,7 @@ import com.google.gson.JsonParser;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.InstaSlot;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.LongTermSlot;
-import lk.sliit.parkingmanagement.oopapp.ParkingSlot;
+import lk.sliit.parkingmanagement.oopapp.*;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.BufferedReader;
@@ -29,16 +26,15 @@ public class BookSlotServlet extends HttpServlet {
         BufferedReader reader = request.getReader();
         JsonObject jsonRequest = JsonParser.parseReader(reader).getAsJsonObject();
 
-        // **Get User ID from Session**
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userID") == null) {
+        if (session == null || session.getAttribute("user") == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("{\"success\": false, \"error\": \"User not logged in!\"}");
             return;
         }
-        String userID = session.getAttribute("userID").toString();
+        User user = (User) session.getAttribute("user");
+        String userID = user.getUserId();
 
-        // **Extract Data from JSON Request**
         String slotID = jsonRequest.has("slotID") ? jsonRequest.get("slotID").getAsString() : null;
         String startDateStr = jsonRequest.has("startDate") ? jsonRequest.get("startDate").getAsString() : null;
         String endDateStr = jsonRequest.has("endDate") ? jsonRequest.get("endDate").getAsString() : null;
@@ -61,20 +57,19 @@ public class BookSlotServlet extends HttpServlet {
             return;
         }
 
-        String lotType = selectedSlot.getLotType(); // Ensure this field exists in ParkingSlot
+        String lotType = selectedSlot.getLotType();
 
         double totalCharge = 0;
 
         if ("LongTerm".equalsIgnoreCase(lotType) && selectedSlot instanceof LongTermSlot) {
             LongTermSlot longTermSlot = (LongTermSlot) selectedSlot;
-            long totalDays = startDate.until(endDate).getDays() + 1; // Include both start & end dates
+            long totalDays = startDate.until(endDate).getDays() + 1;
             totalCharge = longTermSlot.getPricePerDay() * totalDays;
         }
         else if ("Insta".equalsIgnoreCase(lotType) && selectedSlot instanceof InstaSlot) {
             InstaSlot instaSlot = (InstaSlot) selectedSlot;
 
-            // Assuming startDate and endDate include the time (use LocalDateTime if needed)
-            long totalHours = startDate.until(endDate).toTotalMonths() * 30 * 24; // Example: Convert to hours
+            long totalHours = startDate.until(endDate).toTotalMonths() * 30 * 24;
             totalCharge = instaSlot.getPricePerHour() * totalHours;
         }
         else {
@@ -83,7 +78,6 @@ public class BookSlotServlet extends HttpServlet {
             return;
         }
 
-        // Check if the Slot is Already Booked in the Given Range
         for (String booked : selectedSlot.getBookedDates()) {
             LocalDate bookedDate = LocalDate.parse(booked);
             if (!(endDate.isBefore(bookedDate) || startDate.isAfter(bookedDate))) {
@@ -93,7 +87,7 @@ public class BookSlotServlet extends HttpServlet {
             }
         }
 
-        // Update the Booking
+
         List<String> updatedBookedDates = new ArrayList<>(selectedSlot.getBookedDates());
         LocalDate tempDate = startDate;
         while (!tempDate.isAfter(endDate)) {
@@ -105,7 +99,6 @@ public class BookSlotServlet extends HttpServlet {
         // **Save to JSON File**
         slotJsonHelper.update(slot -> slot.getParkingSlotID().equals(slotID), selectedSlot);
 
-        // Forward Booking Details to checkout
         request.setAttribute("slotID", slotID);
         request.setAttribute("userID", userID);
         request.setAttribute("startDate", startDateStr);
