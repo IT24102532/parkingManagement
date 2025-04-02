@@ -21,18 +21,19 @@ public class JsonHelper<T> {
     public JsonHelper(String filePath, Class<T> type) {
         this.filePath = filePath;
 
-        RuntimeTypeAdapterFactory<User> typeFactory = RuntimeTypeAdapterFactory
+        RuntimeTypeAdapterFactory<User> userFactory = RuntimeTypeAdapterFactory
                 .of(User.class, "userType")
                 .registerSubtype(Customer.class, "user")
                 .registerSubtype(Admin.class, "admin");
 
-        RuntimeTypeAdapterFactory<ParkingSlot> typeAdapterFactory = RuntimeTypeAdapterFactory
-                .of(ParkingSlot.class, "lotType")
+        RuntimeTypeAdapterFactory<ParkingSlot> parkingLotFactory = RuntimeTypeAdapterFactory
+                .of(ParkingSlot.class, "type")
                 .registerSubtype(InstaSlot.class, "insta")
-                .registerSubtype(LongTermSlot.class, "longterm");
+                .registerSubtype(LongTermSlot.class, "long-term");
 
         this.gson = new GsonBuilder()
-                .registerTypeAdapterFactory(typeFactory)
+                .registerTypeAdapterFactory(userFactory)
+                .registerTypeAdapterFactory(parkingLotFactory)
                 .setPrettyPrinting()
                 .create();
 
@@ -43,14 +44,28 @@ public class JsonHelper<T> {
 
     private String getStringField(T entry, String fieldName) {
         try {
-            Field field = entry.getClass().getDeclaredField(fieldName);
+            Class<?> clazz = entry.getClass();
+            Field field = null;
+
+            while (clazz != null && field == null) {
+                try {
+                    field = clazz.getDeclaredField(fieldName);
+                }
+                catch (NoSuchFieldException e) {
+                    clazz = clazz.getSuperclass();
+                }
+            }
+
+            if (field == null) {
+                throw new NoSuchFieldException(fieldName);
+            }
+
             field.setAccessible(true);
             return (String) field.get(entry);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException("Field not found or inaccessible", e);
         }
     }
-
 
     // Read all entries
     public List<T> readAll() {

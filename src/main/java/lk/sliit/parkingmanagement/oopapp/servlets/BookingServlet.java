@@ -31,7 +31,7 @@ public class BookingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JsonHelper<User> userJsonHelper = new JsonHelper<User>(userFilePath, User.class);
+        JsonHelper<User> userJsonHelper = new JsonHelper<>(userFilePath, User.class);
 
         String email = Optional.ofNullable(request.getParameter("email")).orElse("").trim();
         String password = Optional.ofNullable(request.getParameter("password")).orElse("").trim();
