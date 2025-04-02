@@ -8,7 +8,7 @@ import java.util.Objects;
 public class ParkingSlot {
     @SerializedName("slotId")
     protected String slotId;
-    @SerializedName("lotType")
+    @SerializedName("type")
     protected String lotType;
     @SerializedName("location")
     protected String location;
@@ -50,7 +50,7 @@ public class ParkingSlot {
 
     @Override
     public String toString() {
-        return "ParkingLot{" +
+        return "ParkingSlot{" +
                 "slotId='" + slotId + '\'' +
                 ", lotType='" + lotType + '\'' +
                 ", location='" + location + '\'' +

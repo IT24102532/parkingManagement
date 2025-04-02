@@ -19,7 +19,7 @@ public class LongTermSlot extends ParkingSlot{
 
     @Override
     public String toString() {
-        return "LongTermSlot{" +
+        return super.toString() + " LongTermSlot{" +
                 "pricePerDay=" + pricePerDay +
                 ", overstayCharge=" + overstayCharge +
                 '}';

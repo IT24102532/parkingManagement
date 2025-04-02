@@ -22,13 +22,12 @@ public class FindAvailableLocationsServlet extends HttpServlet {
         JsonHelper<ParkingSlot> slotJsonHelper = new JsonHelper<>(filePath, ParkingSlot.class);
         List<ParkingSlot> slots = slotJsonHelper.readAll();
         try {
-            Set<String> uniqueLocations = slots.stream()
-                    .map(ParkingSlot::getLocation)
-                    .filter(loc -> loc != null && !loc.trim().isEmpty())
-                    .collect(Collectors.toSet());
+            Map<String, String> locationMap = slots.stream()
+                    .filter(slot -> slot.getLocation() != null && !slot.getLocation().trim().isEmpty() && slot.getLocationName() != null && !slot.getLocationName().trim().isEmpty())
+                    .collect(Collectors.toMap(ParkingSlot::getLocation, ParkingSlot::getLocationName, (existing, replacing) -> existing));
 
-            List<Map<String, String>> locationsList = uniqueLocations.stream()
-                    .map(loc -> Map.of("id", loc, "name", loc))
+            List<Map<String, String>> locationsList = locationMap.entrySet().stream()
+                    .map(entry -> Map.of("id", entry.getKey(), "name", entry.getValue()))
                     .collect(Collectors.toList());
 
             response.setContentType("application/json");

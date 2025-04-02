@@ -24,7 +24,7 @@ public class InstaSlot extends ParkingSlot{
 
     @Override
     public String toString() {
-        return "InstaSlot{" +
+        return super.toString() + " InstaSlot{" +
                 "pricePerHour=" + pricePerHour +
                 ", maxDurationHours=" + maxDurationHours +
                 ", overStayCharge=" + overStayCharge +
