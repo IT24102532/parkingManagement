@@ -13,7 +13,7 @@ import java.io.Writer;
 
 public class CardDetailsFileHandler {
 
-    private final String  FILE_PATH = "cardDeatils.txt";
+    private final String  FILE_PATH = "cardDetails.txt";
 
 
     public void saveCardDetailsToFile (PaymentDetails details , User user) throws IOException {

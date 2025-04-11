@@ -28,9 +28,6 @@ public class UserFileHandler  {
 
 
     }
-    public void deleteUser ( String username ) throws  IOException{
-
-    }
 
 
 }
