@@ -5,6 +5,8 @@ public class PaymentDetails {
     private String expiry;
     private String cardHolderName;
 
+    private String cvv ;
+
     public String getCardHolderName() {
         return cardHolderName;
     }
@@ -13,7 +15,8 @@ public class PaymentDetails {
         this.cardHolderName = cardHolderName;
     }
 
-    public PaymentDetails(String cardNumber, String expiry, String cardHolderName) {
+    public PaymentDetails(String cardNumber, String expiry, String cardHolderName,String cvv) {
+        this.cvv= cvv;
         this.cardNumber = cardNumber;
         this.expiry = expiry;
         this.cardHolderName= cardHolderName;

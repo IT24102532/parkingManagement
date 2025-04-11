@@ -18,9 +18,11 @@
 
     <!-- Form section -->
     <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
+        <input type="hidden" name="step" value="payment">
         <h2 class="text-3xl font-bold mb-6 text-gray-800">Enter Your Card Details</h2>
 
-        <form action="submitCardDetails" method="post" class="space-y-5">
+        <form action="Signup" method="post" class="space-y-5">
+
             <div>
                 <label class="block text-sm font-medium text-gray-700">Cardholder Name</label>
                 <input type="text" name="cardHolderName" required

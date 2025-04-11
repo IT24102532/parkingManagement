@@ -29,7 +29,10 @@
         </div>
         <% } %>
 
-        <form action="Signup" method="post" class="space-y-4" onsubmit="return validatePassword();">
+        <form action="Signup"  method="post" class="space-y-4" onsubmit="return validatePassword();">
+
+            <input  type="hidden" name="step" value="user">
+
             <input type="text" name="username" placeholder="Username"
                    class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
 
@@ -42,11 +45,7 @@
             <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"
                    class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
 
-            <select name="userType" class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
-                <option value="">Select user type</option>
-                <option value="driver">Driver</option>
-                <option value="admin">Admin</option>
-            </select>
+
 
             <button type="submit"
 
