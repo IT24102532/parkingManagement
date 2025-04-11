@@ -60,10 +60,11 @@ public class HelloServlet extends HttpServlet {
         String licensePlate = request.getParameter("license");
         String passwordHash = PasswordHasher.hashPassword(password);
         String cardNumber = request.getParameter("cardNumber");
+        String cardHolder = request.getParameter("cardHolderName");
         String expiryDate = request.getParameter("expiryDate");
 
         JsonHelper<User> userHelper = new JsonHelper<User>(userFilePath, User.class);
-        PaymentDetails card = new PaymentDetails(cardNumber, expiryDate);
+        PaymentDetails card = new PaymentDetails(cardNumber, expiryDate ,cardHolder);
 
         System.out.println("Absolute path: " + new File(userFilePath).getAbsolutePath());
 

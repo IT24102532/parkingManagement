@@ -8,9 +8,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class UserFileHandler {
+public class UserFileHandler  {
 
-    protected  String FILEPATH = FileConfig.INSTANCE.getUsersPath();
+    protected  String FILEPATH = "parkingUsers.txt";
 
     public void addUserToFile(User user)  throws IOException{
 
@@ -26,6 +26,9 @@ public class UserFileHandler {
         }
 
 
+
+    }
+    public void deleteUser ( String username ) throws  IOException{
 
     }
 
