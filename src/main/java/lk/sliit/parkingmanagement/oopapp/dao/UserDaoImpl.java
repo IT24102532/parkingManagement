@@ -3,6 +3,7 @@ package lk.sliit.parkingmanagement.oopapp.dao;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +25,20 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error Findng User by Email" + email, e);
             return null;
        }
+    }
+
+    @Override
+    public boolean validatePassword(String email, String password) throws Exception {
+        try {
+            User user = this.findByEmail(email);
+            if (user != null) {
+                return PasswordHasher.verifyPassword(password, user.getHashedPassword());
+            }
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error Findng User by Email" + email, e);
+        }
+        return false;
     }
 
     @Override

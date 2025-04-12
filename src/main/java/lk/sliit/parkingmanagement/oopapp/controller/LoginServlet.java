@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JsonHelper<User> userJsonHelper = new JsonHelper<User>(userFilePath, User.class);
         UserDao userDao = new UserDaoImpl();
 
         String email = Optional.ofNullable(request.getParameter("email")).orElse("").trim();
@@ -56,10 +55,8 @@ public class LoginServlet extends HttpServlet {
         User user = userOpt.get();
         boolean isPasswordValid = false;
         try {
-             isPasswordValid = PasswordHasher.verifyPassword(password, user.getHashedPassword());
-            System.out.println("Password Hasher Called");
-        }
-        catch (Exception e) {
+            isPasswordValid = userDao.validatePassword(email, password);
+        } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Password Hasher Failed", e);
             request.setAttribute("error", "Internal server error. Please try again.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
