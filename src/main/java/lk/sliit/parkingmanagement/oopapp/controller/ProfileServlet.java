@@ -1,9 +1,9 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.User;
+import lk.sliit.parkingmanagement.oopapp.model.User;
 
 import java.io.IOException;
 

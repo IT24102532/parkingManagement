@@ -1,11 +1,11 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.ParkingSlot;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class CheckAvailabilityServlet extends HttpServlet {
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"));
 
         // Fetch all slots in the given location
-        List<ParkingSlot> slotsInLocation = slotJsonHelper.findAll("location", location);
+        List<ParkingSlot> slotsInLocation = slotJsonHelper.findAll(slot -> location.equals(slot.getLocation()));
 
         // Filter available slots
         List<ParkingSlot> availableSlots = slotsInLocation.stream()

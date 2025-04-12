@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.utils;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordHasher {
