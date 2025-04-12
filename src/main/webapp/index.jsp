@@ -4,12 +4,12 @@
 <head>
     <title>welcome to park.me</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
 
-    <link rel="stylesheet" href="css/landingbase.css">
+    <link rel="stylesheet" href="assets/css/landingbase.css">
 </head>
 <body>
 <div class="container" id="container">
@@ -20,12 +20,12 @@
         </div>
     </div>
     <div class="hero-container">
-        <img src="${pageContext.request.contextPath}/images/bg1.jpg" alt="hero image" class="hero-image">
-        <img src="${pageContext.request.contextPath}/images/bg2.jpg" alt="hero image" class="hero-image">
-        <img src="${pageContext.request.contextPath}/images/bg3.jpg" alt="hero image" class="hero-image">
-        <img src="${pageContext.request.contextPath}/images/bg4.jpg" alt="hero image" class="hero-image">
-        <img src="${pageContext.request.contextPath}/images/bg5.jpg" alt="hero image" class="hero-image">
-        <img src="${pageContext.request.contextPath}/images/squibbles.svg" alt="squibbles" class="squibbles">
+        <img src="${pageContext.request.contextPath}assets/images/bg1.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}assets/images/bg2.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}assets/images/bg3.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}assets/images/bg4.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}assets/images/bg5.jpg" alt="hero image" class="hero-image">
+        <img src="${pageContext.request.contextPath}assets/images/squibbles.svg" alt="squibbles" class="squibbles">
         <p class="hero-title">find the perfect spot for your car!</p>
         <p>
             <span class="hero-underline">
@@ -35,22 +35,22 @@
     </div>
     <div class="content-sec">
         <div class="main-sec">
-            <img src="${pageContext.request.contextPath}/images/logo_purple.svg" alt="Logo">
+            <img src="${pageContext.request.contextPath}assets/images/logo_purple.svg" alt="Logo">
             <p class="content-title">find the <span style="font-weight: 600">perfect spot</span>—fast & secure!</p>
-            <img src="${pageContext.request.contextPath}/images/thums_up.png" alt="thumbs up" class="thumbs-up">
+            <img src="${pageContext.request.contextPath}assets/images/thums_up.png" alt="thumbs up" class="thumbs-up">
             <p class="content-desc">Your car deserves a safe place while you're away. Reserve a spot in seconds and park stress-free</p>
             <button class="btn secondary">find out how it works</button>
             <button class="btn ctr">get started</button>
-            <img src="${pageContext.request.contextPath}/images/excited.svg" alt="thumbs up" class="excited-yellow">
+            <img src="${pageContext.request.contextPath}assets/images/excited.svg" alt="thumbs up" class="excited-yellow">
 
         </div>
         <div class="insta-sec">
-            <img src="${pageContext.request.contextPath}/images/insta_logo_yellow.png" alt="Park Me Insta" class="insta-logo">
-            <img src="${pageContext.request.contextPath}/images/fi-rs-car.png" alt="Park Me Insta" class="small-car">
+            <img src="${pageContext.request.contextPath}assets/images/insta_logo_yellow.png" alt="Park Me Insta" class="insta-logo">
+            <img src="${pageContext.request.contextPath}assets/images/fi-rs-car.png" alt="Park Me Insta" class="small-car">
             <p class="insta-title"><span style="font-weight: 600">not staying for long?</span>—we got you!</p>
             <p class="insta-desc">coming for a drop by? don’t worry, with our introduced <span style="font-weight: 500; color: hsl(250, 100%, 69%, 100%)">park.me insta</span> , you can park for shorter durations!</p>
             <button class="btn secondary">get started with insta~</button>
-            <img src="${pageContext.request.contextPath}/images/stars.svg" alt="Park Me Insta" class="insta-stars">
+            <img src="${pageContext.request.contextPath}assets/images/stars.svg" alt="Park Me Insta" class="insta-stars">
 
         </div>
     </div>
@@ -58,7 +58,7 @@
 
 </div>
 <button class="floating-button" id="menu-toggle">
-    <img src="${pageContext.request.contextPath}/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
+    <img src="${pageContext.request.contextPath}assets/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
 </button>
 <div class="menu" id="menu">
     <button onclick="location.href='#home'">Home</button>
@@ -66,7 +66,7 @@
     <button onclick="location.href='#services'">Services</button>
     <button onclick="location.href='#contact'">Contact</button>
 </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/slideshow.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/hover-menu.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}assets/js/slideshow.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}assets/js/hover-menu.js"></script>
 </body>
 </html>

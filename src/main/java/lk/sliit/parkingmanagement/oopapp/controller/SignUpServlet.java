@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

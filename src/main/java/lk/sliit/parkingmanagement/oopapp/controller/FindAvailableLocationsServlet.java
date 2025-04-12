@@ -1,17 +1,16 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.ParkingSlot;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @WebServlet(name = "FindAvailableLocations", value = "/findlocations")

@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.model;
 
 public class PaymentDetails {
     private String cardNumber;

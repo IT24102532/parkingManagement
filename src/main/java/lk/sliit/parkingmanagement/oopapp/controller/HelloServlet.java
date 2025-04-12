@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import java.io.*;
 import java.util.List;
@@ -7,8 +7,13 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.*;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
+import lk.sliit.parkingmanagement.oopapp.model.Admin;
+import lk.sliit.parkingmanagement.oopapp.model.Customer;
+import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
+import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 @WebServlet(name = "test", value = "/test1")
 public class HelloServlet extends HttpServlet {

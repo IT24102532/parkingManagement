@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 

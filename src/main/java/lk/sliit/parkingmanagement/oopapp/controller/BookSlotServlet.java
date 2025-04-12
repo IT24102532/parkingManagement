@@ -1,12 +1,16 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.*;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
+import lk.sliit.parkingmanagement.oopapp.model.InstaSlot;
+import lk.sliit.parkingmanagement.oopapp.model.LongTermSlot;
+import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
+import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,6 +1,6 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.model;
 
-public class InstaSlot extends ParkingSlot{
+public class InstaSlot extends ParkingSlot {
     private double pricePerHour;
     private int maxDurationHours = 1;
     private double overStayCharge;

@@ -1,6 +1,6 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.model;
 
-public class LongTermSlot extends ParkingSlot{
+public class LongTermSlot extends ParkingSlot {
     private double pricePerDay;
     private double overstayCharge;
 

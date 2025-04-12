@@ -1,11 +1,11 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.PasswordHasher;
-import lk.sliit.parkingmanagement.oopapp.User;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
+import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
@@ -23,10 +23,10 @@ public class BookingServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session != null && session.getAttribute("user") != null) {
-            request.getRequestDispatcher("/booking.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/booking.jsp").forward(request, response);
             return;
         }
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BookingServlet extends HttpServlet {
 
         if (email.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Please fill all the required fields");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
@@ -46,7 +46,7 @@ public class BookingServlet extends HttpServlet {
 
         if (userOpt.isEmpty()) {
             request.setAttribute("error", "Email or password is incorrect");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
@@ -58,13 +58,13 @@ public class BookingServlet extends HttpServlet {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Password Hasher Failed", e);
             request.setAttribute("error", "Internal server error. Please try again.");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
         if (!isPasswordValid) {
             request.setAttribute("error", "Incorrect password");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
