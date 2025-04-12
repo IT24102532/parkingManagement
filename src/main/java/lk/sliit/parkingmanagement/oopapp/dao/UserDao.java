@@ -1,0 +1,7 @@
+package lk.sliit.parkingmanagement.oopapp.dao;
+
+import lk.sliit.parkingmanagement.oopapp.model.User;
+
+public interface UserDao extends DAO<User>{
+    User findByEmail(String email);
+}

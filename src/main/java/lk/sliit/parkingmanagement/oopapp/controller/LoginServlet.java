@@ -3,6 +3,8 @@ package lk.sliit.parkingmanagement.oopapp.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 import lk.sliit.parkingmanagement.oopapp.model.User;
@@ -32,6 +34,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JsonHelper<User> userJsonHelper = new JsonHelper<User>(userFilePath, User.class);
+        UserDao userDao = new UserDaoImpl();
 
         String email = Optional.ofNullable(request.getParameter("email")).orElse("").trim();
         String password = Optional.ofNullable(request.getParameter("password")).orElse("").trim();
@@ -42,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        Optional<User> userOpt = Optional.ofNullable(userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email)));
+        Optional<User> userOpt = Optional.ofNullable(userDao.findByEmail(email));
 
         if (userOpt.isEmpty()) {
             request.setAttribute("error", "Email or password is incorrect");
