@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
             return;
         }
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
         if (email.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Please fill all the required fields");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 
         if (userOpt.isEmpty()) {
             request.setAttribute("error", "Email or password is incorrect");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
@@ -59,13 +59,13 @@ public class LoginServlet extends HttpServlet {
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Password Hasher Failed", e);
             request.setAttribute("error", "Internal server error. Please try again.");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 
         if (!isPasswordValid) {
             request.setAttribute("error", "Incorrect password");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
 

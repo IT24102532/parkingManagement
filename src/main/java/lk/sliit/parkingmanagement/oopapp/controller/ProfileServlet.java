@@ -19,7 +19,7 @@ public class ProfileServlet extends HttpServlet {
         }
         User user = (User) session.getAttribute("user");
         request.setAttribute("user", user);
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
     }
 
     @Override
