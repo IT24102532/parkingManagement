@@ -5,8 +5,6 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
-import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
@@ -18,7 +16,6 @@ import java.util.logging.Logger;
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
-    private final String userFilePath = FileConfig.INSTANCE.getUsersPath();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
