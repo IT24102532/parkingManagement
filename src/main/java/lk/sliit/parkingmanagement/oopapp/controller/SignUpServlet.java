@@ -27,14 +27,14 @@ public class SignUpServlet extends HttpServlet {
             String hashedPassword = PasswordHasher.hashPassword(request.getParameter("password"));
             session.setAttribute("hashedPassword", hashedPassword);
 
-            response.sendRedirect("vehicleDetails.jsp");
+            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
 
         } else if ("vehicle".equals(step)) {
             // Step 2: Save vehicle details
             session.setAttribute("carType", request.getParameter("carType"));
             session.setAttribute("licensePlate", request.getParameter("licensePlate"));
 
-            response.sendRedirect("paymentDetails.jsp");
+            response.sendRedirect("/views/paymentDetails.jsp");
 
         } else if ("payment".equals(step)) {
             // Step 3: Save payment and register
@@ -62,7 +62,7 @@ public class SignUpServlet extends HttpServlet {
             session.setAttribute("user", customer);
 
             // Redirect to dashboard or success page
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect("/views/dashboard.jsp");
         }
     }
 }

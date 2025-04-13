@@ -15,7 +15,7 @@
 <div class="container" id="container">
     <div class="nav-bar">
         <div class="nav-links">
-            <a href="views/signup.jsp" class="nav-link">sign up</a>
+            <a href="./signup.jsp" class="nav-link">sign up</a>
             <a href="./login" class="nav-link ctr">sign in</a>
         </div>
     </div>

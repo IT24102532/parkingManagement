@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>park.me | Sign Up</title>
-    <link rel="stylesheet" href="css/dual_container_global.css" />
+    <link rel="stylesheet" href="../assets/css/dual_container_global.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <div class="container">
     <!-- Left Side -->
     <div class="left">
-        <img src="./images/logo_purple.png" alt="Logo" class="logo" />
-        <img src="./images/bg2.jpg" alt="Background" class="bg-img" />
+        <img src="../assets/images/logo_purple.png" alt="Logo" class="logo" />
+        <img src="../assets/images/bg2.jpg" alt="Background" class="bg-img" />
     </div>
 
     <!-- Right Side (Sign Up Form) -->
