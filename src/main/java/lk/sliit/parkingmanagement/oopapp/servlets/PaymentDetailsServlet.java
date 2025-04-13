@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lk.sliit.parkingmanagement.oopapp.User;
+import lk.sliit.parkingmanagement.oopapp.model.User;
 
 public class PaymentDetailsServlet extends HttpServlet {
 

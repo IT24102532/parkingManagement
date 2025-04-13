@@ -1,12 +1,12 @@
-package lk.sliit.parkingmanagement.oopapp.servlets;
+package lk.sliit.parkingmanagement.oopapp.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.Customer;
+import lk.sliit.parkingmanagement.oopapp.model.Customer;
 import lk.sliit.parkingmanagement.oopapp.FilleHander.UserFileHandler;
-import lk.sliit.parkingmanagement.oopapp.PasswordHasher;
-import lk.sliit.parkingmanagement.oopapp.PaymentDetails;
+import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
+import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
 
 import java.io.IOException;
 import java.util.UUID;

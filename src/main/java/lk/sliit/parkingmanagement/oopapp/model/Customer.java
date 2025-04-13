@@ -1,9 +1,8 @@
-package lk.sliit.parkingmanagement.oopapp;
+package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Customer extends User {
     @SerializedName("carType")

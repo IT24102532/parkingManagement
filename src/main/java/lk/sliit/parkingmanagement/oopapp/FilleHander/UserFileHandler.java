@@ -3,9 +3,9 @@ package lk.sliit.parkingmanagement.oopapp.FilleHander;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jakarta.json.Json;
-import lk.sliit.parkingmanagement.oopapp.Customer;
+import lk.sliit.parkingmanagement.oopapp.model.Customer;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
 import java.io.*;
 import java.util.ArrayList;

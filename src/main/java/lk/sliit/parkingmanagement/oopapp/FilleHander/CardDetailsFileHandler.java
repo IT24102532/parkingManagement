@@ -1,8 +1,8 @@
 package lk.sliit.parkingmanagement.oopapp.FilleHander;
 
-import lk.sliit.parkingmanagement.oopapp.PaymentDetails;
-import lk.sliit.parkingmanagement.oopapp.User;
-import lk.sliit.parkingmanagement.oopapp.JsonHelper;
+import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
+import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;

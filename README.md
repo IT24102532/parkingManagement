@@ -2,7 +2,7 @@
 # park.me
 
 <p align="center">
-  <img width="100" src="src/main/webapp/images/logo_purple.svg">
+  <img width="100" src="src/main/webapp/assets/images/logo_purple.svg">
 </p>
 
 *park.me* is a modern, user-friendly and instant solution for customers to reserve long-term, or short-term parking spaces for their needs in any airport around the world.
