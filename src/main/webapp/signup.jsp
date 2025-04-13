@@ -1,77 +1,55 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up | park.me</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>park.me | Sign Up</title>
+    <link rel="stylesheet" href="css/dual_container_global.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-
-<div class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
-
-    <!-- Left Image -->
-    <div class="md:w-1/2 hidden md:block">
-        <img src="images/bg1.jpg" alt="Parking" class="w-full h-full object-cover">
+<body>
+<div class="container">
+    <!-- Left Side -->
+    <div class="left">
+        <img src="./images/logo_purple.png" alt="Logo" class="logo" />
+        <img src="./images/bg2.jpg" alt="Background" class="bg-img" />
     </div>
 
-    <!-- Right Form -->
-    <div class="w-full md:w-1/2 p-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Create Your Account</h2>
+    <!-- Right Side (Sign Up Form) -->
+    <div class="right">
+        <h2 class="title text-2xl font-semibold mb-10">Create Account</h2>
+        <form action="Signup" method="post" class="flex flex-col w-[340px] items-center">
+            <input type="hidden" name="step" value="user">
+            <div class="w-full mb-6">
+                <label for="name" class="block text-sm text-gray-700 mb-2">Full Name</label>
+                <input type="text" id="name" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
+            </div>
 
-        <% if (request.getAttribute("error") != null) { %>
-        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded text-sm">
-            <%= request.getAttribute("error") %>
-        </div>
-        <% } %>
+            <div class="w-full mb-6">
+                <label for="email" class="block text-sm text-gray-700 mb-2">Email</label>
+                <input type="email"  name="email" id="email" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
+            </div>
 
-        <form action="Signup"  method="post" class="space-y-4" onsubmit="return validatePassword();">
+            <div class="w-full mb-6">
+                <label for="password" class="block text-sm text-gray-700 mb-2">Password</label>
+                <input type="password" name="password" id="password" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
+            </div>
 
-            <input  type="hidden" name="step" value="user">
+            <div class="w-full mb-8">
+                <label for="confirm-password" class="block text-sm text-gray-700 mb-2">Confirm Password</label>
+                <input type="password" name="confirm-password" id="confirm-password" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
+            </div>
 
-            <input type="text" name="username" placeholder="Username"
-                   class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
-
-            <input type="email" name="email" placeholder="Email"
-                   class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
-
-            <input type="password" name="password" id="password" placeholder="Password"
-                   class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
-
-            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password"
-                   class="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
-
-
-
-            <button type="submit"
-
-                    class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-xl transition duration-300">
+            <button type="submit" class="form-btn w-full bg-yellow-300 hover:bg-yellow-400 text-black font-medium py-3 px-4 rounded transition-all">
                 Continue
             </button>
 
-            <div class="text-center text-gray-600 mt-4">
-                Already have an account? <a href="login.jsp" class="text-yellow-500 hover:underline">Log In</a>
-            </div>
+            <p class="text-sm text-gray-600 mt-6 underline">
+                Already have an account?
+                <a href="login.jsp" class="text-black hover:text-yellow-500">Log in</a>
+            </p>
         </form>
     </div>
 </div>
-
-<!-- JS for Confirm Password validation -->
-<script>
-    function validatePassword() {
-        const pass = document.getElementById("password").value;
-        const confirm = document.getElementById("confirmPassword").value;
-
-        if (pass !== confirm) {
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    }
-</script>
 </body>
 </html>

@@ -2,7 +2,10 @@ package lk.sliit.parkingmanagement.oopapp.FilleHander;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jakarta.json.Json;
 import lk.sliit.parkingmanagement.oopapp.Customer;
+import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
+import lk.sliit.parkingmanagement.oopapp.JsonHelper;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,50 +13,26 @@ import java.util.List;
 
 public class UserFileHandler{
 
-    private static  final String FILEPATH = "customerDetails.txt";
-    private  final Gson gson;
-    public UserFileHandler() {
-        gson= new GsonBuilder().setPrettyPrinting().create();
-    }
+    private static  final String FILEPATH = FileConfig.INSTANCE.getUsersPath();
+    private final JsonHelper<Customer> jsonHelper= new JsonHelper<>(FILEPATH, Customer.class);
 
     public void saveCustomer(Customer customer){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH,true))){
-            String customerJson = gson.toJson(customer);
-            writer.write(customerJson);
-            writer.newLine();
+        File file = new File(FILEPATH);
 
-        }catch (IOException e){
-            e.printStackTrace();
-
-        }
-    }
-
-    public List<Customer> loadAllCustomers(){
-        List<Customer> customers = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Customer customer = gson.fromJson(line, Customer.class);
-                customers.add(customer);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return customers;
-    }
-    public Customer getCustomerByEmail(String email) {
-        List<Customer> customers = loadAllCustomers();
-        for (Customer customer : customers) {
-            if (customer.getEmail().equalsIgnoreCase(email)) {
-                return customer;
+        // Ensure file exists and is properly initialized as a JSON array
+        if (!file.exists() || file.length() == 0) {
+            try (Writer writer = new FileWriter(file)) {
+                writer.write("[]"); // initialize as empty JSON array
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
             }
         }
-        return null;
+        List<Customer> customers = jsonHelper.readAll();
+        customers.add(customer);
+        jsonHelper.writeAll(customers);
     }
 
-    public boolean isEmailTaken(String email) {
-        return getCustomerByEmail(email) != null;
-    }
 
 
 
