@@ -20,6 +20,7 @@ public class PaymentDetails {
         this.cardNumber = cardNumber;
         this.expiry = expiry;
         this.cardHolderName= cardHolderName;
+        this.cvv=cvv;
     }
 
     public String getCardNumber() { return cardNumber; }
