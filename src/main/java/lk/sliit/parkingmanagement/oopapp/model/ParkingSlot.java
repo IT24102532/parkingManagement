@@ -57,9 +57,6 @@ public class ParkingSlot {
     public boolean isAvailable() {return isAvailable;}
     public void setAvailable(boolean available) {isAvailable = available;}
 
-    public List<String> getBookedDates() {return bookedDates;}
-    public void setBookedDates(List<String> bookedDates) {this.bookedDates = bookedDates;}
-
     public LocalDateTime getCreatedAt() {return createdAt;}
     public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
 
@@ -76,7 +73,6 @@ public class ParkingSlot {
                 ", lotType=" + lotType +
                 ", locationName='" + locationName + '\'' +
                 ", isAvailable=" + isAvailable +
-                ", bookedTimes=" + bookedDates +
                 ", createdAt=" + createdAt + '\'' +
                 ", updatedAt=" + updatedAt + '\'' +
                 '}';
