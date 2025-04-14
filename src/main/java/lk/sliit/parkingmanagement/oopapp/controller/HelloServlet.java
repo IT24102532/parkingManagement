@@ -30,7 +30,7 @@ public class HelloServlet extends HttpServlet {
 
         if (email != null) {
             JsonHelper<User> userJsonHelper = new JsonHelper<>(userFilePath, User.class);
-            List<User> users = userJsonHelper.readAll();
+            List<User> users =    userJsonHelper.readAll();
             System.out.println("Total users in file: " + users.size());
             User user = userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email));
             System.out.println("User found: " + (user != null ? user.toString() : "null"));
