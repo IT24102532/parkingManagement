@@ -60,7 +60,7 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-        String userType = request.getParameter("userType");
+        String userType = request.getParameter("user_type");
         String carType = request.getParameter("carType");
         String licensePlate = request.getParameter("license");
         String passwordHash = PasswordHasher.hashPassword(password);

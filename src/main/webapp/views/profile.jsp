@@ -19,7 +19,7 @@
 <h1>User Details</h1>
 <p>Username: ${user.username}</p>
 <p>Email: ${user.email}</p>
-<p>User Type: ${user.userType}</p>
+<p>User Type: ${user.user_type}</p>
 <p>Car Type: ${user.carType}</p>
 <p>License Plate: ${user.licensePlate}</p>
 <p>Card Number: ${user.paymentDetails.cardNumber}</p>

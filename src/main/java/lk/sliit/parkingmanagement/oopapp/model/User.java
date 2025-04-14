@@ -2,46 +2,56 @@ package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 public class User {
-    @SerializedName("username")
-    protected String username;
+    @SerializedName("user_uuid")
+    protected String user_uuid;
+    @SerializedName("f_name")
+    protected String f_name;
+    @SerializedName("l_name")
+    protected String l_name;
     @SerializedName("email")
     protected String email;
-    @SerializedName("userId")
-    protected String userId;
     @SerializedName("hashedPassword")
     protected String hashedPassword;
-    @SerializedName("userType")
-    protected String userType;
+    @SerializedName("user_type")
+    protected String user_type;
     @SerializedName("bookings")
     protected List<String> bookings;
+    @SerializedName("created_at")
+    protected LocalDateTime created_at;
+    @SerializedName("updated_at")
+    protected LocalDateTime updated_at;
 
     public User() {}
 
-    public User(String username, String email, String userId, String hashedPassword, String userType, List<String> bookings) {
-        this.username = username;
+    public User(String user_uuid, String f_name, String l_name, String email, String hashedPassword, String user_type, List<String> bookings) {
+        this.user_uuid = user_uuid;
+        this.f_name = f_name;
+        this.l_name = l_name;
         this.email = email;
-        this.userId = userId;
         this.hashedPassword = hashedPassword;
-        this.userType = userType;
+        this.user_type = user_type;
         this.bookings = bookings;
     }
 
+    public String getFirstName() {return f_name;}
+    public void setFirstName(String username) {this.f_name = username;}
 
-    public String getUsername() {return username;}
-    public void setUsername(String username) {this.username = username;}
+    public String getUserId() {return user_uuid;}
+    public void setUserId(String userId) {this.user_uuid = userId;}
 
-    public String getUserId() {return userId;}
-    public void setUserId(String userId) {this.userId = userId;}
+    public String getLastName() {return l_name;}
+    public void setLastName(String lastName) {this.l_name = lastName;}
 
     public String getHashedPassword() {return hashedPassword;}
     public void setHashedPassword(String hashedPassword) {this.hashedPassword = hashedPassword;}
 
-    public String getUserType() {return userType;}
-    public void setUserType(String userType) {this.userType = userType;}
+    public String getUserType() {return user_type;}
+    public void setUserType(String user_type) {this.user_type = user_type;}
 
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
@@ -49,13 +59,22 @@ public class User {
     public List<String> getBookings() { return bookings;}
     public void setBookings(List<String> bookings) {this.bookings = bookings;}
 
+    public LocalDateTime getCreatedAt() {return created_at;}
+    public void setCreatedAt(LocalDateTime created_at) {this.created_at = created_at;}
+    
+    public LocalDateTime getUpdatedAt() {return updated_at;}
+    public void setUpdatedAt(LocalDateTime updated_at) {this.updated_at = updated_at;}
+
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
-                ", userType='" + userType + '\'' +
-                ", name='" + username + '\'' +
+                "user_uuid='" + user_uuid + '\'' +
+                ", user_type='" + user_type + '\'' +
+                ", f_name='" + f_name + '\'' +
+                ", l_name='" + l_name + '\'' +
                 ", email='" + email + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", updated_at='" + updated_at + '\'' +
                 ", bookings=" + bookings +
                 '}';
     }
@@ -65,11 +84,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userId, user.userId);
+        return Objects.equals(user_uuid, user.user_uuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        return Objects.hash(user_uuid);
     }
 }
