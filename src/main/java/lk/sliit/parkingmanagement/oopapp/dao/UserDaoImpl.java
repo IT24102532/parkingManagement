@@ -43,6 +43,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public String getUserId(String email) throws Exception {
+        try {
+            User user = userJsonHelper.findOne(
+                    u -> u.getUserId().equalsIgnoreCase(email)
+            );
+            if (user != null) {
+                return user.getUserId();
+            }
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error Findng User Id" + email, e);
+        }
+        return null;
+    }
+
+    @Override
     public User getById(int id) throws Exception {
         return null;
     }
@@ -54,7 +70,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User object) throws Exception {
-        
+
     }
 
     @Override
