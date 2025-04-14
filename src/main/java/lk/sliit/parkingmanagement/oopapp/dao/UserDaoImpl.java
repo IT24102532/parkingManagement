@@ -6,6 +6,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User object) throws Exception {
-
+        
     }
 
     @Override
