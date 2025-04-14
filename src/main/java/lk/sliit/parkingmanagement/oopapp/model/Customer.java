@@ -26,7 +26,7 @@ public class Customer extends User {
 
     public PaymentDetails getPaymentDetails() {return paymentDetails;}
     public void setPaymentDetails(PaymentDetails paymentDetails) {this.paymentDetails = paymentDetails;}
-    
+
     // Overrides
     @Override
     public String toString() {

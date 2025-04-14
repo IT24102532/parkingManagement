@@ -2,61 +2,86 @@ package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 public class ParkingSlot {
-    @SerializedName("slotId")
+    // Attributes
+    @SerializedName("slot_id")
     protected String slotId;
-    @SerializedName("type")
-    protected String lotType;
     @SerializedName("location")
     protected String location;
+    @SerializedName("manager_id")
+    protected String managerId;
+    @SerializedName("type")
+    protected boolean lotType;
     @SerializedName("locationName")
     protected String locationName;
     @SerializedName("isAvailable")
     protected boolean isAvailable;
     @SerializedName("bookedDates")
     protected List<String> bookedDates;
+    @SerializedName("created_at")
+    protected LocalDateTime createdAt;
+    @SerializedName("updated_at")
+    protected LocalDateTime updatedAt;
 
+    // Constructors
     public ParkingSlot() {}
-
-    public ParkingSlot(String slotId, String lotType, String location, String locationName, boolean isAvailable, List<String> bookedDates) {
+    public ParkingSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, List<String> bookedDates) {
         this.slotId = slotId;
-        this.lotType = lotType;
         this.location = location;
+        this.managerId = managerId;
+        this.lotType = lotType;
         this.locationName = locationName;
         this.isAvailable = isAvailable;
         this.bookedDates = bookedDates;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public String getParkingSlotID() {return slotId;}
-    public void setParkingSlotID(String parkingSlotID) {this.slotId = parkingSlotID;}
-
-    public String getLotType() {return lotType;}
-    public void setLotType(String lotType) {this.lotType = lotType;}
+    // Getters and Setters
+    public String getSlotId() {return slotId;}
+    public void setSlotId(String slotId) {this.slotId = slotId;}
 
     public String getLocation() {return location;}
     public void setLocation(String location) {this.location = location;}
+
+    public String getManagerId() {return managerId;}
+    public void setManagerId(String managerId) {this.managerId = managerId;}
+
+    public boolean isLotType() {return lotType;}
+    public void setLotType(boolean lotType) {this.lotType = lotType;}
 
     public String getLocationName() {return locationName;}
     public void setLocationName(String locationName) {this.locationName = locationName;}
 
     public boolean isAvailable() {return isAvailable;}
-    public void setAvailable(boolean isAvailable) {this.isAvailable = isAvailable;}
+    public void setAvailable(boolean available) {isAvailable = available;}
 
     public List<String> getBookedDates() {return bookedDates;}
     public void setBookedDates(List<String> bookedDates) {this.bookedDates = bookedDates;}
 
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+    public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
+
+    // Overrides
     @Override
     public String toString() {
         return "ParkingSlot{" +
-                "slotId='" + slotId + '\'' +
-                ", lotType='" + lotType + '\'' +
+                "slot_id='" + slotId + '\'' +
                 ", location='" + location + '\'' +
+                ", manager_id='" + managerId + '\'' +
+                ", lotType=" + lotType +
                 ", locationName='" + locationName + '\'' +
                 ", isAvailable=" + isAvailable +
                 ", bookedDates=" + bookedDates +
+                ", createdAt=" + createdAt + '\'' +
+                ", updatedAt=" + updatedAt + '\'' +
                 '}';
     }
 
