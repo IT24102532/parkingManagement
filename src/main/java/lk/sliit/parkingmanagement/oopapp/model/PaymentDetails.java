@@ -1,25 +1,71 @@
 package lk.sliit.parkingmanagement.oopapp.model;
 
-public class PaymentDetails {
-    private String cardNumber;
-    private String expiry;
+import com.google.gson.annotations.SerializedName;
 
-    public PaymentDetails(String cardNumber, String expiry) {
+import java.time.LocalDateTime;
+
+public class PaymentDetails {
+    // Attributes
+    @SerializedName("card_id")
+    private String cardId;
+    @SerializedName("holder_name")
+    private String holderName;
+    @SerializedName("expiry_date")
+    private String expiryDate;
+    @SerializedName("card_type")
+    private String cardType;
+    @SerializedName("card_number")
+    private int cardNumber;
+    @SerializedName("created_at")
+    private LocalDateTime createdAt;
+    @SerializedName("updated_at")
+    private LocalDateTime updatedAt;
+
+    // Constructors
+    public PaymentDetails() {}
+    public PaymentDetails(String cardId, String holderName, String expiryDate, String cardType, int cardNumber) {
+        this.cardId = cardId;
+        this.holderName = holderName;
+        this.expiryDate = expiryDate;
+        this.cardType = cardType;
         this.cardNumber = cardNumber;
-        this.expiry = expiry;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public String getCardNumber() { return cardNumber; }
-    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+    // Getters and Setters
+    public String getCardId() {return cardId;}
+    public void setCardId(String cardId) {this.cardId = cardId;}
 
-    public String getExpiry() { return expiry; }
-    public void setExpiry(String expiry) { this.expiry = expiry; }
+    public String getHolderName() {return holderName;}
+    public void setHolderName(String holderName) {this.holderName = holderName;}
 
+    public String getExpiryDate() {return expiryDate;}
+    public void setExpiryDate(String expiryDate) {this.expiryDate = expiryDate;}
+
+    public String getCardType() {return cardType;}
+    public void setCardType(String cardType) {this.cardType = cardType;}
+
+    public int getCardNumber() {return cardNumber;}
+    public void setCardNumber(int cardNumber) {this.cardNumber = cardNumber;}
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+    public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
+
+    // Overrides
     @Override
     public String toString() {
         return "PaymentDetails{" +
-                "cardNumber='" + cardNumber + '\'' +
-                ", expiry='" + expiry + '\'' +
+                "card_id='" + cardId + '\'' +
+                ", holder_name='" + holderName + '\'' +
+                ", expiry_date='" + expiryDate + '\'' +
+                ", card_type='" + cardType + '\'' +
+                ", card_number=" + cardNumber +
+                ", created_at=" + createdAt +
+                ", updated_at=" + updatedAt +
                 '}';
     }
 }
