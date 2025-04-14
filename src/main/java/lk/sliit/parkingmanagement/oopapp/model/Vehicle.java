@@ -2,6 +2,8 @@ package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
+
 public class Vehicle {
     // Attributes
     @SerializedName("vehicle_id")
@@ -14,6 +16,10 @@ public class Vehicle {
     private String regState;
     @SerializedName("reg_number")
     private String regNumber;
+    @SerializedName("created_at")
+    private LocalDateTime createdAt;
+    @SerializedName("updated_at")
+    private LocalDateTime updatedAt;
 
     // Constructors
     public Vehicle() {}
@@ -23,6 +29,8 @@ public class Vehicle {
         this.regCountry = regCountry;
         this.regState = regState;
         this.regNumber = regNumber;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     // Getters and Setters
@@ -41,6 +49,12 @@ public class Vehicle {
     public String getRegNumber() {return regNumber;}
     public void setRegNumber(String regNumber) {this.regNumber = regNumber;}
 
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+    public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
+
     // Overrides
     @Override
     public String toString() {
@@ -50,6 +64,8 @@ public class Vehicle {
                 ", reg_country='" + regCountry + '\'' +
                 ", reg_state='" + regState + '\'' +
                 ", reg_number='" + regNumber + '\'' +
+                ", created_at=" + createdAt + '\'' +
+                ", updated_at=" + updatedAt + '\'' +
                 '}';
     }
 }
