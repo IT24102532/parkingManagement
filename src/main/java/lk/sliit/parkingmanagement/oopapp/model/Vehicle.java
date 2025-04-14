@@ -3,6 +3,7 @@ package lk.sliit.parkingmanagement.oopapp.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Vehicle {
     // Attributes
@@ -67,5 +68,18 @@ public class Vehicle {
                 ", created_at=" + createdAt + '\'' +
                 ", updated_at=" + updatedAt + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(vehicleId, vehicle.vehicleId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleId);
     }
 }
