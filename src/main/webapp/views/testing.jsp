@@ -5,7 +5,7 @@
     <!-- Date inputs -->
     <label>
         Start Date
-        <input type="date" name="startDate" id="startDate" required>
+        <input type="date" name="startDateTime" id="startDateTime" required>
     </label>
     <label>
         End Date
