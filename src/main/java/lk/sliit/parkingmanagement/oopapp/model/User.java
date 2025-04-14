@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
+    // Attributes
     @SerializedName("user_uuid")
     protected String user_uuid;
+    // TIP: When generating username, get the first name and last name
+    // When passing attributes, send it as "f_name+l_name"
     @SerializedName("f_name")
     protected String f_name;
     @SerializedName("l_name")
@@ -19,15 +22,17 @@ public class User {
     protected String hashedPassword;
     @SerializedName("user_type")
     protected String user_type;
+    // TODO: Figure out if booking needs to be put in USER considering the way we have a booking class
     @SerializedName("bookings")
     protected List<String> bookings;
+    // Logging
     @SerializedName("created_at")
     protected LocalDateTime created_at;
     @SerializedName("updated_at")
     protected LocalDateTime updated_at;
 
+    // Constructors
     public User() {}
-
     public User(String user_uuid, String f_name, String l_name, String email, String hashedPassword, String user_type, List<String> bookings) {
         this.user_uuid = user_uuid;
         this.f_name = f_name;
@@ -38,6 +43,7 @@ public class User {
         this.bookings = bookings;
     }
 
+    //Getters and setters
     public String getFirstName() {return f_name;}
     public void setFirstName(String username) {this.f_name = username;}
 
@@ -65,6 +71,7 @@ public class User {
     public LocalDateTime getUpdatedAt() {return updated_at;}
     public void setUpdatedAt(LocalDateTime updated_at) {this.updated_at = updated_at;}
 
+    // Overrides
     @Override
     public String toString() {
         return "User{" +
