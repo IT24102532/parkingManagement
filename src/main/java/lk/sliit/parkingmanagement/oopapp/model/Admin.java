@@ -31,7 +31,7 @@ public class Admin extends User {
     public String toString() {
         return super.toString() + " AdminUser{" +
                 "secClearance='" + secClearance + '\'' +
-                ", role='" + role +
+                ", role='" + role + '\'' +
                 "}";
     }
 }
