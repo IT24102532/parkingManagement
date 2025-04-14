@@ -1,14 +1,37 @@
 package lk.sliit.parkingmanagement.oopapp.model;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Admin extends User {
-    public Admin(String username, String email, String userId, String hashedPassword) {
-        super(username, email, userId, hashedPassword, "admin", new ArrayList<>());
+    // Attributes
+    @SerializedName("sec_clearance")
+    private int secClearance;
+    @SerializedName("role")
+    private String role;
+
+    // Constructors
+    public Admin() {}
+    public Admin(String user_uuid, String f_name, String l_name, String email, String hashedPassword, String user_type, List<String> bookings, int secClearance, String role) {
+        super(user_uuid, f_name, l_name, email, hashedPassword, user_type, bookings);
+        this.secClearance = secClearance;
+        this.role = role;
     }
 
+    // Getters and Setters
+    public int getSecClearance() {return secClearance;}
+    public void setSecClearance(int secClearance) {this.secClearance = secClearance;}
+
+    public String getRole() {return role;}
+    public void setRole(String role) {this.role = role;}
+
+    // Overrides
     @Override
     public String toString() {
-        return super.toString() + " AdminUser{}";
+        return super.toString() + " AdminUser{" +
+                "secClearance='" + secClearance + '\'' +
+                ", role='" + role +
+                "}";
     }
 }

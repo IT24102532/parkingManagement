@@ -67,7 +67,7 @@ public class User {
 
     public LocalDateTime getCreatedAt() {return created_at;}
     public void setCreatedAt(LocalDateTime created_at) {this.created_at = created_at;}
-    
+
     public LocalDateTime getUpdatedAt() {return updated_at;}
     public void setUpdatedAt(LocalDateTime updated_at) {this.updated_at = updated_at;}
 
