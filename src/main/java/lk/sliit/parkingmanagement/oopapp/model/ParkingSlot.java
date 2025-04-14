@@ -15,13 +15,11 @@ public class ParkingSlot {
     @SerializedName("manager_id")
     protected String managerId;
     @SerializedName("type")
-    protected boolean lotType;
+    protected boolean lotType; // TRUE = Insta, FALSE = long_term
     @SerializedName("locationName")
     protected String locationName;
     @SerializedName("isAvailable")
     protected boolean isAvailable;
-    @SerializedName("bookedDates")
-    protected List<String> bookedDates;
     @SerializedName("created_at")
     protected LocalDateTime createdAt;
     @SerializedName("updated_at")
@@ -29,14 +27,13 @@ public class ParkingSlot {
 
     // Constructors
     public ParkingSlot() {}
-    public ParkingSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, List<String> bookedDates) {
+    public ParkingSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable) {
         this.slotId = slotId;
         this.location = location;
         this.managerId = managerId;
         this.lotType = lotType;
         this.locationName = locationName;
         this.isAvailable = isAvailable;
-        this.bookedDates = bookedDates;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -79,7 +76,7 @@ public class ParkingSlot {
                 ", lotType=" + lotType +
                 ", locationName='" + locationName + '\'' +
                 ", isAvailable=" + isAvailable +
-                ", bookedDates=" + bookedDates +
+                ", bookedTimes=" + bookedDates +
                 ", createdAt=" + createdAt + '\'' +
                 ", updatedAt=" + updatedAt + '\'' +
                 '}';
