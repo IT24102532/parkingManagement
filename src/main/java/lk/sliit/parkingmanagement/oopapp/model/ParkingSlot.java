@@ -3,7 +3,6 @@ package lk.sliit.parkingmanagement.oopapp.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 public class ParkingSlot {
