@@ -21,7 +21,7 @@ public class JsonHelper<T> {
         this.filePath = filePath;
 
         RuntimeTypeAdapterFactory<User> userFactory = RuntimeTypeAdapterFactory
-                .of(User.class, "userType")
+                .of(User.class, "user_type")
                 .registerSubtype(Customer.class, "user")
                 .registerSubtype(Admin.class, "admin");
 

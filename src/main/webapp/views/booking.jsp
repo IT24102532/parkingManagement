@@ -23,7 +23,7 @@
     <table class="booking-details">
       <tr><td>location</td><td><%= request.getAttribute("location") %></td></tr>
       <tr><td>type</td><td><%= request.getAttribute("type") %></td></tr>
-      <tr><td>start date</td><td><%= request.getAttribute("startDate") %></td></tr>
+      <tr><td>start date</td><td><%= request.getAttribute("startDateTime") %></td></tr>
       <tr><td>end date</td><td><%= request.getAttribute("endDate") %></td></tr>
       <tr><td>vehicle</td><td>${user.carType}</td></tr>
       <tr><td>registration number</td><td>${user.licensePlate}</td></tr>

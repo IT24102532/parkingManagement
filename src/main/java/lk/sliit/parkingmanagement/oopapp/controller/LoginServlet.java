@@ -3,36 +3,41 @@ package lk.sliit.parkingmanagement.oopapp.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
-import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
-import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {
+    // Private Initialization
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
-    private final String userFilePath = FileConfig.INSTANCE.getUsersPath();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve the stored session
         HttpSession session = request.getSession(false);
-
-        if (session != null && session.getAttribute("user") != null) {
+        LocalDateTime currentTimeout = LocalDateTime.parse(session.getAttribute("timeout").toString());
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        boolean expired = currentDateTime.isBefore(currentTimeout);
+        // redirect if the session has a user stored
+        if (session != null && session.getAttribute("user") != null && !expired) {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
             return;
         }
+        // if not redirect to log-in
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JsonHelper<User> userJsonHelper = new JsonHelper<User>(userFilePath, User.class);
-
+        UserDao userDao = new UserDaoImpl();
+        // get the attributes
         String email = Optional.ofNullable(request.getParameter("email")).orElse("").trim();
         String password = Optional.ofNullable(request.getParameter("password")).orElse("").trim();
 
@@ -42,21 +47,20 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        Optional<User> userOpt = Optional.ofNullable(userJsonHelper.findOne(user1 -> user1.getEmail().equalsIgnoreCase(email)));
-
+        Optional<User> userOpt = Optional.ofNullable(userDao.findByEmail(email));
+        // Details validation
         if (userOpt.isEmpty()) {
             request.setAttribute("error", "Email or password is incorrect");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
-
+        // locate the user attempting to sign in
         User user = userOpt.get();
         boolean isPasswordValid = false;
         try {
-             isPasswordValid = PasswordHasher.verifyPassword(password, user.getHashedPassword());
-            System.out.println("Password Hasher Called");
-        }
-        catch (Exception e) {
+            // validate stored password
+            isPasswordValid = userDao.validatePassword(email, password);
+        } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Password Hasher Failed", e);
             request.setAttribute("error", "Internal server error. Please try again.");
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
@@ -68,13 +72,16 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("/views/login.jsp").forward(request, response);
             return;
         }
-
+        // Invalidate the current session and create a new one
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
         session = request.getSession(true);
-        session.setAttribute("user", user);
+        LocalDateTime timeout = LocalDateTime.now().plusDays(7);
+        // Store only the user_uuid instead of user object.
+        session.setAttribute("user", user.getUserId());
+        session.setAttribute("timeout", timeout);
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
     }
 }

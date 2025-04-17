@@ -2,112 +2,87 @@ package lk.sliit.parkingmanagement.oopapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Booking {
-    @SerializedName("bookingId")
+    // Attributes
+    @SerializedName("booking_id")
     private String bookingId;
-    @SerializedName("slotId")
+    @SerializedName("slot_id")
     private String slotId;
-    @SerializedName("startDate")
-    private Date startDate;
-    @SerializedName("endDate")
-    private Date endDate;
+    @SerializedName("startDateTime")
+    private LocalDateTime startDateTime;
     @SerializedName("checkInTime")
-    private Date checkInTime;
+    private LocalTime checkInTime;
     @SerializedName("checkoutTime")
-    private Date checkOutTime;
-    @SerializedName("isOccupied")
+    private LocalDateTime checkOutTime;
+    @SerializedName("getOccupied")
     private boolean isOccupied;
     @SerializedName("isOverStayed")
     private boolean isOverStayed;
-    @SerializedName("overstayStartTime")
-    private Date overstayStartTime;
-    @SerializedName("overstayDurationHours")
-    private double overstayDurationHours;
-    @SerializedName("overstayCharge")
-    private double overstayCharge;
-    @SerializedName("totalPrice")
-    private double totalPrice;
-    @SerializedName("promoCode")
-    private String promoCode;
+    @SerializedName("created_at")
+    private LocalDateTime createdAt;
+    @SerializedName("updated_at")
+    private LocalDateTime updatedAt;
 
+    // Constructors
     public Booking() {}
-
-    public Booking(String bookingId, String slotId, Date startDate, Date endDate, Date checkInTime, Date checkOutTime, boolean isOccupied, boolean isOverStayed, Date overstayStartTime, double overstayDurationHours, double overstayCharge, double totalPrice, String promoCode) {
+    public Booking(String bookingId, String slotId, boolean isOccupied, boolean isOverStayed, LocalDateTime startDateTime) {
         this.bookingId = bookingId;
         this.slotId = slotId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.checkInTime = checkInTime;
-        this.checkOutTime = checkOutTime;
         this.isOccupied = isOccupied;
         this.isOverStayed = isOverStayed;
-        this.overstayStartTime = overstayStartTime;
-        this.overstayDurationHours = overstayDurationHours;
-        this.overstayCharge = overstayCharge;
-        this.totalPrice = totalPrice;
-        this.promoCode = promoCode;
+        this.startDateTime = startDateTime;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
+    // Getters and Setters
     public String getBookingId() {return bookingId;}
     public void setBookingId(String bookingId) {this.bookingId = bookingId;}
 
     public String getSlotId() {return slotId;}
     public void setSlotId(String slotId) {this.slotId = slotId;}
 
-    public Date getStartDate() {return startDate;}
-    public void setStartDate(Date startDate) {this.startDate = startDate;}
+    public boolean getOccupied() {return isOccupied;}
+    public void setOccupied(boolean isOccupied) {this.isOccupied = isOccupied;}
 
-    public Date getEndDate() {return endDate;}
-    public void setEndDate(Date endDate) {this.endDate = endDate;}
+    public boolean getOverStayed() {return isOverStayed;}
+    public void setOverStayed(boolean isOverStayed) {this.isOverStayed = isOverStayed;}
 
-    public Date getCheckInTime() {return checkInTime;}
-    public void setCheckInTime(Date checkInTime) {this.checkInTime = checkInTime;}
+    public LocalDateTime getStartDateTime() {return startDateTime;}
+    public void setStartDateTime(LocalDateTime startDateTime) {this.startDateTime = startDateTime;}
 
-    public Date getCheckOutTime() {return checkOutTime;}
-    public void setCheckOutTime(Date checkOutTime) {this.checkOutTime = checkOutTime;}
+    public LocalTime getCheckInTime() {return checkInTime;}
+    public void setCheckInTime(LocalTime checkInTime) {this.checkInTime = checkInTime;}
 
-    public boolean isOccupied() {return isOccupied;}
-    public void setIsOccupied(boolean isOccupied) {this.isOccupied = isOccupied;}
+    public LocalDateTime getCheckOutTime() {return checkOutTime;}
+    public void setCheckOutTime(LocalDateTime checkOutTime) {this.checkOutTime = checkOutTime;}
 
-    public boolean isOverStayed() {return isOverStayed;}
-    public void setIsOverStayed(boolean isOverStayed) {this.isOverStayed = isOverStayed;}
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
 
-    public Date getOverstayStartTime() {return overstayStartTime;}
-    public void setOverstayStratTime(Date overstayStartTime) {this.overstayStartTime = overstayStartTime;}
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+    public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
 
-    public double getOverstayDurationHours() {return overstayDurationHours;}
-    public void setOverstayDurationHours(double overstayDurationHours) {this.overstayDurationHours = overstayDurationHours;}
-
-    public double getOverstayCharge() {return overstayCharge;}
-    public void setOverstayCharge(double overstayCharge) {this.overstayCharge = overstayCharge;}
-
-    public double getTotalPrice() {return totalPrice;}
-    public void setTotalPrice(double totalPrice) {this.totalPrice = totalPrice;}
-
-    public String getPromoCode() {return promoCode;}
-    public void setPromoCode(String promoCode) {this.promoCode = promoCode;}
-
+    // Methods
     public String toString() {
         return "Booking{" +
                 "bookingId='" + bookingId + '\'' +
                 ", slotId='" + slotId + '\'' +
-                ", startDateTime='" + startDate + '\'' +
-                ", endDateTime='" + endDate + '\'' +
-                ", checkInTime='" + checkInTime + '\'' +
-                ", checkOutTime='" + checkOutTime + '\'' +
+                ", startDateTime=" + startDateTime + '\'' +
+                ", checkInTime=" + checkInTime + '\'' +
+                ", checkOutTime=" + checkOutTime + '\'' +
                 ", isOccupied=" + isOccupied +
                 ", isOverStayed=" + isOverStayed +
-                ", overstayStartTime='" + overstayStartTime + '\'' +
-                ", overstayDurationHours=" + overstayDurationHours +
-                ", overstayCharge=" + overstayCharge +
-                ", totalPrice=" + totalPrice +
-                ", promoCode='" + promoCode + '\'' +
+                ", createdAt=" + createdAt + '\'' +
+                ", updatedAt=" + updatedAt + '\'' +
                 '}';
     }
 
+    // Overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
