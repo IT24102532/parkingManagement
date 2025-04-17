@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
             return;
         }
-        // if not redirect to login
+        // if not redirect to log-in
         request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
