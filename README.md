@@ -7,7 +7,11 @@
 
 *park.me* is a modern, user-friendly and instant solution for customers to reserve long-term, or short-term parking spaces for their needs in any airport around the world.
 
-
+## Get Started
+Get the project up and running with npm
+```bash
+npx create-parkme "project_name"
+```
 
 
 ## Built Using
