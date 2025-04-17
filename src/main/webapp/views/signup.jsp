@@ -18,11 +18,11 @@
     <!-- Right Side (Sign Up Form) -->
     <div class="right">
         <h2 class="title text-2xl font-semibold mb-10">Create Account</h2>
-        <form action="Signup" method="post" class="flex flex-col w-[340px] items-center">
+        <form action="..//signup" method="post" class="flex flex-col w-[340px] items-center">
             <input type="hidden" name="step" value="user">
             <div class="w-full mb-6">
                 <label for="name" class="block text-sm text-gray-700 mb-2">Full Name</label>
-                <input type="text" id="name" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
+                <input type="text" id="name" name="name" class="input w-full p-2 border border-gray-300 rounded shadow-sm" required />
             </div>
 
             <div class="w-full mb-6">

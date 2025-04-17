@@ -11,7 +11,7 @@ import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "SignUpServlet", value = "/Signup")
+@WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
     UserFileHandler handler = new UserFileHandler();
 
@@ -27,14 +27,14 @@ public class SignUpServlet extends HttpServlet {
             String hashedPassword = PasswordHasher.hashPassword(request.getParameter("password"));
             session.setAttribute("hashedPassword", hashedPassword);
 
-            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
         } else if ("vehicle".equals(step)) {
             // Step 2: Save vehicle details
             session.setAttribute("carType", request.getParameter("carType"));
             session.setAttribute("licensePlate", request.getParameter("licensePlate"));
 
-            response.sendRedirect("/views/paymentDetails.jsp");
+            request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
 
         } else if ("payment".equals(step)) {
             // Step 3: Save payment and register
@@ -62,7 +62,9 @@ public class SignUpServlet extends HttpServlet {
             session.setAttribute("user", customer);
 
             // Redirect to dashboard or success page
-            response.sendRedirect("/views/dashboard.jsp");
+            request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+
+
         }
     }
 }

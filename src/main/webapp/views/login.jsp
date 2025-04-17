@@ -41,7 +41,7 @@
                 <span>
                     <img src="${pageContext.request.contextPath}assets/images/fi-rr-user.svg" alt="">
                 </span>
-                <a href="">register</a>
+                <a href="../views/signup.jsp">register</a>
             </p>
         </div>
     </div>

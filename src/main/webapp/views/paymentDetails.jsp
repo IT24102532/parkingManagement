@@ -23,7 +23,7 @@
     <div class="w-full md:w-1/2 p-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Payment Details</h2>
 
-        <form action="Signup" method="post" class="space-y-4">
+        <form action="./signup" method="post" class="space-y-4">
             <input type="hidden" name="step" value="payment">
 
             <div>

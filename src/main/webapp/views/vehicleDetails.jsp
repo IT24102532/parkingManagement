@@ -23,7 +23,7 @@
     <div class="w-full md:w-1/2 p-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6">Vehicle Details</h2>
 
-        <form action="Signup" method="post" class="space-y-4">
+        <form action="../signup" method="post" class="space-y-4">
             <input type="hidden" name="step" value="vehicle">
 
             <div>
@@ -47,7 +47,7 @@
                         class="bg-yellow-500 text-white font-semibold py-2 px-6 rounded-xl hover:bg-blue-700 transition">
                     Continue to Payment →
                 </button>
-                <form action="Signup" method="post">
+                <form  method="post">
                     <input type="hidden" name="step" value="user">
                     <button type="submit"
                             class="bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-xl hover:bg-gray-400 transition">
