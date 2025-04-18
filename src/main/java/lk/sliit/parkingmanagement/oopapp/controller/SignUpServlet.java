@@ -3,60 +3,81 @@ package lk.sliit.parkingmanagement.oopapp.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+<<<<<<< HEAD
+=======
+import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
+>>>>>>> 32306e41f06cc773f8d1ae739465f61d2060fbe4
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.Customer;
-import lk.sliit.parkingmanagement.oopapp.FilleHander.UserFileHandler;
-import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
+import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
+import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
+<<<<<<< HEAD
     UserDaoImpl userDao = new UserDaoImpl()
 ;
+=======
+    private final UserDao userDao = new UserDaoImpl();
+
+>>>>>>> 32306e41f06cc773f8d1ae739465f61d2060fbe4
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String step = request.getParameter("step");
 
-        if ("user".equals(step)) {
-            // Step 1: Save user details to session
-            session.setAttribute("username", request.getParameter("username"));
-            session.setAttribute("email", request.getParameter("email"));
-            String hashedPassword = PasswordHasher.hashPassword(request.getParameter("password"));
-            session.setAttribute("hashedPassword", hashedPassword);
+        try {
+            if ("user".equalsIgnoreCase(step)) {
+                // Step 1: Collect user details
+                String fName = request.getParameter("f_name");
+                String lName = request.getParameter("l_name");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
 
-            request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
+                // Generate UUID and hash password
+                String userUuid = UUID.randomUUID().toString();
+                String hashedPassword = PasswordHasher.hashPassword(password);
 
-        } else if ("vehicle".equals(step)) {
-            // Step 2: Save vehicle details
-            session.setAttribute("carType", request.getParameter("carType"));
-            session.setAttribute("licensePlate", request.getParameter("licensePlate"));
+                // Store in session
+                session.setAttribute("user_uuid", userUuid);
+                session.setAttribute("f_name", fName);
+                session.setAttribute("l_name", lName);
+                session.setAttribute("email", email);
+                session.setAttribute("hashedPassword", hashedPassword);
 
-            request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
-        } else if ("payment".equals(step)) {
-            // Step 3: Save payment and register
-            String cardHolder = request.getParameter("cardHolder");
-            String cardNumber = request.getParameter("cardNumber");
-            String exp = request.getParameter("expiry");
-            String cvv = request.getParameter("cvv");
+            } else if ("vehicle".equalsIgnoreCase(step)) {
+                // Step 2: Collect vehicle details
+                String carType = request.getParameter("carType");
+                String regLocation = request.getParameter("regLocation");
+                String regState = request.getParameter("regState");
+                String licensePlate = request.getParameter("licensePlate");
 
-            PaymentDetails paymentDetails = new PaymentDetails(cardHolder, cardNumber, exp, cvv);
+                // Store the details
+                session.setAttribute("carType", carType);
+                session.setAttribute("regLocation", regLocation);
+                session.setAttribute("regState", regState);
+                session.setAttribute("licensePlate", licensePlate);
 
-            // Collect all session attributes
-            String username = (String) session.getAttribute("username");
-            String email = (String) session.getAttribute("email");
-            String hashedPassword = (String) session.getAttribute("hashedPassword");
-            String carType = (String) session.getAttribute("carType");
-            String licensePlate = (String) session.getAttribute("licensePlate");
-            String userId = UUID.randomUUID().toString();
+                request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
 
-            Customer customer = new Customer(username, email, userId, hashedPassword, carType, licensePlate, paymentDetails);
+            } else if ("payment".equalsIgnoreCase(step)) {
+                // Step 3: Collect payment details and create user
+                String cardHolder = request.getParameter("cardHolder");
+                String cardNumber = request.getParameter("cardNumber");
+                String expiry = request.getParameter("expiry");
+                int cvv = Integer.parseInt(request.getParameter("cvv"));
 
+<<<<<<< HEAD
             //save using DAO
             try{
                 userDao.create(customer);
@@ -66,14 +87,48 @@ public class SignUpServlet extends HttpServlet {
                     return;
             }
 
+=======
+                // Generate payment UUID
+                String paymentUuid = UUID.randomUUID().toString();
+                PaymentDetails paymentDetails = new PaymentDetails(paymentUuid, cardHolder, cardNumber, expiry, cvv);
+>>>>>>> 32306e41f06cc773f8d1ae739465f61d2060fbe4
 
-            // Optional: set user in session to mark them as "logged in"
-            session.setAttribute("user", customer);
+                // Generate vehicle
+                String vehicleUuid = UUID.randomUUID().toString();
+                String carType = request.getParameter("carType");
+                String regLocation = request.getParameter("regLocation");
+                String regState = request.getParameter("regState");
+                String licensePlate = request.getParameter("licensePlate");
 
-            // Redirect to dashboard or success page
-            request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+                Vehicle vehicle = new Vehicle(vehicleUuid, carType, regLocation, regState, licensePlate);
 
+                // Build Customer
+                Customer customer = new Customer(
+                        (String) session.getAttribute("user_uuid"),
+                        (String) session.getAttribute("f_name"),
+                        (String) session.getAttribute("l_name"),
+                        (String) session.getAttribute("email"),
+                        (String) session.getAttribute("hashedPassword"),
+                        "user",
+                        new ArrayList<>(),
+                        vehicle,
+                        paymentDetails
+                );
 
+                // Create User
+                userDao.create(customer);
+
+                // Set session attributes for authentication
+                session.setAttribute("user", customer.getUserId());
+                session.setAttribute("timeout", LocalDateTime.now().plusDays(7).toString());
+
+                // Redirect to profile
+                response.sendRedirect(request.getContextPath() + "/profile");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Registration failed: " + e.getMessage());
+            request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
         }
     }
 }

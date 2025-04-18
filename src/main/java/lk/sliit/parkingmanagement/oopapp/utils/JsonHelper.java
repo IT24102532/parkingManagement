@@ -8,6 +8,7 @@ import lk.sliit.parkingmanagement.oopapp.model.*;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class JsonHelper<T> {
         this.gson = new GsonBuilder()
                 .registerTypeAdapterFactory(userFactory)
                 .registerTypeAdapterFactory(parkingLotFactory)
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .setPrettyPrinting()
                 .create();
 
