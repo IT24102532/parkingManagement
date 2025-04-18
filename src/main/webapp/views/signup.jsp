@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>park.me | Sign Up</title>
     <link rel="stylesheet" href="../assets/css/dual_container_global.css" />
+    <link rel="stylesheet" href="../assets/css/signup.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
 
     <!-- Right Side (Sign Up Form) -->
     <div class="right">
-        <h2 class="title text-2xl font-semibold mb-10">Create Account</h2>
+        <h2 class="title text-2xl font-semibold mb-10">let's create your account</h2>
         <form action="..//signup" method="post" class="flex flex-col w-[340px] items-center">
             <input type="hidden" name="step" value="user">
             <div class="w-full mb-6">

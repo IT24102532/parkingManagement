@@ -20,18 +20,32 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve the stored session
+        // User validation
         HttpSession session = request.getSession(false);
-        LocalDateTime currentTimeout = LocalDateTime.parse(session.getAttribute("timeout").toString());
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        boolean expired = currentDateTime.isBefore(currentTimeout);
-        // redirect if the session has a user stored
-        if (session != null && session.getAttribute("user") != null && !expired) {
-            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
-            return;
+        boolean isValid = false;
+
+        if (session != null) {
+            Object user = session.getAttribute("user");
+            Object timeout = session.getAttribute("timeout");
+
+            if (user != null && timeout != null) {
+                try {
+                    LocalDateTime currentTimeout = LocalDateTime.parse(timeout.toString());
+                    LocalDateTime now = LocalDateTime.now();
+
+                    if (currentTimeout.isBefore(now)) {isValid = true;}
+                }
+                catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, "Error parsing session timeout", e);
+                }
+            }
+            if (isValid) {
+                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
+            }
+            else {
+                request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            }
         }
-        // if not redirect to log-in
-        request.getRequestDispatcher("/views/login.jsp").forward(request, response);
     }
 
     @Override
@@ -79,6 +93,7 @@ public class LoginServlet extends HttpServlet {
         }
         session = request.getSession(true);
         LocalDateTime timeout = LocalDateTime.now().plusDays(7);
+
         // Store only the user_uuid instead of user object.
         session.setAttribute("user", user.getUserId());
         session.setAttribute("timeout", timeout);
