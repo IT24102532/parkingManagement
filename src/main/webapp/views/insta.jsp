@@ -41,7 +41,7 @@
             <span class="text-gray-700">park.me</span> <em class="text-gray-400">insta~</em>
         </h2>
 
-        <form action="/findlocation" method="post" class="space-y-6">
+        <form action="./findlocations" method="post" class="space-y-6">
             <div>
                 <input type="text" name="when" placeholder="when?" required
                        class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
