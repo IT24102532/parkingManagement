@@ -20,7 +20,7 @@ public class SignUpServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String step = request.getParameter("step");
 
-        if ("user".equals(step)) {
+        if ("user".equalsIgnoreCase(step)) {
             // Step 1: Save user details to session
             session.setAttribute("username", request.getParameter("username"));
             session.setAttribute("email", request.getParameter("email"));
@@ -43,7 +43,7 @@ public class SignUpServlet extends HttpServlet {
             String exp = request.getParameter("expiry");
             String cvv = request.getParameter("cvv");
 
-            PaymentDetails paymentDetails = new PaymentDetails(cardHolder, cardNumber, exp, cvv);
+//            PaymentDetails paymentDetails = new PaymentDetails(cardHolder, cardNumber, exp, cvv);
 
             // Collect all session attributes
             String username = (String) session.getAttribute("username");
@@ -53,13 +53,13 @@ public class SignUpServlet extends HttpServlet {
             String licensePlate = (String) session.getAttribute("licensePlate");
             String userId = UUID.randomUUID().toString();
 
-            Customer customer = new Customer(username, email, userId, hashedPassword, carType, licensePlate, paymentDetails);
+            // Customer customer = new Customer(username, email, userId, hashedPassword, carType, licensePlate, paymentDetails);
 
             // Save to file
-            handler.saveCustomer(customer);
+//            handler.saveCustomer(customer);
 
             // Optional: set user in session to mark them as "logged in"
-            session.setAttribute("user", customer);
+//            session.setAttribute("user", customer);
 
             // Redirect to dashboard or success page
             request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);

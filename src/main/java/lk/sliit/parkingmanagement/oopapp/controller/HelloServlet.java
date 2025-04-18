@@ -70,7 +70,7 @@ public class HelloServlet extends HttpServlet {
         String cvv = request.getParameter("cvv");
 
         JsonHelper<User> userHelper = new JsonHelper<User>(userFilePath, User.class);
-        PaymentDetails card = new PaymentDetails(cardNumber, expiryDate ,cardHolder,cvv);
+//        PaymentDetails card = new PaymentDetails(cardNumber, expiryDate ,cardHolder,cvv);
 
         System.out.println("Absolute path: " + new File(userFilePath).getAbsolutePath());
 
@@ -90,11 +90,11 @@ public class HelloServlet extends HttpServlet {
         if (userHelper.findOne(user -> user.getEmail().equalsIgnoreCase(email)) != null) {
             System.out.println("User already exists");
         } else if (userType.equalsIgnoreCase("user")) {
-            Customer newUser = new Customer(username, email, ("U" + userId), passwordHash, carType, licensePlate, card);
-            userHelper.create(newUser);
+//            Customer newUser = new Customer(username, email, ("U" + userId), passwordHash, carType, licensePlate, card);
+//            userHelper.create(newUser);
         } else if (userType.equalsIgnoreCase("admin")) {
-            Admin newAdmin = new Admin(username, email, ("A" + userId), passwordHash);
-            userHelper.create(newAdmin);
+//            Admin newAdmin = new Admin(username, email, ("A" + userId), passwordHash);
+//            userHelper.create(newAdmin);
         }
         try { Thread.sleep(100); } catch (InterruptedException ignored) {}
         response.sendRedirect(request.getContextPath() + "/test?email=" + email);
