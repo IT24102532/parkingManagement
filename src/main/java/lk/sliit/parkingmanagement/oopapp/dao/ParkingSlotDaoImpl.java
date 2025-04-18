@@ -44,8 +44,15 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
     }
 
     @Override
-    public ParkingSlot getById(int id) throws Exception {
-        return null;
+    public ParkingSlot getById(String id) throws Exception {
+        try {
+            return slotJsonHelper.findOne(
+                    s -> s.getSlotId().equalsIgnoreCase(id)
+            );
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error finding id @getById", e);
+            return null;
+        }
     }
 
     @Override

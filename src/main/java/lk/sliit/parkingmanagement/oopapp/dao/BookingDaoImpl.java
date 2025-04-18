@@ -4,7 +4,6 @@ import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 import lk.sliit.parkingmanagement.oopapp.model.Booking;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +26,7 @@ public class BookingDaoImpl implements BookingDao {
 
 
     @Override
-    public Booking getById(int id) throws Exception {
+    public Booking getById(String id) throws Exception {
         try {
             return bookingJsonHelper.findOne(
                     b -> b.getBookingId().equalsIgnoreCase(String.valueOf(id))
