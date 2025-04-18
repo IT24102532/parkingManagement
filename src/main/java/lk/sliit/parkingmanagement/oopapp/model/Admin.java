@@ -19,6 +19,9 @@ public class Admin extends User {
         this.role = role;
     }
 
+    public Admin(String username, String email, String s, String passwordHash) {
+    }
+
     // Getters and Setters
     public int getSecClearance() {return secClearance;}
     public void setSecClearance(int secClearance) {this.secClearance = secClearance;}

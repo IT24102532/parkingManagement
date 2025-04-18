@@ -20,6 +20,9 @@ public class Customer extends User {
         this.paymentDetails = paymentDetails;
     }
 
+    public Customer(String username, String email, String s, String passwordHash, String carType, String licensePlate, PaymentDetails card) {
+    }
+
     // Getters and Setters
     public Vehicle getVehicle() {return vehicle;}
     public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}

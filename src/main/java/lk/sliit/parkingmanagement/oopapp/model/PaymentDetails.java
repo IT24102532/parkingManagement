@@ -34,6 +34,9 @@ public class PaymentDetails {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public PaymentDetails(String cardNumber, String expiryDate, String cardHolder, String cvv) {
+    }
+
     // Getters and Setters
     public String getCardId() {return cardId;}
     public void setCardId(String cardId) {this.cardId = cardId;}

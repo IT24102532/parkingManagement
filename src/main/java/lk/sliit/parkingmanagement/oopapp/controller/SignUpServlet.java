@@ -4,11 +4,14 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.model.Customer;
+import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
+import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
 import lk.sliit.parkingmanagement.oopapp.FilleHander.UserFileHandler;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
-import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
@@ -21,8 +24,9 @@ public class SignUpServlet extends HttpServlet {
         String step = request.getParameter("step");
 
         if ("user".equals(step)) {
-            // Step 1: Save user details to session
-            session.setAttribute("username", request.getParameter("username"));
+            // Step 1: User info
+            session.setAttribute("firstName", request.getParameter("firstName"));
+            session.setAttribute("lastName", request.getParameter("lastName"));
             session.setAttribute("email", request.getParameter("email"));
             String hashedPassword = PasswordHasher.hashPassword(request.getParameter("password"));
             session.setAttribute("hashedPassword", hashedPassword);
@@ -30,41 +34,57 @@ public class SignUpServlet extends HttpServlet {
             request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
         } else if ("vehicle".equals(step)) {
-            // Step 2: Save vehicle details
-            session.setAttribute("carType", request.getParameter("carType"));
-            session.setAttribute("licensePlate", request.getParameter("licensePlate"));
+            // Step 2: Vehicle info
+            session.setAttribute("vehicleType", request.getParameter("vehicleType"));
+            session.setAttribute("regCountry", request.getParameter("regCountry"));
+            session.setAttribute("regState", request.getParameter("regState"));
+            session.setAttribute("regNumber", request.getParameter("regNumber"));
 
             request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
 
         } else if ("payment".equals(step)) {
-            // Step 3: Save payment and register
+            // Step 3: Payment info & final registration
+
+            // Payment details
             String cardHolder = request.getParameter("cardHolder");
-            String cardNumber = request.getParameter("cardNumber");
-            String exp = request.getParameter("expiry");
-            String cvv = request.getParameter("cvv");
+            String cardType = request.getParameter("cardType");
+            String expiry = request.getParameter("expiry");
+            int cardNumber = Integer.parseInt(request.getParameter("cardNumber")); // NOTE: You might want to store this as a String in real systems
+            String cardId = UUID.randomUUID().toString();
+            PaymentDetails payment = new PaymentDetails(cardId, cardHolder, expiry, cardType, cardNumber);
 
-            PaymentDetails paymentDetails = new PaymentDetails(cardHolder, cardNumber, exp, cvv);
+            // Vehicle object
+            String vehicleId = UUID.randomUUID().toString();
+            Vehicle vehicle = new Vehicle(
+                    vehicleId,
+                    (String) session.getAttribute("vehicleType"),
+                    (String) session.getAttribute("regCountry"),
+                    (String) session.getAttribute("regState"),
+                    (String) session.getAttribute("regNumber")
+            );
 
-            // Collect all session attributes
-            String username = (String) session.getAttribute("username");
-            String email = (String) session.getAttribute("email");
-            String hashedPassword = (String) session.getAttribute("hashedPassword");
-            String carType = (String) session.getAttribute("carType");
-            String licensePlate = (String) session.getAttribute("licensePlate");
+            // Customer object
             String userId = UUID.randomUUID().toString();
+            Customer customer = new Customer(
+                    userId,
+                    (String) session.getAttribute("firstName"),
+                    (String) session.getAttribute("lastName"),
+                    (String) session.getAttribute("email"),
+                    (String) session.getAttribute("hashedPassword"),
+                    "customer",
+                    new ArrayList<>(),
+                    vehicle,
+                    payment
+            );
 
-            Customer customer = new Customer(username, email, userId, hashedPassword, carType, licensePlate, paymentDetails);
-
-            // Save to file
+            // Save customer using file handler
             handler.saveCustomer(customer);
+            // Clear session attributes (optional)
+            session.invalidate();
 
-            // Optional: set user in session to mark them as "logged in"
-            session.setAttribute("user", customer);
-
-            // Redirect to dashboard or success page
-            request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
-
-
+            // Redirect to confirmation page
+            request.setAttribute("message", "Sign up successful!");
+            request.getRequestDispatcher("/views/signupSuccess.jsp").forward(request, response);
         }
     }
 }

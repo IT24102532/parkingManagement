@@ -88,5 +88,14 @@ public class ParkingSlot {
     public int hashCode() {
         return Objects.hash(slotId);
     }
-}
 
+    public String getParkingSlotID() {
+        return this.slotId;
+    }
+
+    public String[] getBookedDates() {
+
+
+        return null;
+    }
+}
