@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User object) throws Exception {
-
+        userJsonHelper.create(object);
     }
 
     @Override
