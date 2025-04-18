@@ -3,88 +3,104 @@ package lk.sliit.parkingmanagement.oopapp.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.Customer;
 import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
 import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
-import lk.sliit.parkingmanagement.oopapp.FilleHander.UserFileHandler;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
-    UserFileHandler handler = new UserFileHandler();
+    private final UserDao userDao = new UserDaoImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String step = request.getParameter("step");
 
-        if ("user".equals(step)) {
-            // Step 1: User info
-            session.setAttribute("firstName", request.getParameter("firstName"));
-            session.setAttribute("lastName", request.getParameter("lastName"));
-            session.setAttribute("email", request.getParameter("email"));
-            String hashedPassword = PasswordHasher.hashPassword(request.getParameter("password"));
-            session.setAttribute("hashedPassword", hashedPassword);
+        try {
+            if ("user".equalsIgnoreCase(step)) {
+                // Step 1: Collect user details
+                String fName = request.getParameter("f_name");
+                String lName = request.getParameter("l_name");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
 
-            request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
+                String userUuid = UUID.randomUUID().toString();
+                String hashedPassword = PasswordHasher.hashPassword(password);
 
-        } else if ("vehicle".equals(step)) {
-            // Step 2: Vehicle info
-            session.setAttribute("vehicleType", request.getParameter("vehicleType"));
-            session.setAttribute("regCountry", request.getParameter("regCountry"));
-            session.setAttribute("regState", request.getParameter("regState"));
-            session.setAttribute("regNumber", request.getParameter("regNumber"));
+                session.setAttribute("user_uuid", userUuid);
+                session.setAttribute("f_name", fName);
+                session.setAttribute("l_name", lName);
+                session.setAttribute("email", email);
+                session.setAttribute("hashedPassword", hashedPassword);
 
-            request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
-        } else if ("payment".equals(step)) {
-            // Step 3: Payment info & final registration
+            } else if ("vehicle".equalsIgnoreCase(step)) {
+                // Step 2: Collect vehicle details
+                String carType = request.getParameter("carType");
+                String regLocation = request.getParameter("regLocation");
+                String regState = request.getParameter("regState");
+                String licensePlate = request.getParameter("licensePlate");
 
-            // Payment details
-            String cardHolder = request.getParameter("cardHolder");
-            String cardType = request.getParameter("cardType");
-            String expiry = request.getParameter("expiry");
-            int cardNumber = Integer.parseInt(request.getParameter("cardNumber")); // NOTE: You might want to store this as a String in real systems
-            String cardId = UUID.randomUUID().toString();
-            PaymentDetails payment = new PaymentDetails(cardId, cardHolder, expiry, cardType, cardNumber);
+                session.setAttribute("carType", carType);
+                session.setAttribute("regLocation", regLocation);
+                session.setAttribute("regState", regState);
+                session.setAttribute("licensePlate", licensePlate);
 
-            // Vehicle object
-            String vehicleId = UUID.randomUUID().toString();
-            Vehicle vehicle = new Vehicle(
-                    vehicleId,
-                    (String) session.getAttribute("vehicleType"),
-                    (String) session.getAttribute("regCountry"),
-                    (String) session.getAttribute("regState"),
-                    (String) session.getAttribute("regNumber")
-            );
+                request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
 
-            // Customer object
-            String userId = UUID.randomUUID().toString();
-            Customer customer = new Customer(
-                    userId,
-                    (String) session.getAttribute("firstName"),
-                    (String) session.getAttribute("lastName"),
-                    (String) session.getAttribute("email"),
-                    (String) session.getAttribute("hashedPassword"),
-                    "customer",
-                    new ArrayList<>(),
-                    vehicle,
-                    payment
-            );
+            } else if ("payment".equalsIgnoreCase(step)) {
+                // Step 3: Final registration with payment
+                String cardHolder = request.getParameter("cardHolder");
+                String cardNumber = request.getParameter("cardNumber");
+                String expiry = request.getParameter("expiry");
+                int cvv = Integer.parseInt(request.getParameter("cvv"));
 
-            // Save customer using file handler
-            handler.saveCustomer(customer);
-            // Clear session attributes (optional)
-            session.invalidate();
+                // Create payment details
+                String paymentUuid = UUID.randomUUID().toString();
+                PaymentDetails paymentDetails = new PaymentDetails(paymentUuid, cardHolder, cardNumber, expiry, cvv);
 
-            // Redirect to confirmation page
-            request.setAttribute("message", "Sign up successful!");
-            request.getRequestDispatcher("/views/signupSuccess.jsp").forward(request, response);
+                // Create vehicle details
+                String vehicleUuid = UUID.randomUUID().toString();
+                String carType = (String) session.getAttribute("carType");
+                String regLocation = (String) session.getAttribute("regLocation");
+                String regState = (String) session.getAttribute("regState");
+                String licensePlate = (String) session.getAttribute("licensePlate");
+
+                Vehicle vehicle = new Vehicle(vehicleUuid, carType, regLocation, regState, licensePlate);
+
+                // Create customer object
+                Customer customer = new Customer(
+                        (String) session.getAttribute("user_uuid"),
+                        (String) session.getAttribute("f_name"),
+                        (String) session.getAttribute("l_name"),
+                        (String) session.getAttribute("email"),
+                        (String) session.getAttribute("hashedPassword"),
+                        "user",
+                        new ArrayList<>(),
+                        vehicle,
+                        paymentDetails
+                );
+
+                try {
+                    userDao.create(customer);
+                    session.setAttribute("user", customer);
+                    request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save customer.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong.");
         }
     }
 }

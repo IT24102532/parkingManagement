@@ -6,6 +6,10 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
+import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDao;
+import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDaoImpl;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
+import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.InstaSlot;
 import lk.sliit.parkingmanagement.oopapp.model.LongTermSlot;
 import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
@@ -21,26 +25,30 @@ import java.util.List;
 
 @WebServlet(name = "BookSlotServlet", value = "/book")
 public class BookSlotServlet extends HttpServlet {
-    private final String filePath = FileConfig.INSTANCE.getSlotPath();
+    ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
+    UserDao userDao = new UserDaoImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        JsonHelper<ParkingSlot> slotJsonHelper = new JsonHelper<>(filePath, ParkingSlot.class);
         BufferedReader reader = request.getReader();
         JsonObject jsonRequest = JsonParser.parseReader(reader).getAsJsonObject();
         JsonObject jsonResponse = new JsonObject();
 
+        // is user logged in?
         HttpSession session = request.getSession(false);
-
         if (session == null || session.getAttribute("user") == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("{\"success\": false, \"error\": \"User not logged in!\"}");
             return;
         }
-        User user = (User) session.getAttribute("user");
-        String userID = user.getUserId();
+        String userID = (String) session.getAttribute("user");
+        try {
+            User user = userDao.getById(userID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         String slotID = jsonRequest.has("slotID") ? jsonRequest.get("slotID").getAsString() : null;
         String lotType = jsonRequest.has("lotType") ? jsonRequest.get("lotType").getAsString() : null;
@@ -52,7 +60,12 @@ public class BookSlotServlet extends HttpServlet {
         }
 
         // Fetch the Parking Slot
-        ParkingSlot selectedSlot = slotJsonHelper.findOne(slot -> slot.getParkingSlotID().equalsIgnoreCase(slotID));
+        ParkingSlot selectedSlot = null;
+        try {
+            selectedSlot = parkingSlotDao.getById(slotID);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         if (selectedSlot == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -80,10 +93,10 @@ public class BookSlotServlet extends HttpServlet {
 
             LongTermSlot longTermSlot = (LongTermSlot) selectedSlot;
             long totalDays = startDate.until(endDate).getDays() + 1;
-            totalCharge = longTermSlot.getPricePerDay() * totalDays;
+            totalCharge = longTermSlot.getPrice() * totalDays;
 
             // Check for overlapping dates
-            for (String booked : selectedSlot.getBookedDates()) {
+            for (String booked : ((LongTermSlot) selectedSlot).getBookedDates()) {
                 LocalDate bookedDate = LocalDate.parse(booked);
                 if (!(endDate.isBefore(bookedDate) || startDate.isAfter(bookedDate))) {
                     response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -93,7 +106,7 @@ public class BookSlotServlet extends HttpServlet {
             }
 
             // Add booked dates
-            updatedBookedDates = new ArrayList<>(selectedSlot.getBookedDates());
+            updatedBookedDates = new ArrayList<>(((LongTermSlot) selectedSlot).getBookedDates());
             LocalDate tempDate = startDate;
             while (!tempDate.isAfter(endDate)) {
                 updatedBookedDates.add(tempDate.toString());
@@ -115,10 +128,10 @@ public class BookSlotServlet extends HttpServlet {
             LocalDateTime endTime = startTime.plusHours(durationHours);
 
             InstaSlot instaSlot = (InstaSlot) selectedSlot;
-            totalCharge = instaSlot.getPricePerHour() * durationHours;
+            totalCharge = instaSlot.getPrice() * durationHours;
 
             // Check for overlapping bookings
-            for (String booked : selectedSlot.getBookedDates()) {
+            for (String booked : ((InstaSlot) selectedSlot).getBookedTimes()) {
                 LocalDateTime bookedTime = LocalDateTime.parse(booked);
                 if (!(endTime.isBefore(bookedTime) || startTime.isAfter(bookedTime))) {
                     response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -128,7 +141,7 @@ public class BookSlotServlet extends HttpServlet {
             }
 
             // Add booked times
-            updatedBookedTimes = new ArrayList<>(selectedSlot.getBookedDates());
+            updatedBookedTimes = new ArrayList<>(((InstaSlot) selectedSlot).getBookedTimes());
             LocalDateTime tempTime = startTime;
             while (!tempTime.isAfter(endTime)) {
                 updatedBookedTimes.add(tempTime.toString());

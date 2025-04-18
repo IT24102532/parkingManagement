@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDao;
+import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDaoImpl;
+import lk.sliit.parkingmanagement.oopapp.model.LongTermSlot;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
 import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
@@ -15,23 +18,16 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "CheckAvailability", value = "/findavailable")
 public class CheckAvailabilityServlet extends HttpServlet {
-    private final String filePath = FileConfig.INSTANCE.getSlotPath();
+    ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JsonHelper<ParkingSlot> slotJsonHelper = new JsonHelper<>(filePath, ParkingSlot.class);
 
         String location = request.getParameter("location");
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"));
 
         // Fetch all slots in the given location
-        List<ParkingSlot> slotsInLocation = slotJsonHelper.findAll(slot -> location.equals(slot.getLocation()));
-
-        // Filter available slots
-        List<ParkingSlot> availableSlots = slotsInLocation.stream()
-                .filter(ParkingSlot::isAvailable)
-                .filter(slot -> isSlotAvailable(slot, startDate, endDate))
-                .collect(Collectors.toList());
+        List<ParkingSlot> availableSlots = parkingSlotDao.getAvailableSlotsByDates(startDate, endDate, location);
 
         // Convert available slots to JSON and return response
         Gson gson = new Gson();
@@ -41,13 +37,4 @@ public class CheckAvailabilityServlet extends HttpServlet {
         response.getWriter().write(jsonResponse);
     }
 
-    private boolean isSlotAvailable(ParkingSlot slot, LocalDate startDate, LocalDate endDate) {
-        for (String booked : slot.getBookedDates()) {
-            LocalDate bookedDate = LocalDate.parse(booked.substring(0, 10));
-            if (!startDate.isAfter(bookedDate) && !endDate.isBefore(bookedDate)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

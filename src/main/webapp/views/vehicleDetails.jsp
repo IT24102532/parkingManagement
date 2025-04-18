@@ -3,61 +3,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="stylesheet" href="../assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="../assets/css/vehicleDetails.css">
     <title>Vehicle Details | park.me</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-
-<div class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
-
-    <!-- Left Image -->
-    <div class="md:w-1/2 hidden md:block">
-        <img src="images/bg2.jpg" alt="Vehicle" class="w-full h-full object-cover">
+<body>
+<div class="container">
+    <div class="left">
+        <img class="logo" src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="logo">
+        <img class="bg-img" src="${pageContext.request.contextPath}/assets/images/bg2.jpg" alt="Car">
     </div>
+    <div class="right">
+        <h1 class="title">Let's add your vehicle details</h1>
 
-    <!-- Right Form -->
-    <div class="w-full md:w-1/2 p-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Vehicle Details</h2>
-
-        <form action="../signup" method="post" class="space-y-4">
+        <!-- Main Vehicle Details Form -->
+        <form action="../signup" method="post" class="form">
             <input type="hidden" name="step" value="vehicle">
 
-            <div>
-                <label for="carType" class="block text-gray-600 font-medium mb-1">Car Type</label>
-                <input type="text" id="carType" name="carType" value="<%= request.getParameter("carType") != null ? request.getParameter("carType") : "" %>" required
-                       class="w-full border border-gray-300 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <label for="carType">Car Type</label>
+            <select id="carType" name="carType" class="input">
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Van">Van</option>
+                <option value="Hatchback">Hatchback</option>
+            </select>
+
+            <label for="regLocation">Registered Country</label>
+            <input type="text" id="regLocation" name="regLocation"
+                   value="<%= request.getParameter("regLocation") != null ? request.getParameter("regLocation") : "" %>"
+                   required class="input"
+                   style="margin-bottom: 20px">
+
+            <h3 class="subtitle">License Plate</h3>
+            <div class="license">
+                <input type="text" id="regState" name="regState"
+                       value="<%= request.getParameter("regState") != null ? request.getParameter("regState") : "" %>"
+                       placeholder="State" required>
+                <input type="text" id="licensePlate" name="licensePlate"
+                       value="<%= request.getParameter("licensePlate") != null ? request.getParameter("licensePlate") : "" %>"
+                       placeholder="Plate Number" required>
             </div>
 
-            <div>
-                <label for="licensePlate" class="block text-gray-600 font-medium mb-1">License Plate</label>
-                <input type="text" id="licensePlate" name="licensePlate" value="<%= request.getParameter("licensePlate") != null ? request.getParameter("licensePlate") : "" %>" required
-                       class="w-full border border-gray-300 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </div>
-
-            <div class="flex justify-col items-center pt-4">
-
-
-
-                <!-- Continue Button -->
-                <button type="submit"
-                        class="bg-yellow-300 text-white font-semibold py-2 px-6 rounded-xl hover:bg-yellow-400 transition">
-                    Continue to Payment →
-                </button>
-                <form action="../signup" method="post">
-                    <input type="hidden" name="step" value="user">
-                    <button type="submit"
-                            class="bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-xl hover:bg-gray-400 transition">
-                        ← Go Back
-                    </button>
-                </form>
+            <!-- Continue Button -->
+            <div class="form-buttons">
+                <button type="submit" class="form-btn">Continue to Payment →</button>
             </div>
         </form>
+
+        <!-- Go Back Button Form -->
+        <form action="../signup" method="post" style="margin-top: 10px;">
+            <input type="hidden" name="step" value="user">
+            <button type="submit"
+                    class="back-btn">
+                ← Go Back
+            </button>
+        </form>
+
     </div>
 </div>
-
 </body>
 </html>

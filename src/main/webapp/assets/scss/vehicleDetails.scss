@@ -1,0 +1,130 @@
+@use "variables" as *;
+
+.container {
+  .right {
+    .title {
+      font-weight: 500;
+      margin-bottom: 50px;
+      font-size: 20px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      align-items: center;
+
+      .subtitle {
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin: 0 0 10px;
+        align-self: start;
+      }
+
+      .license {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 0;
+        margin-bottom: 20px;
+
+        input {
+          border-radius: 0;
+          width: 50%;
+          border: 1px solid #c6c6c6;
+          padding: 10px;
+          font-family: inherit;
+          background: white;
+
+          &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-right: none;
+          }
+
+          &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+        }
+        label {
+          display: none;
+        }
+      }
+
+
+      label {
+        font-size: 0.9rem;
+        color: #3a3a3a;
+        margin-bottom: 15px;
+        align-self: flex-start;
+      }
+
+      .input {
+        padding: 10px;
+        border: 1px solid #c6c6c6;
+        border-radius: 5px;
+        box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+        width: 280px;
+        margin-bottom: 20px;
+        background: white;
+        font-family: inherit;
+      }
+
+      select.input {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1em;
+        width: 100%;
+      }
+
+      .form-buttons {
+        font-family: $global-font-family;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 20px;
+
+        .form-btn {
+          padding: 15px;
+          border: none;
+          border-radius: 5px;
+          color: black;
+          background: $global-primary;
+          font-family: $global-font-family;
+          font-weight: 500;
+          cursor: pointer;
+          width: 100%;
+          transition: all 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        .back-btn {
+          background: #f0f0f0;
+          color: #3a3a3a;
+          padding: 15px 20px;
+          border-radius: 5px;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: all 0.2s ease;
+          width: 260px;
+          text-align: center;
+
+          &:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
+          }
+        }
+      }
+
+    }
+  }
+}
