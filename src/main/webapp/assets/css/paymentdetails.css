@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.container .right .title {
+  font-weight: 500;
+  margin-bottom: 50px;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.container .right .form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+}
+.container .right .form .subtitle {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0 0 10px;
+  align-self: start;
+  color: #3a3a3a;
+}
+.container .right .form label {
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  margin-bottom: 15px;
+  align-self: flex-start;
+}
+.container .right .form .input {
+  padding: 10px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  margin-bottom: 20px;
+  background: white;
+  font-family: inherit;
+}
+.container .right .form .split-inputs {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+  margin-bottom: 20px;
+}
+.container .right .form .split-inputs input {
+  border-radius: 0;
+  width: 50%;
+  border: 1px solid #c6c6c6;
+  padding: 10px;
+  font-family: inherit;
+  background: white;
+}
+.container .right .form .split-inputs input:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: none;
+}
+.container .right .form .split-inputs input:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.container .right .form .split-inputs label {
+  display: none;
+}
+.container .right .form .form-buttons {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.container .right .form .form-buttons .form-btn {
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background: hsl(52, 88%, 54%);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+.container .right .form .form-buttons .form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.container .right .form .form-buttons .back-btn {
+  background: #f0f0f0;
+  color: #3a3a3a;
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  width: 260px;
+  text-align: center;
+}
+.container .right .form .form-buttons .back-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
