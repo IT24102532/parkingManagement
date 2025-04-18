@@ -6,6 +6,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,24 +70,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User object) throws Exception {
-<<<<<<< HEAD
         try{
             if( object.getUserId() == null || object.getUserId().isEmpty()){
                 object.setUserId(UUID.randomUUID().toString());
                 userJsonHelper.create(object);
-
             }
 
         }catch ( Exception e){
             LOGGER.log(Level.SEVERE, "Error saving user", e);
-
             throw  new Exception("Failed to save user");
-
         }
-
-=======
         userJsonHelper.create(object);
->>>>>>> 32306e41f06cc773f8d1ae739465f61d2060fbe4
     }
 
     @Override

@@ -50,5 +50,35 @@
         </form>
     </div>
 </div>
+<script>
+    const cardInput = document.getElementById('cardNumber');
+    const expiryInput = document.getElementById('expiry');
+    const cvvInput = document.getElementById('cvv');
+    const form = document.querySelector('form');
+
+    cardInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0, 16);
+        e.target.value = value.match(/.{1,4}/g)?.join(' ') || '';
+    });
+
+    expiryInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0,4);
+        e.target.value = value.match(/.{1,2}/g)?.join('/') || '';
+    });
+
+    cvvInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0,3);
+        e.target.value = value;
+    });
+
+    form.addEventListener('submit', (e) => {
+        const rawValue = cardInput.value.replace(/\s/g, '');
+        const lastFour = rawValue.slice(-4);
+        cardInput.value = '**** **** **** ' + lastFour;
+    });
+</script>
 </body>
 </html>
