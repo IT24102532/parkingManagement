@@ -75,14 +75,11 @@ public class UserDaoImpl implements UserDao {
             if( object.getUserId() == null || object.getUserId().isEmpty()){
                 object.setUserId(UUID.randomUUID().toString());
                 userJsonHelper.create(object);
-
             }
 
         }catch ( Exception e){
             LOGGER.log(Level.SEVERE, "Error saving user", e);
-
             throw  new Exception("Failed to save user");
-
         }
         userJsonHelper.create(object);
 

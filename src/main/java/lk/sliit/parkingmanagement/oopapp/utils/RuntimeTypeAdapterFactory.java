@@ -69,14 +69,14 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
             }
 
             @Override
-            public R read(JsonReader in) throws IOException {
-                JsonElement jsonElement = JsonParser.parseReader(in);
-                JsonObject jsonObject = jsonElement.getAsJsonObject();
-                JsonElement typeElement = jsonObject.get(typeFieldName);
+                public R read(JsonReader in) throws IOException {
+                    JsonElement jsonElement = JsonParser.parseReader(in);
+                    JsonObject jsonObject = jsonElement.getAsJsonObject();
+                    JsonElement typeElement = jsonObject.get(typeFieldName);
 
-                if (typeElement == null) {
-                    throw new JsonParseException("Missing type field: " + typeFieldName);
-                }
+                    if (typeElement == null) {
+                        throw new JsonParseException("Missing type field: " + typeFieldName);
+                    }
 
                 String label = typeElement.getAsString();
                 @SuppressWarnings("unchecked")

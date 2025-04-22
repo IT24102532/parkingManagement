@@ -92,10 +92,11 @@ public class SignUpServlet extends HttpServlet {
                 try {
                     userDao.create(customer);
                     session.setAttribute("user", customer);
+                    System.out.println("successfuly creted usre" + customer.getFirstName() + customer.getLastName());
                     request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save customer.");
+
                 }
             }
         } catch (Exception e) {

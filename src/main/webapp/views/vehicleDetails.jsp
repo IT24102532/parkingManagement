@@ -33,11 +33,13 @@
                 <option value="Hatchback">Hatchback</option>
             </select>
 
-            <label for="regLocation">Registered Country</label>
-            <input type="text" id="regLocation" name="regLocation"
-                   value="<%= request.getParameter("regLocation") != null ? request.getParameter("regLocation") : "" %>"
-                   required class="input"
-                   style="margin-bottom: 20px">
+
+
+
+            <label for="regLocation">Registered counrty</label>
+            <select id="regLocation" name="regLocation" required class="input" style="margin-bottom: 20px">
+                <option disabled selected value="">Select a country</option>
+            </select>
 
             <h3 class="subtitle">License Plate</h3>
             <div class="license">
@@ -66,5 +68,50 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const countrySelect = document.getElementById('regLocation');
+        await fetchCountries();
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const selectedCountry = countrySelect.value;
+            const matched = countries.find(c => c.code === selectedCountry);
+
+            if (matched) {
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'regCountry';
+                hiddenInput.value = matched.code;
+
+                this.appendChild(hiddenInput);
+
+                countrySelect.removeAttribute('name');
+            }
+        });
+    });
+
+    let countries = [];
+
+    async function fetchCountries() {
+        const res = await fetch('https://restcountries.com/v3.1/all?fields=name,cca3');
+        const data = await res.json();
+
+        countries = data.map(c => ({
+            name: c.name.common,
+            code: c.cca3
+        }));
+
+        countries.sort((a, b) => a.name.localeCompare(b.name));
+        const countrySelect = document.getElementById('regLocation');
+        countries.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.code;
+            option.textContent = c.name;
+            countrySelect.appendChild(option);
+        });
+    }
+</script>
+
 </body>
 </html>
