@@ -14,7 +14,7 @@ public class ParkingSlot {
     @SerializedName("manager_id")
     protected String managerId;
     @SerializedName("type")
-    protected boolean lotType; // TRUE = Insta, FALSE = long_term
+    protected String lotType; // TRUE = Insta, FALSE = long_term
     @SerializedName("locationName")
     protected String locationName;
     @SerializedName("isAvailable")
@@ -26,7 +26,7 @@ public class ParkingSlot {
 
     // Constructors
     public ParkingSlot() {}
-    public ParkingSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable) {
+    public ParkingSlot(String slotId, String location, String managerId, String lotType, String locationName, boolean isAvailable) {
         this.slotId = slotId;
         this.location = location;
         this.managerId = managerId;
@@ -47,8 +47,8 @@ public class ParkingSlot {
     public String getManagerId() {return managerId;}
     public void setManagerId(String managerId) {this.managerId = managerId;}
 
-    public boolean isLotType() {return lotType;}
-    public void setLotType(boolean lotType) {this.lotType = lotType;}
+    public String isLotType() {return lotType;}
+    public void setLotType(String lotType) {this.lotType = lotType;}
 
     public String getLocationName() {return locationName;}
     public void setLocationName(String locationName) {this.locationName = locationName;}

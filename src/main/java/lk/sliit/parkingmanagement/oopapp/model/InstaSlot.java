@@ -16,13 +16,15 @@ public class InstaSlot extends ParkingSlot {
     @SerializedName("booked_times")
     private List<String> bookedTimes;
 
+
     // Constructors
     public InstaSlot() {}
-    public InstaSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, double price, int maxDurationHours, double overStayCharge) {
+    public InstaSlot(String slotId, String location, String managerId,String lotType, String locationName, boolean isAvailable, double price, int maxDurationHours, double overStayCharge) {
         super(slotId, location, managerId, lotType, locationName, isAvailable);
         this.price = price;
         this.maxDurationHours = maxDurationHours;
         this.overStayCharge = overStayCharge;
+        this.lotType= "insta";
         this.bookedTimes = new ArrayList<>();
     }
 
@@ -37,6 +39,8 @@ public class InstaSlot extends ParkingSlot {
     public void setOverStayCharge(double overStayCharge) {this.overStayCharge = overStayCharge;}
 
     public List<String> getBookedTimes() {return bookedTimes;}
+
+
     public void setBookedTimes(List<String> bookedTimes) {this.bookedTimes = bookedTimes;}
 
     // Overrides

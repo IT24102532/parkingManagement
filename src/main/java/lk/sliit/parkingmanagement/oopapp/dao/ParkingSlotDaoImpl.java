@@ -7,6 +7,8 @@ import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -68,6 +70,18 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
 
     @Override
     public void create(ParkingSlot object) throws Exception {
+
+
+        try{
+
+            slotJsonHelper.create(object);
+
+
+        }catch (Exception e){
+            LOGGER.log(Level.SEVERE, "Error saving parking slot");
+            throw new Exception("failed to save parking slot");
+
+        }
 
     }
 

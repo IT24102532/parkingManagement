@@ -11,21 +11,32 @@ public class LongTermSlot extends ParkingSlot {
     private double price;
     @SerializedName("overstay_charge")
     private double overstayCharge;
+
     @SerializedName("bookedDates")
     private List<String> bookedDates;
 
+
     // Constructors
     public LongTermSlot() {}
-    public LongTermSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, double price, double overstayCharge) {
+    public LongTermSlot(String slotId, String location, String managerId, String lotType, String locationName, boolean isAvailable, double price, double overstayCharge) {
         super(slotId, location, managerId, lotType, locationName, isAvailable);
         this.price = price;
         this.overstayCharge = overstayCharge;
+        this.lotType= "long-term";
+
         this.bookedDates = new ArrayList<>();
+    }
+
+    public LongTermSlot(String slotID, String location, boolean b, Double price) {
+
+
+
     }
 
     // Getters and Setters
     public double getPrice() {return price;}
     public void setPrice(double price) {this.price = price;}
+
 
     public double getOverstayCharge() {return overstayCharge;}
     public void setOverstayCharge(double overstayCharge) {this.overstayCharge = overstayCharge;}
