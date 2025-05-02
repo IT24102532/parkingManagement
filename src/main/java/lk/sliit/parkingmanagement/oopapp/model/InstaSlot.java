@@ -18,8 +18,8 @@ public class InstaSlot extends ParkingSlot {
 
     // Constructors
     public InstaSlot() {}
-    public InstaSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, double price, int maxDurationHours, double overStayCharge) {
-        super(slotId, location, managerId, lotType, locationName, isAvailable);
+    public InstaSlot(String location, String managerId, boolean lotType, String locationName, boolean isAvailable, double price, int maxDurationHours, double overStayCharge) {
+        super(location, managerId, lotType, locationName, isAvailable);
         this.price = price;
         this.maxDurationHours = maxDurationHours;
         this.overStayCharge = overStayCharge;
