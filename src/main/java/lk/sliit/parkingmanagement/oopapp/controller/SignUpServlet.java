@@ -11,6 +11,7 @@ import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -64,10 +65,10 @@ public class SignUpServlet extends HttpServlet {
                 String cardHolder = request.getParameter("cardHolder");
                 String cardNumber = request.getParameter("cardNumber");
                 String expiry = request.getParameter("expiry");
-                int cvv = Integer.parseInt(request.getParameter("cvv"));
+                String cardType = request.getParameter("cardType");
 
                 // Create payment details
-                PaymentDetails paymentDetails = new PaymentDetails(cardHolder, cardNumber, expiry, cvv);
+                PaymentDetails paymentDetails = new PaymentDetails(cardHolder, expiry, cardType, cardNumber);
 
                 // Create vehicle details
                 String carType = (String) session.getAttribute("carType");
@@ -93,7 +94,6 @@ public class SignUpServlet extends HttpServlet {
                 try {
                     userDao.create(customer);
                     session.setAttribute("user", customer.getUserId());
-                    session.setAttribute();
                     response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, "Failed to create user", e);

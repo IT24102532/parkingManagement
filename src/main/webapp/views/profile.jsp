@@ -16,13 +16,13 @@
     <title>park.me | @me</title>
 </head>
 <body>
-<h1>User Details</h1>
-<p>Username: ${user.username}</p>
-<p>Email: ${user.email}</p>
-<p>User Type: ${user.user_type}</p>
-<p>Car Type: ${user.carType}</p>
-<p>License Plate: ${user.licensePlate}</p>
-<p>Card Number: ${user.paymentDetails.cardNumber}</p>
-<p>Expiry Date: ${user.paymentDetails.expiry}</p>
+<h1>User Details : ${user}</h1>
+<p>Username: </p>
+<p>Email: </p>
+<p>User Type: </p>
+<p>Car Type: </p>
+<p>License Plate: </p>
+<p>Card Number: </p>
+<p>Expiry Date: </p>
 </body>
 </html>

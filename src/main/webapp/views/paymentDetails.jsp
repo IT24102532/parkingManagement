@@ -30,6 +30,14 @@
             <input type="text" id="cardHolder" name="cardHolder" required
                    class="input" placeholder="John Doe">
 
+            <label for="cardType">card provider</label>
+            <select id="cardType" name="cardType" class="input">
+                <option value="Master">Master</option>
+                <option value="Visa">Visa</option>
+                <option value="American Express">American Express</option>
+                <option value="Other">Other</option>
+            </select>
+
             <label for="cardNumber">card number</label>
             <input type="text" id="cardNumber" name="cardNumber" required
                    class="input" placeholder="1234 5678 9012 3456">

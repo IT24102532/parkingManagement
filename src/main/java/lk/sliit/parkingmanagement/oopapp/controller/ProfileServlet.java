@@ -8,32 +8,30 @@ import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
 public class ProfileServlet extends HttpServlet {
     private final UserDao userDao = new UserDaoImpl();
+    private final Logger LOGGER = Logger.getLogger(ProfileServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-        String userId = (String) session.getAttribute("user");
-        User user = null;
+        String userId = (String) request.getSession(false).getAttribute("user");
         try {
-            user = userDao.getById(userId);
+            User user = userDao.getById(userId);
+            System.out.println(user);
+            if (user == null) {
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            LOGGER.log(Level.SEVERE, "Cannot retrieve user", e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong");
         }
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

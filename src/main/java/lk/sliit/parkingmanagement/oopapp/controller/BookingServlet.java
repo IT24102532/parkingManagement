@@ -20,13 +20,7 @@ public class BookingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-
-        if (session != null && session.getAttribute("user") != null) {
-            request.getRequestDispatcher("/views/booking.jsp").forward(request, response);
-            return;
-        }
-        request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/booking.jsp").forward(request, response);
     }
 
     @Override
