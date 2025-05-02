@@ -92,8 +92,9 @@ public class SignUpServlet extends HttpServlet {
 
                 try {
                     userDao.create(customer);
-                    session.setAttribute("user", customer);
-                    request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+                    session.setAttribute("user", customer.getUserId());
+                    session.setAttribute();
+                    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
                 } catch (Exception e) {
                     LOGGER.log(Level.SEVERE, "Failed to create user", e);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save customer.");

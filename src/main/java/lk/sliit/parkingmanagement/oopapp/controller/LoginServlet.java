@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.DefaultUserValidater;
+import lk.sliit.parkingmanagement.oopapp.utils.SessionValidater;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,35 +19,15 @@ import java.util.logging.Logger;
 public class LoginServlet extends HttpServlet {
     // Private Initialization
     private static final Logger LOGGER = Logger.getLogger(LoginServlet.class.getName());
-
+    private final SessionValidater sessionValidater = new DefaultUserValidater();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // User validation
-        HttpSession session = request.getSession(false);
-        boolean isValid = false;
-
-        if (session != null) {
-            Object user = session.getAttribute("user");
-            Object timeout = session.getAttribute("timeout");
-
-            if (user != null && timeout != null) {
-                try {
-                    LocalDateTime currentTimeout = LocalDateTime.parse(timeout.toString());
-                    LocalDateTime now = LocalDateTime.now();
-
-                    if (currentTimeout.isBefore(now)) {isValid = true;}
-                }
-                catch (Exception e) {
-                    LOGGER.log(Level.SEVERE, "Error parsing session timeout", e);
-                }
-            }
-            if (isValid) {
-                response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
-            }
-            else {
-                request.getRequestDispatcher("/views/login.jsp").forward(request, response);
-            }
+        if (!sessionValidater.validateSession(request)) {
+            sessionValidater.handleInvalidate(request, response);
+            return;
         }
+        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
     }
 
     @Override
