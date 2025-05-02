@@ -8,6 +8,8 @@ import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,8 +50,8 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         assert user != null;
-        session.setAttribute("user", user.getUserId());
+        String userId = user.getUserId();
         System.out.println(user.getUserId());
-        response.sendRedirect(request.getContextPath() + "/profile");
+        response.sendRedirect(request.getContextPath() + "/dashboard.jsp?user=" + URLEncoder.encode(userId, StandardCharsets.UTF_8));
     }
 }
