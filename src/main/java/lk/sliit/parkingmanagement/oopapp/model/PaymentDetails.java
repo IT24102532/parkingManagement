@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class PaymentDetails {
     // Attributes
@@ -24,8 +25,8 @@ public class PaymentDetails {
 
     // Constructors
     public PaymentDetails() {}
-    public PaymentDetails(String cardId, String holderName, String expiryDate, String cardType, int cardNumber) {
-        this.cardId = cardId;
+    public PaymentDetails(String holderName, String expiryDate, String cardType, int cardNumber) {
+        this.cardId = UUID.randomUUID().toString();
         this.holderName = holderName;
         this.expiryDate = expiryDate;
         this.cardType = cardType;

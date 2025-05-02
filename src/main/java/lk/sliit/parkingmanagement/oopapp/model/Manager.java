@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Manager {
     // Attributes
@@ -19,8 +20,8 @@ public class Manager {
     // Constructors
     public Manager() {}
 
-    public Manager(String managerId, double commisionPrec) {
-        this.managerId = managerId;
+    public Manager(double commisionPrec) {
+        this.managerId = UUID.randomUUID().toString();
         this.commisionPrec = commisionPrec;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
