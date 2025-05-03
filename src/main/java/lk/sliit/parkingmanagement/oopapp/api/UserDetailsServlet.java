@@ -9,6 +9,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
+import lk.sliit.parkingmanagement.oopapp.dto.UserDTO;
+import lk.sliit.parkingmanagement.oopapp.model.Customer;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.LocalDateTimeAdapter;
 
@@ -38,7 +40,21 @@ public class UserDetailsServlet extends HttpServlet {
                 .setPrettyPrinting()
                 .create();
 
-        String gsonRes = gson.toJson(user);
+        UserDTO userDTO = new UserDTO();
+        assert user != null;
+        userDTO.setF_name(user.getFirstName());
+        userDTO.setL_name(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setUser_uuid(user.getUserId());
+
+        if (user instanceof Customer) {
+            Customer customer = (Customer) user;
+            userDTO.setVehicle(customer.getVehicle());
+            userDTO.setPaymentDetails(customer.getPaymentDetails());
+        }
+
+
+        String gsonRes = gson.toJson(userDTO);
 
         response.setContentType("application/json");
         response.getWriter().write(gsonRes);
