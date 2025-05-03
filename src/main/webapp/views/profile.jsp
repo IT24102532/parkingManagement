@@ -20,27 +20,32 @@
     <title>park.me | @me</title>
 </head>
 <body>
+<input type="hidden" id="userId" value="${user}">
 <div class="container">
     <div class="sidebar">
         <%--        dashboard icon--%>
-        <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" class="dash-icon">
-            <rect width="11" height="14" rx="3" fill="#F1D521"/>
-            <rect x="13" y="12" width="11" height="14" rx="3" fill="#F1D521"/>
-            <rect x="13" width="11" height="9" rx="3" fill="#EADFF9"/>
-            <rect y="17" width="11" height="9" rx="3" fill="#EADFF9"/>
-        </svg>
+            <a href="./dashboard">
+                <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" class="dash-icon">
+                    <rect width="11" height="14" rx="3" fill="#F1D521"/>
+                    <rect x="13" y="12" width="11" height="14" rx="3" fill="#F1D521"/>
+                    <rect x="13" width="11" height="9" rx="3" fill="#EADFF9"/>
+                    <rect y="17" width="11" height="9" rx="3" fill="#EADFF9"/>
+                </svg>
+            </a>
         <%--        user icon--%>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="user-icon">
-            <g clip-path="url(#clip0_200_1350)">
-                <path d="M12 12C13.1867 12 14.3467 11.6481 15.3334 10.9888C16.3201 10.3295 17.0892 9.39246 17.5433 8.2961C17.9974 7.19975 18.1162 5.99335 17.8847 4.82946C17.6532 3.66558 17.0818 2.59648 16.2426 1.75736C15.4035 0.918247 14.3344 0.346802 13.1705 0.115291C12.0067 -0.11622 10.8003 0.00259972 9.7039 0.456726C8.60754 0.910851 7.67047 1.67989 7.01118 2.66658C6.35189 3.65328 6 4.81331 6 6C6.00159 7.59081 6.63424 9.11602 7.75911 10.2409C8.88399 11.3658 10.4092 11.9984 12 12ZM12 2C12.7911 2 13.5645 2.2346 14.2223 2.67412C14.8801 3.11365 15.3928 3.73836 15.6955 4.46927C15.9983 5.20017 16.0775 6.00444 15.9231 6.78036C15.7688 7.55629 15.3878 8.26902 14.8284 8.82843C14.269 9.38784 13.5563 9.7688 12.7804 9.92314C12.0044 10.0775 11.2002 9.99827 10.4693 9.69552C9.73836 9.39277 9.11365 8.88008 8.67412 8.22228C8.2346 7.56449 8 6.79113 8 6C8 4.93914 8.42143 3.92172 9.17157 3.17158C9.92172 2.42143 10.9391 2 12 2V2Z" fill="#374957"/>
-                <path d="M12 14.0005C9.61386 14.0031 7.32622 14.9522 5.63896 16.6395C3.95171 18.3267 3.00265 20.6144 3 23.0005C3 23.2657 3.10536 23.5201 3.29289 23.7076C3.48043 23.8951 3.73478 24.0005 4 24.0005C4.26522 24.0005 4.51957 23.8951 4.70711 23.7076C4.89464 23.5201 5 23.2657 5 23.0005C5 21.144 5.7375 19.3635 7.05025 18.0507C8.36301 16.738 10.1435 16.0005 12 16.0005C13.8565 16.0005 15.637 16.738 16.9497 18.0507C18.2625 19.3635 19 21.144 19 23.0005C19 23.2657 19.1054 23.5201 19.2929 23.7076C19.4804 23.8951 19.7348 24.0005 20 24.0005C20.2652 24.0005 20.5196 23.8951 20.7071 23.7076C20.8946 23.5201 21 23.2657 21 23.0005C20.9974 20.6144 20.0483 18.3267 18.361 16.6395C16.6738 14.9522 14.3861 14.0031 12 14.0005V14.0005Z" fill="#374957"/>
-            </g>
-            <defs>
-                <clipPath id="clip0_200_1350">
-                    <rect width="24" height="24" fill="white"/>
-                </clipPath>
-            </defs>
-        </svg>
+            <a href="./profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="user-icon">
+                    <g clip-path="url(#clip0_200_1350)">
+                        <path d="M12 12C13.1867 12 14.3467 11.6481 15.3334 10.9888C16.3201 10.3295 17.0892 9.39246 17.5433 8.2961C17.9974 7.19975 18.1162 5.99335 17.8847 4.82946C17.6532 3.66558 17.0818 2.59648 16.2426 1.75736C15.4035 0.918247 14.3344 0.346802 13.1705 0.115291C12.0067 -0.11622 10.8003 0.00259972 9.7039 0.456726C8.60754 0.910851 7.67047 1.67989 7.01118 2.66658C6.35189 3.65328 6 4.81331 6 6C6.00159 7.59081 6.63424 9.11602 7.75911 10.2409C8.88399 11.3658 10.4092 11.9984 12 12ZM12 2C12.7911 2 13.5645 2.2346 14.2223 2.67412C14.8801 3.11365 15.3928 3.73836 15.6955 4.46927C15.9983 5.20017 16.0775 6.00444 15.9231 6.78036C15.7688 7.55629 15.3878 8.26902 14.8284 8.82843C14.269 9.38784 13.5563 9.7688 12.7804 9.92314C12.0044 10.0775 11.2002 9.99827 10.4693 9.69552C9.73836 9.39277 9.11365 8.88008 8.67412 8.22228C8.2346 7.56449 8 6.79113 8 6C8 4.93914 8.42143 3.92172 9.17157 3.17158C9.92172 2.42143 10.9391 2 12 2V2Z" fill="#374957"/>
+                        <path d="M12 14.0005C9.61386 14.0031 7.32622 14.9522 5.63896 16.6395C3.95171 18.3267 3.00265 20.6144 3 23.0005C3 23.2657 3.10536 23.5201 3.29289 23.7076C3.48043 23.8951 3.73478 24.0005 4 24.0005C4.26522 24.0005 4.51957 23.8951 4.70711 23.7076C4.89464 23.5201 5 23.2657 5 23.0005C5 21.144 5.7375 19.3635 7.05025 18.0507C8.36301 16.738 10.1435 16.0005 12 16.0005C13.8565 16.0005 15.637 16.738 16.9497 18.0507C18.2625 19.3635 19 21.144 19 23.0005C19 23.2657 19.1054 23.5201 19.2929 23.7076C19.4804 23.8951 19.7348 24.0005 20 24.0005C20.2652 24.0005 20.5196 23.8951 20.7071 23.7076C20.8946 23.5201 21 23.2657 21 23.0005C20.9974 20.6144 20.0483 18.3267 18.361 16.6395C16.6738 14.9522 14.3861 14.0031 12 14.0005V14.0005Z" fill="#374957"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_200_1350">
+                            <rect width="24" height="24" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
         <%--    bookings icon--%>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="bookings-icon">
             <g clip-path="url(#clip0_200_1351)">
@@ -75,7 +80,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                     new booking</button>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                <img class="profile-btn" src="https://avatar.iran.liara.run/username?username=samantha" alt="user image">
+                <img class="profile-btn" src="https://avatar.iran.liara.run/public/boy" alt="user image">
             </div>
         </div>
         <div class="user-dashboard-content">
@@ -100,7 +105,7 @@
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td><span id="email"></span> samantha@example.com</td>
+                            <td><span id="email">samantha@example.com</span> </td>
                         </tr>
                         <tr>
                             <td>Password</td>
@@ -108,11 +113,11 @@
                         </tr>
                         <tr>
                             <td>Vehicle Type</td>
-                            <td><span id="vehicleType"></span> Sedan</td>
+                            <td><span id="vehicleType"> Sedan</span></td>
                         </tr>
                         <tr>
                             <td>Vehicle Registration</td>
-                            <td><span id="regNum"></span> ABC-1234</td>
+                            <td><span id="regNum">ABC-1234</span></td>
                         </tr>
                         </tbody>
                     </table>

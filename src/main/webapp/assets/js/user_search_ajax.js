@@ -1,19 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get("user");
-    let query = "/getuser?user=" + encodeURIComponent(userId);
 
-    let username = document.getElementById("username").value;
-    let fname = document.getElementById("fname").value;
-    let lname = document.getElementById("lname").value;
-    let email = document.getElementById("email").value;
-    let user = username;
-
+    const userId = document.getElementById("userId").value;
+    let query = `/getuser?user=${encodeURIComponent(userId)}`;
 
     fetch(query)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw Error("Api Error");
+            return response.json();
+        })
         .then(data => {
             console.log("Fetched user:", data);
-            // use the data here
-        });
+            document.getElementById("username").innerText = "@" + data.f_name + data.l_name;
+            document.getElementById("fname").innerText = data.f_name;
+            document.getElementById("lname").innerText = data.l_name;
+            document.getElementById("email").innerText = data.email;
+            document.getElementById("vehicleType").innerText = data.VehicleDetails.vehicle_type;
+            document.getElementById("regNum").innerText = data.VehicleDetails.reg_state + data.VehicleDetails.reg_number;
+        })
+        .catch(err => console.log("Fetch failed", err));
 });

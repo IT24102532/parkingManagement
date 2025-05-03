@@ -1,4 +1,4 @@
-package lk.sliit.parkingmanagement.oopapp.controller;
+package lk.sliit.parkingmanagement.oopapp.routing;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -18,17 +18,11 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = (String) request.getSession(false).getAttribute("user");
+        HttpSession session = request.getSession(false);
+        String userId = (String) session.getAttribute("user");
         try {
-            User user = userDao.getById(userId);
-            System.out.println(user);
-            if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/login");
-                return;
-            }
-            request.setAttribute("user", user);
+            request.setAttribute("user", userId);
             request.getRequestDispatcher("/views/profile.jsp").forward(request, response);
-
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Cannot retrieve user", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong");
