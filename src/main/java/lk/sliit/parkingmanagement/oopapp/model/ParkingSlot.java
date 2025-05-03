@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ParkingSlot {
     // Attributes
@@ -26,8 +27,8 @@ public class ParkingSlot {
 
     // Constructors
     public ParkingSlot() {}
-    public ParkingSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable) {
-        this.slotId = slotId;
+    public ParkingSlot(String location, String managerId, boolean lotType, String locationName, boolean isAvailable) {
+        this.slotId = UUID.randomUUID().toString();
         this.location = location;
         this.managerId = managerId;
         this.lotType = lotType;

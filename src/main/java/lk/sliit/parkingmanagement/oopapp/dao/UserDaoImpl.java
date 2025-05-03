@@ -60,7 +60,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(String id) throws Exception {
-        return null;
+        try {
+            return userJsonHelper.findOne(u -> u.getUserId().equals(id));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error finding User by ID: " + id, e);
+            return null;
+        }
     }
 
     @Override

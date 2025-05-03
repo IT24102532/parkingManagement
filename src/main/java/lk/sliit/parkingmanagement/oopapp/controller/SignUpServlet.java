@@ -11,12 +11,16 @@ import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
     private final UserDao userDao = new UserDaoImpl();
+    private final Logger LOGGER = Logger.getLogger(SignUpServlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,20 +65,18 @@ public class SignUpServlet extends HttpServlet {
                 String cardHolder = request.getParameter("cardHolder");
                 String cardNumber = request.getParameter("cardNumber");
                 String expiry = request.getParameter("expiry");
-                int cvv = Integer.parseInt(request.getParameter("cvv"));
+                String cardType = request.getParameter("cardType");
 
                 // Create payment details
-                String paymentUuid = UUID.randomUUID().toString();
-                PaymentDetails paymentDetails = new PaymentDetails(paymentUuid, cardHolder, cardNumber, expiry, cvv);
+                PaymentDetails paymentDetails = new PaymentDetails(cardHolder, expiry, cardType, cardNumber);
 
                 // Create vehicle details
-                String vehicleUuid = UUID.randomUUID().toString();
                 String carType = (String) session.getAttribute("carType");
                 String regLocation = (String) session.getAttribute("regLocation");
                 String regState = (String) session.getAttribute("regState");
                 String licensePlate = (String) session.getAttribute("licensePlate");
 
-                Vehicle vehicle = new Vehicle(vehicleUuid, carType, regLocation, regState, licensePlate);
+                Vehicle vehicle = new Vehicle(carType, regLocation, regState, licensePlate);
 
                 // Create customer object
                 Customer customer = new Customer(
@@ -91,15 +93,15 @@ public class SignUpServlet extends HttpServlet {
 
                 try {
                     userDao.create(customer);
-                    session.setAttribute("user", customer);
-                    request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
+                    session.setAttribute("user", customer.getUserId());
+                    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/profile"));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.SEVERE, "Failed to create user", e);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save customer.");
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Something went wrong", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong.");
         }
     }

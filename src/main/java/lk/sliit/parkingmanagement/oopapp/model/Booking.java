@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Booking {
     // Attributes
@@ -29,8 +30,8 @@ public class Booking {
 
     // Constructors
     public Booking() {}
-    public Booking(String bookingId, String slotId, boolean isOccupied, boolean isOverStayed, LocalDateTime startDateTime) {
-        this.bookingId = bookingId;
+    public Booking(String slotId, boolean isOccupied, boolean isOverStayed, LocalDateTime startDateTime) {
+        this.bookingId = UUID.randomUUID().toString();
         this.slotId = slotId;
         this.isOccupied = isOccupied;
         this.isOverStayed = isOverStayed;

@@ -1,20 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="/assets/images/site.webmanifest">
 
-    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="/assets/css/checkout.css">
 
     <title>park.me | continue →</title>
 </head>
 <body>
 <div class="container">
     <div class="left">
-        <img class="logo" src="${pageContext.request.contextPath}/images/logo_purple.png" alt="logo">
-        <img class="bg-img" src="${pageContext.request.contextPath}/images/bg3.jpg" alt="Car">
+        <img class="logo" src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="logo">
+        <img class="bg-img" src="${pageContext.request.contextPath}/assets/images/bg3.jpg" alt="Car">
     </div>
     <div class="right">
         <div class="payment-section">
