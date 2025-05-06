@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 // Add filters to paths that needs to be validated
-@WebFilter(urlPatterns = { "/profile", "/dashboard", "/admin/*" })
+@WebFilter(urlPatterns = { "/profile", "/dashboard", "/admin/*" ,"/search" })
 public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {

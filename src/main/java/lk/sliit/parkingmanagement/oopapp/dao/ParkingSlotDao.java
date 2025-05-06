@@ -8,4 +8,5 @@ import java.util.List;
 public interface ParkingSlotDao extends DAO<ParkingSlot> {
     List<ParkingSlot> getAllSlotsByLocation(String location);
     List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate, String location);
+    List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate);
 }

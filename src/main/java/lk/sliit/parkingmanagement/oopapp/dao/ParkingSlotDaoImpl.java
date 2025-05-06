@@ -6,6 +6,7 @@ import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,14 +33,29 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
     @Override
     public List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate, String location) {
         try {
-            return this.getAllSlotsByLocation(location).stream()
-                    .filter(ParkingSlot::isAvailable)
-                    .filter(slot -> isSlotAvailable((LongTermSlot) slot, startDate, endDate))
+            return findAll().stream()
+                    .filter(slot -> slot instanceof LongTermSlot)
+                    .map(slot -> (LongTermSlot) slot)
+                    .filter(LongTermSlot::isAvailable)
+                    .filter(slot -> isSlotAvailable(slot, startDate, endDate))
                     .collect(Collectors.toList());
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error getting available long-term slots by dates", ex);
+            return Collections.emptyList();
         }
-        catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "Error finding locations @getAvailableSlotsByDates", ex);
-            return null;
+    }
+
+    @Override
+    public List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate) {
+        try {
+            return findAll().stream()
+                    .filter(slot -> slot instanceof LongTermSlot && slot.isAvailable())
+                    .map(slot -> (LongTermSlot) slot)
+                    .filter(slot -> isSlotAvailable(slot, startDate, endDate))
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error getting available long-term slots by dates", ex);
+            return Collections.emptyList();
         }
     }
 
