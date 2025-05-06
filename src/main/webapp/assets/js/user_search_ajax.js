@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const userId = document.getElementById("userId").value;
-    let query = `/getuser?user=${encodeURIComponent(userId)}`;
+    let query = `/get/user?user=${encodeURIComponent(userId)}`;
 
     fetch(query)
         .then(response => {

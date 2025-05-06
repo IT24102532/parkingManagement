@@ -13,6 +13,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
     <link rel="manifest" href="../assets/images/site.webmanifest">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+
     <link rel="stylesheet" href="../assets/css/dual_container_global.css">
     <link rel="stylesheet" href="assets/css/floatingbutton.css">
     <link rel="stylesheet" href="../assets/css/search.css">
@@ -20,34 +23,66 @@
     <title>park.me | search</title>
 </head>
 <body>
-
+<input type="hidden" id="userId" value="${user}">
 <div class="container">
     <div class="left">
         <img class="logo" src="${pageContext.request.contextPath}assets/images/logo_purple.png" alt="logo">
         <img class="bg-img" src="${pageContext.request.contextPath}assets/images/bg3.jpg" alt="Car">
     </div>
     <div class="right">
-        <h1 class="title">sign in</h1>
-        <form name="LoginForm"  action="login" method="post" class="login-form">
-            <label for="email">email</label>
-            <input class="input email-input" type="email" id="email" name="email" placeholder="example@email.com">
+        <h1 class="title">find a long term spot</h1>
+        <form name="SearchForm"  action="search" method="post" class="search-form">
+            <label for="startDate">when do you want it?</label>
+            <input class="input startDate-input" type="text" id="startDate" name="startDate" placeholder="Start Date & Time">
 
-            <label for="password">password</label>
-            <input class="input pw-input" type="password" id="password" name="password">
-            <a class="forgot-pw" href="">forgot password?</a>
+            <label for="endDate">low long do you want it?</label>
+            <input class="input endDate-input" type="text" id="endDate" name="endDate" placeholder="End Date & Time">
+
+            <label for="vehicleSelect">what vehicle will you leave behind?</label>
+            <select id="vehicleSelect" name="vehicle" required class="input" style="margin-bottom: 20px">
+                <option disabled selected value="">Select a vehicle</option>
+            </select>
+
+            <label for="locationSelect">where do you want us to search?</label>
+            <select id="locationSelect" name="location" required class="input" style="margin-bottom: 20px">
+                <option disabled selected value="">Select a location</option>
+            </select>
 
             <input class="form-btn" type="submit" value="continue">
+            <input class="sec-btn" type="submit" value="looking for insta?">
         </form>
-        <div class="other-options">
-            <p class="register">don't have an account?</p>
-            <p class="register-icon">
-                <span>
-                    <img src="${pageContext.request.contextPath}assets/images/fi-rr-user.svg" alt="">
-                </span>
-                <a href="../views/signup.jsp">register</a>
-            </p>
-        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userId = document.getElementById("user");
+        const vehiclDropdown = document.getElementById("vehicleSelect");
+        const locationSelect = document.getElementById("locationSelect");
+
+        fetch("/get/vehicle${encodeURIComponent(userId)}")
+            .then(response => {
+                if (!response.ok) throw Error("Api Error");
+                return response.json();
+            })
+            .then(data => {
+                console.log("Fetched vehicle:", data);
+                vehiclDropdown.append(data.vehicle_type);
+            })
+            .catch(err => console.log("Fetch failed", err));
+    })
+
+    flatpickr("#startDate", {
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        minDate: "today"
+    });
+
+    flatpickr("#endDate", {
+        enableTime: true,
+        dateFormat: "d/m/Y H:i",
+        minDate: "today"
+    });
+</script>
 </body>
 </html>
