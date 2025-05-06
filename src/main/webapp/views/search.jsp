@@ -40,12 +40,12 @@
 
             <label for="vehicleSelect">what vehicle will you leave behind?</label>
             <select id="vehicleSelect" name="vehicle" required class="input" style="margin-bottom: 20px">
-                <option disabled selected value="">Select a vehicle</option>
+                <option selected value="">Select a vehicle</option>
             </select>
 
             <label for="locationSelect">where do you want us to search?</label>
             <select id="locationSelect" name="location" required class="input" style="margin-bottom: 20px">
-                <option disabled selected value="">Select a location</option>
+                <option selected value="">Select a location</option>
             </select>
 
             <input class="form-btn" type="submit" value="continue">
@@ -54,24 +54,8 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/search_data_ajax.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const userId = document.getElementById("user");
-        const vehiclDropdown = document.getElementById("vehicleSelect");
-        const locationSelect = document.getElementById("locationSelect");
-
-        fetch("/get/vehicle${encodeURIComponent(userId)}")
-            .then(response => {
-                if (!response.ok) throw Error("Api Error");
-                return response.json();
-            })
-            .then(data => {
-                console.log("Fetched vehicle:", data);
-                vehiclDropdown.append(data.vehicle_type);
-            })
-            .catch(err => console.log("Fetch failed", err));
-    })
-
     flatpickr("#startDate", {
         enableTime: true,
         dateFormat: "d/m/Y H:i",
