@@ -19,7 +19,7 @@ public class Booking {
     private LocalTime checkInTime;
     @SerializedName("checkoutTime")
     private LocalDateTime checkOutTime;
-    @SerializedName("getOccupied")
+    @SerializedName("isOccupied")
     private boolean isOccupied;
     @SerializedName("isOverStayed")
     private boolean isOverStayed;
