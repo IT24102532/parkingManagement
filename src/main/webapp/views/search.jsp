@@ -53,8 +53,19 @@
         </form>
     </div>
 </div>
+<button class="floating-button" id="menu-toggle">
+    <img src="${pageContext.request.contextPath}assets/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
+</button>
+<div class="menu" id="menu">
+    <button onclick="location.href='./dashboard'">dashboard</button>
+    <button onclick="location.href='./search'">search</button>
+    <button onclick="location.href='./insta'">insta</button>
+    <button onclick="location.href='./profile'">profile</button>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/search_data_ajax.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/hover-menu.js"></script>
+
 <script>
     flatpickr("#startDate", {
         enableTime: true,

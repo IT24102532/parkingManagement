@@ -73,7 +73,7 @@
                 <h1 class="title">welcome back <span id="username"></span></h1>
             </div>
             <div class="action-right">
-                <button class="new-book-btn">
+                <button class="new-book-btn" id="newBookBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                     new booking</button>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -146,6 +146,12 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("newBookBtn").addEventListener("click", () => {
+            console.log("Button clicked!")
+            window.location.href = "./search";
+        });
+    </script>
 </div>
 </body>
 </html>
