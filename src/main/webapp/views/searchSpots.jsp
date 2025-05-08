@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label for="location">location</label>
-                <div class="select-wrapper">
+                <div >
                     <select id="location" name="location" class="input">
                         <option value="" selected disabled hidden>Select location</option>
                         <option value="downtown">Downtown</option>
