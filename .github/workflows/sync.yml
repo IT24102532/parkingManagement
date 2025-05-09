@@ -24,8 +24,17 @@ jobs:
 
       - name: Merge to Feature Branches
         run: |
+          git fetch origin
+          git checkout master
+          git pull origin master
+          
           for branch in member/kavindu member/dilnaka member/geenuth member/rayon member/venul member/savina; do
+            echo "Processing $branch"
             git checkout $branch
-            git merge master || true
+            git pull origin $branch
+            git merge master || (echo "Conflict in $branch" && git merge --abort && continue)
+            git commit -am "Sync with master" || echo "No changes to commit in $branch"
             git push origin $branch
+            git reset --hard
+            git clean -fd
           done
