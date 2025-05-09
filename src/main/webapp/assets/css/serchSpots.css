@@ -1,0 +1,127 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+
+    background-color: #fefefe;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT PANEL */
+.container .left {
+    background-color: #FFD700;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.container .left h1 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-group label{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 10px;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+.search-btn {
+    background-color: white;
+    color: #333;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #eee;
+}
+
+/* RIGHT PANEL */
+.container .right {
+    background-color: #ffffff;
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .right h1 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.match-box {
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    margin: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.match-box span {
+    display: block;
+    font-size: 12px;
+    color: green;
+}
+
+.select-btn {
+    background-color: #FFD700;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    width:350px
+}
+
+.select-btn:hover {
+    background-color: #e5bf00;
+}
