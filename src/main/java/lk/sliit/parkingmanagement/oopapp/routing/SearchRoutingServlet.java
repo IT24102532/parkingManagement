@@ -18,7 +18,7 @@ public class SearchRoutingServlet extends HttpServlet {
         String userId = (String) session.getAttribute("user");
         try {
             request.setAttribute("user", userId);
-            request.getRequestDispatcher("/views/search.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/k_search.jsp").forward(request, response);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Cannot retrieve user", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong");
