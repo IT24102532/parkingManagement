@@ -119,6 +119,7 @@ body, html {
     color: black;
     margin-top: 15px;
     transition: background-color 0.3s;
+    width:350px
 }
 
 .select-btn:hover {

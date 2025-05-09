@@ -38,14 +38,11 @@
             </div>
 
             <div class="form-group">
-                <label for="location">location</label>
+                <label for="locations">location</label>
                 <div >
-                    <select id="location" name="location" class="input">
+                    <select id="locations" name="locations" class="input">
                         <option value="" selected disabled hidden>Select location</option>
-                        <option value="downtown">Downtown</option>
-                        <option value="airport">Airport</option>
-                        <option value="suburbs">Suburbs</option>
-                        <option value="mall">Shopping Mall</option>
+
                     </select>
                 </div>
             </div>
@@ -73,5 +70,18 @@
 
     </div>
 </div>
+<script >
+
+    const locationDropdown =     document.getElementById("locations")
+    fetch("/oopApp_war_exploded/findlocations")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(loc => {
+                let option = new Option(loc.name, loc.id);
+                locationDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Error fetching locations:", error));
+</script>
 </body>
 </html>

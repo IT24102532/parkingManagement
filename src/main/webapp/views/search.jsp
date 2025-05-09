@@ -7,6 +7,8 @@
     <title>Park.me - Search </title>
     <link rel="stylesheet" href="../assets/css/dual_container_global.css">
     <link rel="stylesheet" href="../assets/css/form_group.css">
+
+
 </head>
 <body>
 <div class="container">
@@ -42,14 +44,11 @@
             </div>
 
             <div class="form-group">
-                <label for="location">location</label>
+                <label for="locations">location</label>
                 <div class="select-wrapper">
-                    <select id="location" name="location" class="input">
+                    <select id="locations" name="locations" class="input">
                         <option value="" selected disabled hidden>Select location</option>
-                        <option value="downtown">Downtown</option>
-                        <option value="airport">Airport</option>
-                        <option value="suburbs">Suburbs</option>
-                        <option value="mall">Shopping Mall</option>
+
                     </select>
                 </div>
             </div>
@@ -58,5 +57,21 @@
         </form>
     </div>
 </div>
+
+<script >
+
+    const locationDropdown =     document.getElementById("locations")
+    fetch("/oopApp_war_exploded/findlocations")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(loc => {
+                let option = new Option(loc.name, loc.id);
+                locationDropdown.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Error fetching locations:", error));
+</script>
+
+
 </body>
 </html>
