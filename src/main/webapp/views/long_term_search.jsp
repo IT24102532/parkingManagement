@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
 
     <link rel="stylesheet" href="../assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="assets/css/floatingbutton.css">
+    <link rel="stylesheet" href="../assets/css/floatingbutton.css">
     <link rel="stylesheet" href="../assets/css/search.css">
 
     <title>park.me | search</title>
@@ -32,6 +32,8 @@
     <div class="right">
         <h1 class="title">find a long term spot</h1>
         <form name="SearchForm"  action="search" method="post" class="search-form">
+            <input type="hidden" name="type" value="long_term">
+
             <label for="startDate">when do you want it?</label>
             <input class="input startDate-input" type="text" id="startDate" name="startDate" placeholder="Start Date & Time">
 
@@ -48,8 +50,8 @@
                 <option selected value="">Select a location</option>
             </select>
 
-            <input class="form-btn" type="submit" value="continue">
-            <input class="sec-btn" type="submit" value="looking for insta?">
+            <input class="form-btn" type="submit" name="action" value="continue" placeholder="continue">
+            <button class="sec-btn" type="submit" name="action" value="insta">looking for insta?</button>
         </form>
     </div>
 </div>

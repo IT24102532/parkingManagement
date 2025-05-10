@@ -1,6 +1,7 @@
 package lk.sliit.parkingmanagement.oopapp.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -8,9 +9,12 @@ import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDao;
 import lk.sliit.parkingmanagement.oopapp.dao.ParkingSlotDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
+import lk.sliit.parkingmanagement.oopapp.utils.LocalDateTimeAdapter;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -55,16 +59,18 @@ public class LocationsByDateServlet extends HttpServlet {
                 jsonResponse.add("locations", new Gson().toJsonTree(locationMap));
                 resp.getWriter().write(jsonResponse.toString());
             } else {
+                Gson gson = new GsonBuilder()
+                        .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                        .create();
+
                 List<ParkingSlot> availableSlots = parkingSlotDao.getAvailableSlotsByDates(startDate, endDate, location);
-                System.out.println(availableSlots);
-                List<String> slotIds = availableSlots.stream()
-                        .map(ParkingSlot::getSlotId)
-                        .collect(Collectors.toList());
-                System.out.println(slotIds.size());
+                if (availableSlots.isEmpty()) {
+                    availableSlots = new ArrayList<>();
+                }
                 JsonObject jsonResponse = new JsonObject();
                 jsonResponse.addProperty("success", true);
-                jsonResponse.add("slots", new Gson().toJsonTree(slotIds));
-                resp.getWriter().write(jsonResponse.toString());
+                jsonResponse.add("slots", gson.toJsonTree(availableSlots));
+                resp.getWriter().write(gson.toJson(jsonResponse));
             }
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

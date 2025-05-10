@@ -8,6 +8,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
                     .filter(slot -> slot instanceof LongTermSlot)
                     .map(slot -> (LongTermSlot) slot)
                     .filter(LongTermSlot::isAvailable)
+                    .filter(slot -> slot.getLocation().equalsIgnoreCase(location))
                     .filter(slot -> isSlotAvailable(slot, startDate, endDate))
                     .collect(Collectors.toList());
         } catch (Exception ex) {
@@ -44,6 +46,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
             return Collections.emptyList();
         }
     }
+
 
     @Override
     public List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate) {
@@ -57,6 +60,11 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
             LOGGER.log(Level.SEVERE, "Error getting available long-term slots by dates", ex);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public List getSlotDetails(Map query) {
+       return  slotJsonHelper.findByFields(query);
     }
 
     @Override
