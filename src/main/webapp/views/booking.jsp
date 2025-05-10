@@ -13,6 +13,12 @@
 </head>
 <body>
 <div class="container">
+  <input type="hidden" id="userId" value="${user}">
+  <input type="hidden" id="slotId" value="${slotId}">
+  <input type="hidden" id="startDate" value="${startDate}">
+  <input type="hidden" id="endDate" value="${endDate}">
+  <input type="hidden" id="vehicleId" value="${vehicle}">
+
   <div class="left">
     <img class="logo" src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="logo">
     <img class="bg-img" src="${pageContext.request.contextPath}/assets/images/bg3.jpg" alt="Car">
@@ -20,19 +26,38 @@
   <div class="right">
     <h2 class="title">book your spot</h2>
     <p class="desc">your choice~</p>
-    <table class="booking-details">
-      <tr><td>location</td><td><%= request.getAttribute("location") %></td></tr>
-      <tr><td>type</td><td><%= request.getAttribute("type") %></td></tr>
-      <tr><td>start date</td><td><%= request.getAttribute("startDateTime") %></td></tr>
-      <tr><td>end date</td><td><%= request.getAttribute("endDate") %></td></tr>
-      <tr><td>vehicle</td><td>${user.carType}</td></tr>
-      <tr><td>registration number</td><td>${user.licensePlate}</td></tr>
-    </table>
 
-    <button class="checkout-btn">continue to checkout</button>
-    <button class="change-btn">← find a different choice</button>
-    <p class="info">did you know? <br> for every long duration parking, you get a 2-hour grace period where you're not overcharged for overstaying</p>
+    <form method="post" action="/checkout">
+      <table class="booking-details">
+        <tr><td>location</td><td id="location"></td></tr>
+        <tr><td>type</td><td id="slotType"></td></tr>
+        <tr><td>start date</td><td id="startDateDisplay">${startDate}</td></tr>
+        <tr><td>end date</td><td id="endDateDisplay">${endDate}</td></tr>
+        <tr><td>vehicle</td><td id="vehicleType"></td></tr>
+        <tr><td>registration number</td><td id="registration"></td></tr>
+      </table>
+
+      <!-- Hidden inputs to carry the values to backend -->
+      <input type="hidden" name="location" id="locationInput">
+      <input type="hidden" name="slotType" id="slotTypeInput">
+      <input type="hidden" name="vehicleType" id="vehicleTypeInput">
+      <input type="hidden" name="registration" id="registrationInput">
+      <input type="hidden" name="slotId" value="${slotId}">
+      <input type="hidden" name="userId" value="${user}">
+      <input type="hidden" name="startDate" value="${startDate}">
+      <input type="hidden" name="endDate" value="${endDate}">
+      <input type="hidden" name="vehicleId" value="${vehicle}">
+
+      <button type="submit" class="checkout-btn">continue to checkout</button>
+    </form>
+
+    <button class="change-btn" onclick="history.back()">← find a different choice</button>
+    <p class="info">
+      did you know? <br> for every long duration parking, you get a 2-hour grace period where you're not overcharged for overstaying
+    </p>
   </div>
 </div>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/booking.js"></script>
 </body>
 </html>

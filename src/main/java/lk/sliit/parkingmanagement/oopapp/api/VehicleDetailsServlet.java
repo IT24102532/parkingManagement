@@ -28,6 +28,7 @@ public class VehicleDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user");
 
+
         User user = null;
         try {
             user = userDao.getById(userId);
