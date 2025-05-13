@@ -51,7 +51,7 @@ public class ParkingSlot {
     public String getManagerId() {return managerId;}
     public void setManagerId(String managerId) {this.managerId = managerId;}
 
-    public String isLotType() {return lotType;}
+    public String getLotType() {return lotType;}
     public void setLotType(String lotType) {this.lotType = lotType;}
 
     public String getLocationName() {return locationName;}

@@ -58,6 +58,17 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+.container .dashboard .action-bar .new-insta-btn {
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  border: none;
+  color: white;
+  background: hsl(250, 100%, 69%);
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 .container .dashboard .action-bar .title {
   font-size: 24px;
   color: #2c3e50;

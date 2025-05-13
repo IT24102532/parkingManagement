@@ -63,6 +63,18 @@
         cursor: pointer;
       }
 
+      .new-insta-btn {
+        padding: 10px 20px;
+        display: flex;
+        gap: 10px;
+        border: none;
+        color: white;
+        background: $global-secondary-strong;
+        border-radius: 5px;
+        box-shadow: $global-box-shadow;
+        cursor: pointer;
+      }
+
       .title {
         font-size: 24px;
         color: #2c3e50;

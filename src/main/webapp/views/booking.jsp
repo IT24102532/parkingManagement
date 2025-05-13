@@ -18,6 +18,7 @@
   <input type="hidden" id="startDate" value="${startDate}">
   <input type="hidden" id="endDate" value="${endDate}">
   <input type="hidden" id="vehicleId" value="${vehicle}">
+  <input type="hidden" id="type" value="${type}">
 
   <div class="left">
     <img class="logo" src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="logo">
@@ -47,6 +48,7 @@
       <input type="hidden" name="startDate" value="${startDate}">
       <input type="hidden" name="endDate" value="${endDate}">
       <input type="hidden" name="vehicleId" value="${vehicle}">
+      <input type="hidden" name="tyoe" value="${type}">
 
       <button type="submit" class="checkout-btn">continue to checkout</button>
     </form>

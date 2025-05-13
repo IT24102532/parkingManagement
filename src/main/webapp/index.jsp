@@ -40,7 +40,7 @@
             <img src="${pageContext.request.contextPath}assets/images/thums_up.png" alt="thumbs up" class="thumbs-up">
             <p class="content-desc">Your car deserves a safe place while you're away. Reserve a spot in seconds and park stress-free</p>
             <button class="btn secondary">find out how it works</button>
-            <button class="btn ctr">get started</button>
+            <button class="btn ctr" id="getStarted">get started</button>
             <img src="${pageContext.request.contextPath}assets/images/excited.svg" alt="thumbs up" class="excited-yellow">
 
         </div>
@@ -49,7 +49,7 @@
             <img src="${pageContext.request.contextPath}assets/images/fi-rs-car.png" alt="Park Me Insta" class="small-car">
             <p class="insta-title"><span style="font-weight: 600">not staying for long?</span>—we got you!</p>
             <p class="insta-desc">coming for a drop by? don’t worry, with our introduced <span style="font-weight: 500; color: hsl(250, 100%, 69%, 100%)">park.me insta</span> , you can park for shorter durations!</p>
-            <button class="btn secondary">get started with insta~</button>
+            <button class="btn secondary" id="instaBtn">get started with insta~</button>
             <img src="${pageContext.request.contextPath}assets/images/stars.svg" alt="Park Me Insta" class="insta-stars">
 
         </div>
@@ -68,5 +68,15 @@
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}assets/js/slideshow.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}assets/js/hover-menu.js"></script>
+<script>
+    document.getElementById("instaBtn").addEventListener("click", () => {
+        console.log("Button clicked!")
+        window.location.href = "./insta";
+    });
+    document.getElementById("getStarted").addEventListener("click", () => {
+        console.log("Button clicked!")
+        window.location.href = "./search";
+    });
+</script>
 </body>
 </html>

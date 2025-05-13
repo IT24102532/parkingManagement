@@ -188,19 +188,19 @@ public class JsonHelper<T> {
                 Field field = findField(entry.getClass(), key);
                 field.setAccessible(true);
 
-                if ("bookedDates".equals(key) && value instanceof List) {
-                    List<?> newDates = (List<?>) value;
+                if ((key.equals("bookedDates") || key.equals("bookedTimes")) && value instanceof List) {
+                    List<?> newValues = (List<?>) value;
                     Object current = field.get(entry);
 
                     if (current instanceof List) {
                         List<Object> currentList = (List<Object>) current;
-                        for (Object date : newDates) {
-                            if (!currentList.contains(date)) {
-                                currentList.add(date);
+                        for (Object val : newValues) {
+                            if (!currentList.contains(val)) {
+                                currentList.add(val);
                             }
                         }
                     } else {
-                        field.set(entry, new ArrayList<>(newDates));
+                        field.set(entry, new ArrayList<>(newValues));
                     }
 
                 } else {
@@ -212,6 +212,7 @@ public class JsonHelper<T> {
             }
         });
     }
+
 
 }
 

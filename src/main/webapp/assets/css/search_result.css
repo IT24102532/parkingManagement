@@ -104,3 +104,22 @@
 .result .btn.continue:active {
   transform: scale(0.98);
 }
+.result .btn.sec-btn {
+  font-family: "Inter", sans-serif;
+  background: #f0f0f0;
+  color: #3a3a3a;
+  padding: 15px 20px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+.result .btn.sec-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}

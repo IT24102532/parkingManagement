@@ -27,81 +27,71 @@ public class BookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("user") == null ||
-                session.getAttribute("slotId") == null ||
-                session.getAttribute("startDate") == null ||
-                session.getAttribute("endDate") == null) {
-            System.out.println("reached session validated and died");
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing session data or user not authenticated.");
-            return;
-        }
+        if (!validateSessionData(session, response)) return;
 
         String userId = (String) session.getAttribute("user");
         String slotId = (String) session.getAttribute("slotId");
         String startDateStr = (String) session.getAttribute("startDate");
         String endDateStr = (String) session.getAttribute("endDate");
-        System.out.println("reached session validated");
-        System.out.println(userId);
-        System.out.println(slotId);
-        System.out.println(startDateStr);
-        System.out.println(endDateStr);
 
-        LocalDate startDate = LocalDate.parse(startDateStr);
-        LocalDate endDate = LocalDate.parse(endDateStr);
-
-        LocalDateTime startTime, endTime;
-        try {
-            startTime = startDate.atStartOfDay();
-            endTime = endDate.atStartOfDay();
-            System.out.println("tried to parse start date and end date");
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Parsing start date and end date failed", e);
-            session.setAttribute("bookingStatus", false);
-            return;
-        }
-        System.out.println("dates worked moving on");
         ParkingSlot slot;
         try {
             slot = parkingSlotDao.getById(slotId);
-            if (!(slot instanceof LongTermSlot)) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Only long-term slots can be booked here.");
-                return;
-            }
-            System.out.println("tried to assing longterm slot and succeeded");
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Failed to fetch parking slot", e);
-            session.setAttribute("bookingStatus", false);
+            sendError(response, HttpServletResponse.SC_NOT_FOUND, "Slot not found.", e);
             return;
         }
-
-        LongTermSlot longTermSlot = (LongTermSlot) slot;
 
         try {
-            boolean isAvailable = parkingSlotDao.getAvailableSlotsByDates(startDate, endDate, longTermSlot.getLocation())
-                    .stream()
-                    .anyMatch(s -> s.getSlotId().equals(slotId));
-
-            if (!isAvailable) {
-                response.sendError(HttpServletResponse.SC_CONFLICT, "Slot is already booked for the selected dates.");
-                return;
+            if (slot instanceof InstaSlot) {
+                handleInstaSlotBooking((InstaSlot) slot, userId, slotId, startDateStr, endDateStr, session, response, request);
+            } else if (slot instanceof LongTermSlot) {
+                handleLongTermSlotBooking((LongTermSlot) slot, userId, slotId, startDateStr, endDateStr, session, response, request);
+            } else {
+                sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Unsupported slot type.");
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error checking slot availability", e);
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.", e);
+        }
+    }
+
+    private boolean validateSessionData(HttpSession session, HttpServletResponse response) throws IOException {
+        if (session == null || session.getAttribute("user") == null ||
+                session.getAttribute("slotId") == null ||
+                session.getAttribute("startDate") == null ||
+                session.getAttribute("endDate") == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing session data or user not authenticated.");
+            return false;
+        }
+        return true;
+    }
+
+    private void handleInstaSlotBooking(InstaSlot slot, String userId, String slotId, String startStr, String endStr, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        LocalDateTime startTime, endTime;
+
+        try {
+            startTime = LocalDateTime.parse(startStr);
+            endTime = LocalDateTime.parse(endStr);
+        } catch (Exception e) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid datetime format.", e);
             session.setAttribute("bookingStatus", false);
             return;
         }
 
-
-        long durationInHours = Duration.between(startTime, endTime).toDays();
-        if (durationInHours <= 0) {
+        if (!endTime.isAfter(startTime)) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "End time must be after start time.");
             session.setAttribute("bookingStatus", false);
             return;
         }
-        System.out.println(durationInHours);
-        double pricePerHour = longTermSlot.getPrice();
-        double totalAmount = pricePerHour * durationInHours;
-        System.out.println(totalAmount);
+
+        if (!isSlotStillAvailable(parkingSlotDao.getAvailableSlotsByHours(startTime, endTime, slot.getLocation()), slotId)) {
+            sendError(response, HttpServletResponse.SC_CONFLICT, "Slot is already booked for the selected time.");
+            session.setAttribute("bookingStatus", false);
+            return;
+        }
+
+        long duration = Duration.between(startTime, endTime).toHours();
+        double totalAmount = slot.getPrice() * duration;
 
         Booking booking = new Booking(slotId, false, false, startTime);
         booking.setTimeOut(endTime);
@@ -110,17 +100,74 @@ public class BookingServlet extends HttpServlet {
         try {
             bookingDao.create(booking);
             transactionDao.create(transaction);
-            parkingSlotDao.updateDates(slotId, startTime.toLocalDate(), endTime.toLocalDate());
+            parkingSlotDao.updateHours(slotId, startTime, endTime);
+            LOGGER.info("Booking " + booking.getBookingId() + " and transaction " + transaction.getTransactionId() + " successfully created");
             session.setAttribute("bookingStatus", true);
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/book/status"));
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error while creating booking or transaction", e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to complete booking.");
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Booking failed.", e);
+            session.setAttribute("bookingStatus", false);
+        }
+    }
+
+    private void handleLongTermSlotBooking(LongTermSlot slot, String userId, String slotId, String startStr, String endStr, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        LocalDate startDate, endDate;
+        try {
+            startDate = LocalDate.parse(startStr);
+            endDate = LocalDate.parse(endStr);
+        } catch (Exception e) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid date format.", e);
             session.setAttribute("bookingStatus", false);
             return;
         }
 
-        LOGGER.info("Booking " + booking.getBookingId() + " successfully created");
-        LOGGER.info("Transaction " + transaction.getTransactionId() + " successfully created");
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/book/status"));
+        LocalDateTime startTime = startDate.atStartOfDay();
+        LocalDateTime endTime = endDate.atStartOfDay();
+
+        if (!endTime.isAfter(startTime)) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "End date must be after start date.");
+            session.setAttribute("bookingStatus", false);
+            return;
+        }
+
+        if (!isSlotStillAvailable(parkingSlotDao.getAvailableSlotsByDates(startDate, endDate, slot.getLocation()), slotId)) {
+            sendError(response, HttpServletResponse.SC_CONFLICT, "Slot is already booked for the selected dates.");
+            session.setAttribute("bookingStatus", false);
+            return;
+        }
+
+        long duration = Duration.between(startTime, endTime).toDays();
+        double totalAmount = slot.getPrice() * duration;
+
+        Booking booking = new Booking(slotId, false, false, startTime);
+        booking.setTimeOut(endTime);
+        Transaction transaction = new Transaction(booking.getBookingId(), userId, totalAmount, 0, true);
+
+        try {
+            bookingDao.create(booking);
+            transactionDao.create(transaction);
+            parkingSlotDao.updateDates(slotId, startDate, endDate);
+            LOGGER.info("Booking " + booking.getBookingId() + " and transaction " + transaction.getTransactionId() + " successfully created");
+            session.setAttribute("bookingStatus", true);
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/book/status"));
+        } catch (Exception e) {
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Booking failed.", e);
+            session.setAttribute("bookingStatus", false);
+        }
+    }
+
+    private boolean isSlotStillAvailable(java.util.List<ParkingSlot> availableSlots, String targetSlotId) {
+        return availableSlots.stream().anyMatch(slot -> slot.getSlotId().equals(targetSlotId));
+    }
+
+    private void sendError(HttpServletResponse response, int statusCode, String message) throws IOException {
+        LOGGER.warning(message);
+        response.sendError(statusCode, message);
+    }
+
+    private void sendError(HttpServletResponse response, int statusCode, String message, Exception e) throws IOException {
+        LOGGER.log(Level.SEVERE, message, e);
+        response.sendError(statusCode, message);
     }
 }
+
