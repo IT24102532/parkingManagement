@@ -19,6 +19,7 @@
 </head>
 <body>
 <div class="container">
+    <input type="hidden" id="userId" value="${user}">
     <div class="sidebar">
         <%--        dashboard icon--%>
         <a href="./dashboard">
@@ -87,33 +88,33 @@
                     <h2 class="section-header">Current Active Booking <div class="underline"></div></h2>
 
                     <div class="booking-details">
-                        <div class="lot_type">insta</div>
+                        <div class="lot_type" id="lotType">insta</div>
                         <div class="details-left">
                             <div class="detail-group">
-                                <div class="detail-value">Los Angeles</div>
-                                <div class="detail-subtitle">right terminal</div>
+                                <div class="detail-value" id="lotLocation">Los Angeles</div>
+                                <div class="detail-subtitle" id="lotName">right terminal</div>
                             </div>
 
                             <div class="detail-group">
-                                <div class="detail-value price">$42.50</div>
+                                <div class="detail-value price" id="lotPrice">$42.50</div>
                                 <div class="detail-subtitle">estimated total</div>
                             </div>
                         </div>
 
                         <div class="details-right">
                             <div class="time-group">
-                                <div class="detail-value countdown">02:45:30</div>
+                                <div class="detail-value countdown" id="countdown">02:45:30</div>
                                 <div class="detail-subtitle">time left</div>
                             </div>
 
                             <div class="time-split">
                                 <div class="time-block">
-                                    <div class="detail-value">09:30 AM</div>
-                                    <div class="detail-subtitle">Check-in time</div>
+                                    <div class="detail-value" id="startTime">09:30 AM</div>
+                                    <div class="detail-subtitle">check-in time</div>
                                 </div>
                                 <div class="time-block">
-                                    <div class="detail-value">12:15 PM</div>
-                                    <div class="detail-subtitle">Check-out time</div>
+                                    <div class="detail-value" id="endTime">12:15 PM</div>
+                                    <div class="detail-subtitle">timeout</div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +125,7 @@
             <!-- Right Column (40%) -->
             <div class="right-column">
                 <div class="booking-history">
-                    <h2 class="section-header">Recent Bookings</h2>
+                    <h2 class="section-header">recent Bookings</h2>
                     <table class="booking-table">
                         <thead>
                         <tr>
@@ -152,6 +153,7 @@
             window.location.href = "./search";
         });
     </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script>
 </div>
 </body>
 </html>

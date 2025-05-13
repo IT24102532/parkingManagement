@@ -6,6 +6,8 @@ import lk.sliit.parkingmanagement.oopapp.model.ParkingSlot;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +67,22 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
     @Override
     public List getSlotDetails(Map query) {
        return  slotJsonHelper.findByFields(query);
+    }
+
+    @Override
+    public void updateDates(String id, LocalDate startDate, LocalDate endDate) {
+        List<String> newDates = new ArrayList<>();
+        LocalDate current = startDate;
+
+        while (!current.isAfter(endDate)) {
+            newDates.add(current.toString());
+            current = current.plusDays(1);
+        }
+
+        slotJsonHelper.partialUpdate(
+                slot -> slot.getSlotId().equals(id),
+                Map.of("bookedDates", newDates)
+        );
     }
 
     @Override

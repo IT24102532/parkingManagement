@@ -36,7 +36,12 @@ public class InstaSlot extends ParkingSlot {
     public double getOverStayCharge() {return overStayCharge;}
     public void setOverStayCharge(double overStayCharge) {this.overStayCharge = overStayCharge;}
 
-    public List<String> getBookedTimes() {return bookedTimes;}
+    public List<String> getBookedTimes() {
+        if (bookedTimes == null) {
+            bookedTimes = new ArrayList<>();
+        }
+        return bookedTimes;
+    }
     public void setBookedTimes(List<String> bookedTimes) {this.bookedTimes = bookedTimes;}
 
     // Overrides

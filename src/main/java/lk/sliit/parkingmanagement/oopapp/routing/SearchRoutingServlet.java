@@ -54,5 +54,9 @@ public class SearchRoutingServlet extends HttpServlet {
             request.setAttribute("user", userId);
             request.getRequestDispatcher("/views/insta.jsp").forward(request, response);
         }
+        else if ("longTerm".equalsIgnoreCase(action)) {
+            request.setAttribute("user", userId);
+            request.getRequestDispatcher("/views/lt_term_search.jsp").forward(request, response);
+        }
     }
 }

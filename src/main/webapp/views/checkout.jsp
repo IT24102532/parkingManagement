@@ -78,11 +78,14 @@
                 <p class="card-number">1234 5678 **** ****</p>
             </div>
 
-
-            <button class="pay-btn">pay and finalise</button>
-            <p class="change-mind">← changed your mind?</p>
+            <form name="checkout" action="./book/create" method="post" id="checkout-form">
+                <button class="pay-btn" id="contBtn" type="submit" name="contBtn">pay and finalise</button>
+                <p class="change-mind">← changed your mind?</p>
+            </form>
         </div>
     </div>
 </div>
+<script>
+</script>
 </body>
 </html>

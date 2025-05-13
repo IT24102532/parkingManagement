@@ -8,7 +8,9 @@ import lk.sliit.parkingmanagement.oopapp.model.*;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ public class JsonHelper<T> {
                 .registerTypeAdapterFactory(userFactory)
                 .registerTypeAdapterFactory(parkingLotFactory)
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
                 .setPrettyPrinting()
                 .create();
 
@@ -184,11 +187,31 @@ public class JsonHelper<T> {
             try {
                 Field field = findField(entry.getClass(), key);
                 field.setAccessible(true);
-                field.set(entry, value);
+
+                if ("bookedDates".equals(key) && value instanceof List) {
+                    List<?> newDates = (List<?>) value;
+                    Object current = field.get(entry);
+
+                    if (current instanceof List) {
+                        List<Object> currentList = (List<Object>) current;
+                        for (Object date : newDates) {
+                            if (!currentList.contains(date)) {
+                                currentList.add(date);
+                            }
+                        }
+                    } else {
+                        field.set(entry, new ArrayList<>(newDates));
+                    }
+
+                } else {
+                    field.set(entry, value);
+                }
+
             } catch (Exception e) {
                 throw new RuntimeException("Failed to update field '" + key + "'", e);
             }
         });
     }
+
 }
 

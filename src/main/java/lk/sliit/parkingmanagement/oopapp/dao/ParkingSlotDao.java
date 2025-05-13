@@ -11,4 +11,5 @@ public interface ParkingSlotDao extends DAO<ParkingSlot> {
     List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate, String location);
     List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate);
     List getSlotDetails(Map query);
+    void updateDates(String id, LocalDate startDate, LocalDate endDate);
 }

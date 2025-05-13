@@ -10,6 +10,8 @@ public class Manager {
     // Attributes
     @SerializedName("manager_id")
     private String managerId;
+    @SerializedName("name")
+    private String name;
     @SerializedName("commission_prec")
     private double commisionPrec;
     @SerializedName("created_at")
@@ -20,8 +22,9 @@ public class Manager {
     // Constructors
     public Manager() {}
 
-    public Manager(double commisionPrec) {
+    public Manager(double commisionPrec, String name) {
         this.managerId = UUID.randomUUID().toString();
+        this.name = name;
         this.commisionPrec = commisionPrec;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -34,6 +37,9 @@ public class Manager {
     public double getCommisionPrec() {return commisionPrec;}
     public void setCommisionPrec(double commisionPrec) {this.commisionPrec = commisionPrec;}
 
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+
     public LocalDateTime getCreatedAt() {return createdAt;}
     public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
 
@@ -45,6 +51,7 @@ public class Manager {
     public String toString() {
         return "Manager{"+
                 "managerId='" + managerId + '\'' +
+                ", name='" + name + '\'' +
                 ", commisionPrec=" + commisionPrec +
                 ", createdAt=" + createdAt + '\'' +
                 ", updatedAt=" + updatedAt + '\'' +
