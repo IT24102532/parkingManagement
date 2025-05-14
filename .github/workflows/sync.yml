@@ -28,7 +28,7 @@ jobs:
           git checkout master
           git pull origin master
           
-          for branch in member/kavindu member/dilnaka member/geenuth member/rayon member/venul member/savina; do
+          for branch in member/kavindu member/dilnaka member/geenuth member/rayon member/venul member/savina2; do
             echo "Processing $branch"
             git checkout $branch
             git pull origin $branch
