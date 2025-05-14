@@ -12,6 +12,8 @@ import lk.sliit.parkingmanagement.oopapp.model.Transaction;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.LocalDateTimeAdapter;
 import lk.sliit.parkingmanagement.oopapp.utils.LocalTimeAdapter;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -35,6 +37,7 @@ public class GetBookingInfo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Log.type(LogType.INFO).message("/get/booking/info").print();
         String bookingId = request.getParameter("id");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -66,9 +69,11 @@ public class GetBookingInfo extends HttpServlet {
             System.out.println(entry.toString());
             joinedData.add(entry);
             response.getWriter().write(gson.toJson(joinedData));
+            Log.type(LogType.SUCCESS).message("[get/booking/info] Successfully delivered data").print();
         }
         catch (Exception e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch bookings.");
+            Log.type(LogType.ERROR).message("[get/booking/info] Failed to deliver bookings.").print();
         }
     }
 }

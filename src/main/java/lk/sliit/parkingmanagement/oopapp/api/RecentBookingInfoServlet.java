@@ -68,9 +68,7 @@ public class RecentBookingInfoServlet extends HttpServlet {
 
         // 3) Sort by createdAt, pick the most recent
         insertionSortByCreatedAt(bookings);
-        System.out.println("sorted bookings");
         Booking recent = bookings.get(bookings.size() - 1);
-        System.out.println("reached recent booking" + recent.getBookingId());
 
         // 4) Return it
         response.setContentType("application/json");

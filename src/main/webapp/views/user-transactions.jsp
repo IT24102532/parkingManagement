@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kavindu
-  Date: 3/10/2025
-  Time: 4:53 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,12 +7,14 @@
     <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profiile.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user-dashboard.css">
 
-    <title>park.me | @me</title>
+
+    <title>park.me | @me | Log</title>
 </head>
 <body>
+<input type="hidden" id="userId" value="${user}">
 <div class="container">
-    <input type="hidden" id="userId" value="${user}">
     <div class="sidebar">
         <%--        dashboard icon--%>
         <a href="${pageContext.request.contextPath}/dashboard">
@@ -46,11 +41,9 @@
         </a>
         <%--    bookings icon--%>
             <a href="${pageContext.request.contextPath}/logs">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                     class="bookings-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="bookings-icon">
                     <g clip-path="url(#clip0_200_1351)">
-                        <path d="M19 2V0H17V2H15V0H13V2H11V0H9V2H7V0H5V2H3V21C3 21.7956 3.31607 22.5587 3.87868 23.1213C4.44129 23.6839 5.20435 24 6 24H18C18.7956 24 19.5587 23.6839 20.1213 23.1213C20.6839 22.5587 21 21.7956 21 21V2H19ZM19 21C19 21.2652 18.8946 21.5196 18.7071 21.7071C18.5196 21.8946 18.2652 22 18 22H6C5.73478 22 5.48043 21.8946 5.29289 21.7071C5.10536 21.5196 5 21.2652 5 21V4H19V21ZM17 9H7V7H17V9ZM17 13H7V11H17V13ZM13 17H7V15H13V17Z"
-                              fill="#374957"/>
+                        <path d="M19 2V0H17V2H15V0H13V2H11V0H9V2H7V0H5V2H3V21C3 21.7956 3.31607 22.5587 3.87868 23.1213C4.44129 23.6839 5.20435 24 6 24H18C18.7956 24 19.5587 23.6839 20.1213 23.1213C20.6839 22.5587 21 21.7956 21 21V2H19ZM19 21C19 21.2652 18.8946 21.5196 18.7071 21.7071C18.5196 21.8946 18.2652 22 18 22H6C5.73478 22 5.48043 21.8946 5.29289 21.7071C5.10536 21.5196 5 21.2652 5 21V4H19V21ZM17 9H7V7H17V9ZM17 13H7V11H17V13ZM13 17H7V15H13V17Z" fill="#374957"/>
                     </g>
                     <defs>
                         <clipPath id="clip0_200_1351">
@@ -59,6 +52,7 @@
                     </defs>
                 </svg>
             </a>
+
             <%--    paths icon--%>
             <div class="settings-container">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="pathsTrigger">
@@ -92,12 +86,11 @@
                     <a href="${pageContext.request.contextPath}/logout?action=switch">Switch Account</a>
                 </div>
             </div>
-
     </div>
     <div class="dashboard">
         <div class="action-bar">
             <div class="action-left">
-                <h1 class="title">welcome back <span id="username"></span></h1>
+                <h1 class="title">welcome back <span id="user"></span></h1>
             </div>
             <div class="action-right">
                 <button class="new-insta-btn" id="newInstaBtn">
@@ -110,86 +103,61 @@
                 <img class="profile-btn" src="https://avatar.iran.liara.run/public/boy" alt="user image">
             </div>
         </div>
-        <div class="dashboard-content">
-            <!-- Left Column (60%) -->
-            <div class="left-column">
-                <div class="active-booking">
-                    <h2 class="section-header">Current Active Booking <div class="underline"></div></h2>
-
-                    <div class="booking-details">
-                        <div class="lot_type" id="lotType">insta</div>
-                        <div class="details-left">
-                            <div class="detail-group">
-                                <div class="detail-value" id="lotLocation">Los Angeles</div>
-                                <div class="detail-subtitle" id="lotName">right terminal</div>
-                            </div>
-
-                            <div class="detail-group">
-                                <div class="detail-value price" id="lotPrice">$42.50</div>
-                                <div class="detail-subtitle">estimated total</div>
-                            </div>
-                        </div>
-
-                        <div class="details-right">
-                            <div class="time-group">
-                                <div class="detail-value countdown" id="countdown">02:45:30</div>
-                                <div class="detail-subtitle">time left</div>
-                            </div>
-
-                            <div class="time-split">
-                                <div class="time-block">
-                                    <div class="detail-value" id="startTime">09:30 AM</div>
-                                    <div class="detail-subtitle">check-in time</div>
-                                </div>
-                                <div class="time-block">
-                                    <div class="detail-value" id="endTime">12:15 PM</div>
-                                    <div class="detail-subtitle">timeout</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="user-dashboard-content log-content">
+            <div class="booking-history log-history">
+                <h2 class="section-header">recent bookings</h2>
+                <table class="booking-table" id="booking-table">
+                    <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Charge</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Downtown Hub</td>
+                        <td>2023-03-15</td>
+                        <td>$18.00</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-
-            <!-- Right Column (40%) -->
-            <div class="right-column">
-                <div class="booking-history">
-                    <h2 class="section-header">recent Bookings</h2>
-                    <table class="booking-table">
-                        <thead>
-                        <tr>
-                            <th>Location</th>
-                            <th>Date</th>
-                            <th>Charge</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Downtown Hub</td>
-                            <td>2023-03-15</td>
-                            <td>$18.00</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="booking-history">
+                <h2 class="section-header">recent transactions</h2>
+                <table class="booking-table" id="transaction-table">
+                    <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Charge</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Downtown Hub</td>
+                        <td>2023-03-15</td>
+                        <td>$18.00</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById("newInstaBtn").addEventListener("click", () => {
-            console.log("Button clicked!")
-            window.location.href = "${pageContext.request.contextPath}/insta";
-        });
-        document.getElementById("newBookBtn").addEventListener("click", () => {
-            console.log("Button clicked!")
-            window.location.href = "${pageContext.request.contextPath}/search";
-        });
-    </script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/tooltip.js"></script>
-
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user_logs.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user_search_ajax.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/tooltip.js"></script>
+<script>
+    document.getElementById("newBookBtn").addEventListener("click", () => {
+        console.log("Button clicked!")
+        window.location.href = "${pageContext.request.contextPath}/search";
+    });
+    document.getElementById("newInstaBtn").addEventListener("click", () => {
+        console.log("Button clicked!")
+        window.location.href = "${pageContext.request.contextPath}/insta";
+    });
+</script>
 </body>
 </html>
 

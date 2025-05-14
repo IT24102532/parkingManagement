@@ -22,8 +22,8 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "GetUserBookingList", value = "/get/booking/list")
-public class GetUserBookingList extends HttpServlet {
+@WebServlet(name = "GetAllBookingServlet", value = "/get/booking/all")
+public class GetAllBookingServlet extends HttpServlet {
     private final TransactionDao transactionDao = new TransactionDaoImpl();
     private final BookingDao bookingDao = new BookingDaoImpl();
     private final ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
@@ -35,7 +35,7 @@ public class GetUserBookingList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Log.type(LogType.INFO).message("/get/booking/list").print();
+        Log.type(LogType.INFO).message("/get/booking/all").print();
         String userId = request.getParameter("id");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -51,6 +51,9 @@ public class GetUserBookingList extends HttpServlet {
             List<Booking> userBookings = bookingDao.findAll().stream()
                     .filter(b -> bookingIds.contains(b.getBookingId()))
                     .collect(Collectors.toList());
+            List<ParkingSlot> parkingSlots = parkingSlotDao.findAll().stream()
+                    .filter(p -> bookingIds.contains(p.getSlotId()))
+                    .collect(Collectors.toList());
             List<Map<String, Object>> joinedData = new ArrayList<>();
             for (Transaction transaction : userTransactions) {
 
@@ -59,13 +62,13 @@ public class GetUserBookingList extends HttpServlet {
                         .findFirst()
                         .ifPresent(booking -> {
                             Map<String, Object> entry = new LinkedHashMap<>();
-                            entry.put("transactionId", transaction.getTransactionId());
                             entry.put("amount", transaction.getAmount());
-                            LocalDate date = transaction.getCreatedAt().toLocalDate();
-                            entry.put("date", date);
+                            LocalDate date = booking.getStartDateTime().toLocalDate();
+                            entry.put("start", date);
                             try {
                                 ParkingSlot slot = parkingSlotDao.getById(booking.getSlotId());
                                 entry.put("location", slot.getLocationName());
+                                entry.put("slot", slot.getSlotName());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

@@ -39,6 +39,53 @@
         transform: scale(1.1);
       }
     }
+
+  .settings-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .settings-tooltip {
+    display: none;
+    position: absolute;
+    left: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 160px;
+    z-index: 1000;
+
+    &::before {
+      content: '';
+      position: absolute;
+      border: 8px solid transparent;
+      top: 40%;
+      left: -5px;
+      background: white;
+      rotate: 45deg;
+    }
+  }
+
+  .settings-tooltip.active {
+    display: block;
+  }
+
+  .settings-tooltip a {
+    display: block;
+    padding: 10px 20px;
+    color: #374957;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .settings-tooltip a:hover {
+    background: #f8f9fa;
+    color: #2a3342;
   }
 
   .dashboard {
