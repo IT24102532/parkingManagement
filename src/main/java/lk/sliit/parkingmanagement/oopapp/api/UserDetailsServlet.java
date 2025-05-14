@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "UserDetailsServlet", value = "/getuser")
+@WebServlet(name = "UserDetailsServlet", value = "/get/user")
 public class UserDetailsServlet extends HttpServlet {
     private final UserDao userDao = new UserDaoImpl();
     private Logger LOGGER = Logger.getLogger(UserDetailsServlet.class.getName());

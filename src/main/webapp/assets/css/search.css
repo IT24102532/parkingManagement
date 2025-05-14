@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.container .right .title {
+  font-weight: 500;
+}
+.container .right .search-form {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  align-items: center;
+}
+.container .right .search-form label {
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  margin-bottom: 15px;
+}
+.container .right .search-form select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1em;
+  background-color: white;
+}
+.container .right .search-form .flatpickr-input {
+  padding: 10px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  width: 300px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-family: inherit;
+  color: #333;
+}
+.container .right .search-form .flatpickr-calendar {
+  font-family: inherit;
+  border-radius: 8px;
+}
+.container .right .search-form .input {
+  padding: 10px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.container .right .search-form .form-btn {
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  background: hsl(52, 88%, 54%);
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.container .right .search-form .form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+}
+.container .right .search-form .input, .container .right .search-form .form-btn, .container .right .search-form .sec-btn {
+  width: 300px;
+}
+.container .right .search-form .sec-btn {
+  font-family: "Inter", sans-serif;
+  background: #f0f0f0;
+  color: #3a3a3a;
+  padding: 15px 20px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  text-align: center;
+  cursor: pointer;
+}
+.container .right .search-form .sec-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}

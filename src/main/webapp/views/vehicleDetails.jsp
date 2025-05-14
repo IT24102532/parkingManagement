@@ -3,12 +3,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-    <link rel="manifest" href="../assets/images/site.webmanifest">
-    <link rel="stylesheet" href="../assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="../assets/css/vehicleDetails.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/vehicleDetails.css">
     <title>Vehicle Details | park.me</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     </div>
     <div class="right">
         <h1 class="title">let's add your vehicle details</h1>
-        <form action="../signup" method="post" class="form">
+        <form action="${pageContext.request.contextPath}/signup" method="post" class="form">
             <input type="hidden" name="step" value="vehicle">
 
             <label for="carType">car type</label>

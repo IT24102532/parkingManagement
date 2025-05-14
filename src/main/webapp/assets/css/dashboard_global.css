@@ -37,6 +37,90 @@
 .container .sidebar svg:hover {
   transform: scale(1.1);
 }
+.container .sidebar .settings-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.container .sidebar .settings-tooltip {
+  display: none;
+  position: absolute;
+  left: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 1000;
+}
+.container .sidebar .settings-tooltip a {
+  display: block;
+  padding: 10px 20px;
+  color: #374957;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+.container .sidebar .settings-tooltip a::before {
+  content: "";
+  position: absolute;
+  border: 8px solid transparent;
+  top: 40%;
+  left: -5px;
+  background: white;
+  rotate: 45deg;
+}
+.container .sidebar .settings-tooltip a:hover {
+  background: #f8f9fa;
+  color: #2a3342;
+}
+.container .sidebar .settings-container:hover .settings-tooltip {
+  display: block;
+}
+.container .settings-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.container .settings-tooltip {
+  display: none;
+  position: absolute;
+  left: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 1000;
+}
+.container .settings-tooltip::before {
+  content: "";
+  position: absolute;
+  border: 8px solid transparent;
+  top: 40%;
+  left: -5px;
+  background: white;
+  rotate: 45deg;
+}
+.container .settings-tooltip.active {
+  display: block;
+}
+.container .settings-tooltip a {
+  display: block;
+  padding: 10px 20px;
+  color: #374957;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+.container .settings-tooltip a:hover {
+  background: #f8f9fa;
+  color: #2a3342;
+}
 .container .dashboard {
   padding: 20px;
   grid-column: 2;
@@ -54,6 +138,17 @@
   border: none;
   color: black;
   background: hsl(52, 88%, 54%);
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.container .dashboard .action-bar .new-insta-btn {
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  border: none;
+  color: white;
+  background: hsl(250, 100%, 69%);
   border-radius: 5px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -82,4 +177,98 @@
   cursor: pointer;
   object-fit: cover;
   border: 2px solid hsl(52, 88%, 54%);
+}
+
+/* Edit Profile Button */
+.edit-profile-btn {
+  background: #f1d521;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.edit-profile-btn:hover {
+  background: #e0c400;
+}
+
+/* User Table */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.user-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.user-table td:first-child {
+  font-weight: 600;
+  color: #2c3e50;
+  width: 40%;
+}
+.user-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Edit Modal */
+.edit-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.save-btn {
+  background: #2c3e50;
+  color: white;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.save-btn:hover {
+  background: #1a2633;
 }

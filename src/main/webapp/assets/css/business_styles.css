@@ -1,0 +1,250 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+  background-color: hsl(47, 69%, 97%);
+  padding: 2rem;
+}
+
+.page-title {
+  font-family: "Caveat", sans-serif;
+  color: #2c3e50;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-section {
+  max-width: 600px;
+  margin: 100px auto;
+}
+.contact-section .contact-form {
+  display: grid;
+  gap: 1rem;
+}
+.contact-section .contact-form input, .contact-section .contact-form textarea {
+  padding: 0.8rem;
+  border: 2px solid hsla(250, 100%, 69%, 0.5);
+  border-radius: 5px;
+  font-family: inherit;
+  width: 100%;
+}
+.contact-section .contact-form input:focus, .contact-section .contact-form textarea:focus {
+  outline: none;
+  border-color: hsl(250, 100%, 69%);
+}
+.contact-section .contact-form button {
+  background: hsl(250, 100%, 69%);
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.contact-section .contact-form button:hover {
+  background: hsl(250, 100%, 91%);
+}
+
+.intro-section, .mission-section, .timeline-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+.intro-section .section-title, .mission-section .section-title, .timeline-section .section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-family: "Caveat", sans-serif;
+  color: #2c3e50;
+}
+.intro-section .intro-text, .intro-section .mission-text, .mission-section .intro-text, .mission-section .mission-text, .timeline-section .intro-text, .timeline-section .mission-text {
+  font-size: 1.1rem;
+  color: black;
+  line-height: 1.6;
+}
+
+.values-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.values-grid .value-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+.values-grid .value-card:hover {
+  transform: translateY(-5px);
+}
+.values-grid .value-card h3 {
+  color: hsl(52, 88%, 54%);
+  margin-bottom: 0.5rem;
+}
+.values-grid .value-card p {
+  color: black;
+}
+
+.floating-navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  width: 90%;
+  max-width: 1100px;
+  border: 1px solid #f0f0e2;
+}
+.floating-navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  color: #1f2937;
+  text-decoration: none;
+}
+.floating-navbar .logo .logo-title {
+  font-family: "Caveat", sans-serif !important;
+}
+.floating-navbar .logo img {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+.floating-navbar .nav-links {
+  display: flex;
+  gap: 24px;
+}
+.floating-navbar .nav-links a {
+  text-decoration: none;
+  color: #4b5563;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+.floating-navbar .nav-links a:hover {
+  color: hsl(52, 88%, 54%);
+}
+.floating-navbar .auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+.floating-navbar .auth-buttons .login-btn {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid hsl(52, 88%, 54%);
+  color: hsl(52, 88%, 54%);
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 14px;
+}
+.floating-navbar .auth-buttons .signup-btn {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background-color: hsl(52, 88%, 54%);
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+.timeline li {
+  border-left: 3px solid hsl(52, 88%, 54%);
+  padding: 0.5rem 0 0.5rem 1rem;
+  position: relative;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background: hsl(52, 88%, 54%);
+  border-radius: 50%;
+}
+
+.team-grid {
+  display: grid;
+  width: 60%;
+  margin: auto auto;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.team-grid .team-member {
+  text-align: center;
+}
+.team-grid .team-member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid hsl(52, 88%, 54%);
+}
+.team-grid .team-member h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+.team-grid .team-member .role {
+  color: hsl(250, 100%, 69%);
+  font-weight: bold;
+}
+
+.services-section {
+  margin: 100px auto;
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+.services-section p {
+  margin: auto;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 30px;
+}
+.services-grid .service-card {
+  text-align: center;
+  padding: 2rem;
+}
+.services-grid .service-card h3 {
+  color: hsl(250, 100%, 69%);
+  margin-bottom: 1rem;
+}
+.services-grid .service-card .service-icon {
+  font-size: 2rem;
+  color: hsl(52, 88%, 54%);
+  margin-bottom: 1rem;
+}

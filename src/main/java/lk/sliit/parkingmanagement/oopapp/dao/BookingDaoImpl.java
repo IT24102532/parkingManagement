@@ -4,6 +4,8 @@ import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 import lk.sliit.parkingmanagement.oopapp.model.Booking;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,12 +42,21 @@ public class BookingDaoImpl implements BookingDao {
 
     @Override
     public List<Booking> findAll() throws Exception {
-        return List.of();
+        try {
+            return bookingJsonHelper.readAll();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error reading transactions", e);
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public void create(Booking object) throws Exception {
-
+        try {
+            bookingJsonHelper.create(object);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error creating booking", e);
+        }
     }
 
     @Override

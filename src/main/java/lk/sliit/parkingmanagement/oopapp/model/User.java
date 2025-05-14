@@ -30,6 +30,8 @@ public class User {
     protected LocalDateTime created_at;
     @SerializedName("updated_at")
     protected LocalDateTime updated_at;
+    @SerializedName("banned")
+    protected Boolean banned;
 
     // Constructors
     public User() {}
@@ -41,6 +43,9 @@ public class User {
         this.hashedPassword = hashedPassword;
         this.user_type = user_type;
         this.bookings = bookings;
+        this.created_at = LocalDateTime.now();
+        this.updated_at = LocalDateTime.now();
+        this.banned = false;
     }
 
     //Getters and setters
@@ -71,6 +76,9 @@ public class User {
     public LocalDateTime getUpdatedAt() {return updated_at;}
     public void setUpdatedAt(LocalDateTime updated_at) {this.updated_at = updated_at;}
 
+    public Boolean getBanned() {return banned;}
+    public void setBanned(Boolean banned) {this.banned = banned;}
+
     // Overrides
     @Override
     public String toString() {
@@ -82,6 +90,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", created_at='" + created_at + '\'' +
                 ", updated_at='" + updated_at + '\'' +
+                ", banned=" + banned +
                 ", bookings=" + bookings +
                 '}';
     }

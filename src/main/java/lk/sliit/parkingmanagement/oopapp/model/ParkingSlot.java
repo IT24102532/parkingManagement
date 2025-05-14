@@ -15,9 +15,11 @@ public class ParkingSlot {
     @SerializedName("manager_id")
     protected String managerId;
     @SerializedName("type")
-    protected boolean lotType; // TRUE = Insta, FALSE = long_term
+    protected String lotType; // "insta" = Insta, "long_term" = long_term
     @SerializedName("locationName")
     protected String locationName;
+    @SerializedName("slotName")
+    protected String slotName;
     @SerializedName("isAvailable")
     protected boolean isAvailable;
     @SerializedName("created_at")
@@ -27,12 +29,13 @@ public class ParkingSlot {
 
     // Constructors
     public ParkingSlot() {}
-    public ParkingSlot(String location, String managerId, boolean lotType, String locationName, boolean isAvailable) {
+    public ParkingSlot(String location, String managerId, String lotType, String locationName, String slotName, boolean isAvailable) {
         this.slotId = UUID.randomUUID().toString();
         this.location = location;
         this.managerId = managerId;
         this.lotType = lotType;
         this.locationName = locationName;
+        this.slotName = slotName;
         this.isAvailable = isAvailable;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -48,11 +51,14 @@ public class ParkingSlot {
     public String getManagerId() {return managerId;}
     public void setManagerId(String managerId) {this.managerId = managerId;}
 
-    public boolean isLotType() {return lotType;}
-    public void setLotType(boolean lotType) {this.lotType = lotType;}
+    public String getLotType() {return lotType;}
+    public void setLotType(String lotType) {this.lotType = lotType;}
 
     public String getLocationName() {return locationName;}
     public void setLocationName(String locationName) {this.locationName = locationName;}
+
+    public String getSlotName() {return slotName;}
+    public void setSlotName(String slotName) {this.slotName = slotName;}
 
     public boolean isAvailable() {return isAvailable;}
     public void setAvailable(boolean available) {isAvailable = available;}
@@ -72,6 +78,7 @@ public class ParkingSlot {
                 ", manager_id='" + managerId + '\'' +
                 ", lotType=" + lotType +
                 ", locationName='" + locationName + '\'' +
+                ", slotName='" + slotName + '\'' +
                 ", isAvailable=" + isAvailable +
                 ", createdAt=" + createdAt + '\'' +
                 ", updatedAt=" + updatedAt + '\'' +

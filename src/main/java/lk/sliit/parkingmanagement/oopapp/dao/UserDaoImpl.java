@@ -5,7 +5,9 @@ import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +31,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean validatePassword(String email, String password) throws Exception {
+    public boolean validatePasswordByEmail(String email, String password) throws Exception {
         try {
             User user = this.findByEmail(email);
             if (user != null) {
@@ -38,6 +40,22 @@ public class UserDaoImpl implements UserDao {
         }
         catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error Findng User by Email" + email, e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean validatePasswordById(String id, String password) throws Exception {
+        try {
+            User user = userJsonHelper.findOne(
+                    u -> u.getUserId().equalsIgnoreCase(id)
+            );
+            if (user != null) {
+                return PasswordHasher.verifyPassword(password, user.getHashedPassword());
+            }
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error Findng User by Id" + id, e);
         }
         return false;
     }
@@ -56,6 +74,19 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error Findng User Id" + email, e);
         }
         return null;
+    }
+
+    @Override
+    public void updateAccountDetails(String fname, String lname, String userId) throws Exception {
+        try {
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("f_name", fname);
+            updates.put("l_name", lname);
+            userJsonHelper.partialUpdate(user -> user.getUserId().equals(userId), updates);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error Findng User by Id" + userId, e);
+        }
     }
 
     @Override
@@ -95,6 +126,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(int id) throws Exception {
+
+    }
+
+    @Override
+    public void delete(String id) throws Exception {
+        try {
+            userJsonHelper.delete(u -> u.getUserId().equals(id));
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error deleting user", e);
+        }
 
     }
 }

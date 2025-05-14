@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,7 +20,9 @@ public class Booking {
     private LocalTime checkInTime;
     @SerializedName("checkoutTime")
     private LocalDateTime checkOutTime;
-    @SerializedName("getOccupied")
+    @SerializedName("timeOut")
+    private LocalDateTime timeOut;
+    @SerializedName("isOccupied")
     private boolean isOccupied;
     @SerializedName("isOverStayed")
     private boolean isOverStayed;
@@ -68,12 +71,17 @@ public class Booking {
     public LocalDateTime getUpdatedAt() {return updatedAt;}
     public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
 
+    public LocalDateTime getTimeOut() {return timeOut;}
+    public void setTimeOut(LocalDateTime timeOut) {this.timeOut = timeOut;}
+
+
     // Methods
     public String toString() {
         return "Booking{" +
                 "bookingId='" + bookingId + '\'' +
                 ", slotId='" + slotId + '\'' +
                 ", startDateTime=" + startDateTime + '\'' +
+                ", checkInTime=" + checkInTime + '\'' +
                 ", checkInTime=" + checkInTime + '\'' +
                 ", checkOutTime=" + checkOutTime + '\'' +
                 ", isOccupied=" + isOccupied +
