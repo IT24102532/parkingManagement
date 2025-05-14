@@ -103,6 +103,7 @@
             <div class="settings-tooltip" id="settingsMenu">
                 <a href="${pageContext.request.contextPath}/logout">Log Out</a>
                 <a href="${pageContext.request.contextPath}/logout?action=switch">Switch Account</a>
+                <a href="#" id="deleteAcc" style="color: darkred" onclick="openDeleteModal()">Delete Account</a>
             </div>
         </div>
 
@@ -192,20 +193,36 @@
             <div class="modal-content">
                 <span class="close" onclick="closeEditModal()">&times;</span>
                 <h3>Edit Profile Details</h3>
-                <form id="profileForm">
+                <form id="profileForm" action="${pageContext.request.contextPath}/update" method="post">
+                    <input type="hidden" name="id" value="${user}">
                     <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="editFname" required>
+                        <label>first Name</label>
+                        <input type="text" id="editFname" name="fname" required>
                     </div>
                     <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="editLname" required>
+                        <label>last Name</label>
+                        <input type="text" id="editLname" name="lname" required>
                     </div>
                     <div class="form-group">
-                        <label>New Password</label>
-                        <input type="password" id="editPassword">
+                        <label>password</label>
+                        <input type="password" id="editPassword" name="password" required>
                     </div>
                     <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+        <div class="edit-modal" id="deleteModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+                <h3>Delete account</h3>
+                <p style="font-weight: 500; color: darkred; padding: 20px 0"> You're attempting to delete your account, are you sure?</p>
+                <form id="deleteForm" action="${pageContext.request.contextPath}/delete" method="post">
+                    <input type="hidden" name="id" value="${user}">
+                    <div class="form-group">
+                        <label>password</label>
+                        <input type="password" id="deletePassword" name="password" required>
+                    </div>
+                    <button type="submit" class="save-btn" style="background: darkred; font-weight: 500; color: white">delete my account</button>
                 </form>
             </div>
         </div>

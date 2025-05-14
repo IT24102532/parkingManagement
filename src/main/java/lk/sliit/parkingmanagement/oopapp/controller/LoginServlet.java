@@ -8,8 +8,6 @@ import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = userDao.findByEmail(email);
         try {
-            if (user == null || !userDao.validatePassword(email, password)) {
+            if (user == null || !userDao.validatePasswordByEmail(email, password)) {
                 request.setAttribute("error", "Email or password is incorrect");
                 request.getRequestDispatcher("/views/login.jsp").forward(request, response);
                 return;

@@ -75,12 +75,20 @@ body {
 </div>
 <% } %>
 <script>
-    document.getElementById("successfwd").addEventListener('click', () => {
-        window.location.href = "${pageContext.request.contextPath}/dashboard";
-    });
-    document.getElementById("failurefwd").addEventListener('click', () => {
-        window.location.href = "${pageContext.request.contextPath}/search";
-    });
+    const successBtn = document.getElementById("successfwd");
+    const failureBtn = document.getElementById("failurefwd");
+
+    if (successBtn) {
+        successBtn.addEventListener('click', () => {
+            window.location.href = "${pageContext.request.contextPath}/dashboard";
+        });
+    }
+
+    if (failureBtn) {
+        failureBtn.addEventListener('click', () => {
+            window.location.href = "${pageContext.request.contextPath}/search";
+        });
+    }
 </script>
 </body>
 </html>

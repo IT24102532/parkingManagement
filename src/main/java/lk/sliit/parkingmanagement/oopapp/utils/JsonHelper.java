@@ -49,7 +49,7 @@ public class JsonHelper<T> {
     // -------------------------------------------
 
     //Read ALl Entries
-    public List<T> readAll() {
+    synchronized public List<T> readAll() {
         try (Reader reader = new FileReader(filePath)) {
             List<T> data = gson.fromJson(reader, listType);
             return data != null ? data : new ArrayList<>();
@@ -59,7 +59,7 @@ public class JsonHelper<T> {
     }
 
     // Write ALl Entries
-    public void writeAll(List<T> entries) {
+    synchronized public void writeAll(List<T> entries) {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         try (Writer writer = new FileWriter(file)) {
@@ -70,14 +70,14 @@ public class JsonHelper<T> {
     }
 
     // Create an entry
-    public void create(T entry) {
+    synchronized public void create(T entry) {
         List<T> entries = readAll();
         entries.add(entry);
         writeAll(entries);
     }
 
     // Delete entry
-    public void delete(Predicate<T> predicate) {
+    synchronized public void delete(Predicate<T> predicate) {
         List<T> entries = readAll();
         entries.removeIf(predicate);
         writeAll(entries);
@@ -88,7 +88,7 @@ public class JsonHelper<T> {
     // -------------------------------------------
 
     // Find all matching cases
-    public List<T> findAll(Predicate<T> predicate) {
+    synchronized public List<T> findAll(Predicate<T> predicate) {
         return readAll().stream().filter(predicate).collect(Collectors.toList());
     }
 
@@ -100,7 +100,7 @@ public class JsonHelper<T> {
 
     // Filter by multiple fields
 
-    public List<T> findByFields(Map<String, Object> criteria) {
+    synchronized public List<T> findByFields(Map<String, Object> criteria) {
         return readAll().stream()
                 .filter(entry -> criteria.entrySet().stream()
                         .allMatch(c -> Objects.equals(getFieldValue(entry, c.getKey()), c.getValue()))
@@ -117,7 +117,7 @@ public class JsonHelper<T> {
     */
 
     // Filter by a single field
-    public T findOne(Predicate<T> predicate) {
+    synchronized public T findOne(Predicate<T> predicate) {
         return readAll().stream().filter(predicate).findFirst().orElse(null);
     }
 
@@ -125,7 +125,7 @@ public class JsonHelper<T> {
     // Batch Update
     // -------------------------------------------
 
-    public void updateAll(Predicate<T> predicate, T newData) {
+    synchronized public void updateAll(Predicate<T> predicate, T newData) {
         List<T> entries = readAll();
         boolean updated = false;
         for (int i = 0; i < entries.size(); i++) {
@@ -137,7 +137,7 @@ public class JsonHelper<T> {
         if (updated) writeAll(entries);
     }
 
-    public void partialUpdate(Predicate<T> predicate, Map<String, Object> updates) {
+    synchronized public void partialUpdate(Predicate<T> predicate, Map<String, Object> updates) {
         List<T> entries = readAll();
         for (T entry : entries) {
             if (predicate.test(entry)) {
@@ -151,7 +151,7 @@ public class JsonHelper<T> {
     // Sorting by any field
     // -------------------------------------------
 
-    public List<T> sortBy(String field, boolean ascending) {
+    synchronized public List<T> sortBy(String field, boolean ascending) {
         Comparator<T> comparator = Comparator.comparing(o -> (Comparable) getFieldValue(o, field));
         if (!ascending) comparator = comparator.reversed();
         return readAll().stream().sorted(comparator).collect(Collectors.toList());
@@ -161,7 +161,7 @@ public class JsonHelper<T> {
     // Internal Reflection Helpers
     // -------------------------------------------
 
-    private Object getFieldValue(T entry, String fieldName) {
+    synchronized private Object getFieldValue(T entry, String fieldName) {
         try {
             Field field = findField(entry.getClass(), fieldName);
             field.setAccessible(true);
@@ -182,7 +182,7 @@ public class JsonHelper<T> {
         throw new NoSuchFieldException(name);
     }
 
-    private void applyUpdates(T entry, Map<String, Object> updates) {
+     private void applyUpdates(T entry, Map<String, Object> updates) {
         updates.forEach((key, value) -> {
             try {
                 Field field = findField(entry.getClass(), key);

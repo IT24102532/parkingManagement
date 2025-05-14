@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-.user-dashboard-content .log-content {
+.user-dashboard-content {
   width: 40%;
   background: white;
   border-radius: 12px;
@@ -8,6 +8,7 @@
 }
 
 .log-content {
+  border-radius: 12px;
   width: 100% !important;
   display: grid;
   grid-template-columns: 1fr 1fr;

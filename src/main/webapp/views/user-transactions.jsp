@@ -84,6 +84,7 @@
                 <div class="settings-tooltip" id="settingsMenu">
                     <a href="${pageContext.request.contextPath}/logout">Log Out</a>
                     <a href="${pageContext.request.contextPath}/logout?action=switch">Switch Account</a>
+                    <a href="#" id="deleteAcc" style="color: darkred" onclick="openDeleteModal()">Delete Account</a>
                 </div>
             </div>
     </div>
@@ -103,7 +104,7 @@
                 <img class="profile-btn" src="https://avatar.iran.liara.run/public/boy" alt="user image">
             </div>
         </div>
-        <div class="user-dashboard-content log-content">
+        <div class="log-content">
             <div class="booking-history log-history">
                 <h2 class="section-header">recent bookings</h2>
                 <table class="booking-table" id="booking-table">
@@ -143,8 +144,24 @@
                 </table>
             </div>
         </div>
+        <div class="edit-modal" id="deleteModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+                <h3>Delete account</h3>
+                <p style="font-weight: 500; color: darkred; padding: 20px 0"> You're attempting to delete your account, are you sure?</p>
+                <form id="deleteForm" action="${pageContext.request.contextPath}/delete" method="post">
+                    <input type="hidden" name="id" value="${user}">
+                    <div class="form-group">
+                        <label>password</label>
+                        <input type="password" id="deletePassword" name="password" required>
+                    </div>
+                    <button type="submit" class="save-btn" style="background: darkred; font-weight: 500; color: white">delete my account</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/profile.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user_logs.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/user_search_ajax.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/tooltip.js"></script>

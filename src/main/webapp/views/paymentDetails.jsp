@@ -7,9 +7,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
-    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/assets/css/paymentdetails.css">
+    <link rel="manifest" href="${pageContext.request.contextPath}/images/site.webmanifest">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/paymentdetails.css">
 </head>
 <body>
 <div class="container">

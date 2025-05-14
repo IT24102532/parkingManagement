@@ -61,10 +61,10 @@
     <img src="${pageContext.request.contextPath}assets/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
 </button>
 <div class="menu" id="menu">
-    <button onclick="location.href='#home'">Home</button>
-    <button onclick="location.href='#about'">About</button>
-    <button onclick="location.href='#services'">Services</button>
-    <button onclick="location.href='#contact'">Contact</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/'">Home</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/about'">About</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/services'">Services</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/contact'">Contact</button>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}assets/js/slideshow.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}assets/js/hover-menu.js"></script>
