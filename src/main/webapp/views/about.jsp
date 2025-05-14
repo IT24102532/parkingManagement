@@ -83,7 +83,7 @@
     <div class="team-member card">
       <img src="${pageContext.request.contextPath}/assets/images/team-dilnaka.jpg" alt="Team Member">
       <h3>Dilnaka</h3>
-      <p class="role">Developer | ITXXXXXXXX</p>
+      <p class="role">Developer | IT24104161</p>
     </div>
     <div class="team-member card">
       <img src="${pageContext.request.contextPath}/assets/images/team-rayon.PNG" alt="Team Member">
@@ -91,9 +91,9 @@
       <p class="role">Developer | IT24104332 </p>
     </div>
     <div class="team-member card">
-      <img src="${pageContext.request.contextPath}/assets/images/bg4.jpg" alt="Team Member">
-      <h3>John Doe</h3>
-      <p class="role">CEO & Founder</p>
+      <img src="${pageContext.request.contextPath}/assets/images/team-venul.PNG" alt="Team Member">
+      <h3>Venul Herath</h3>
+      <p class="role">Developer | IT24104018</p>
     </div>
     <div class="team-member card">
       <img src="${pageContext.request.contextPath}/assets/images/bg4.jpg" alt="Team Member">
