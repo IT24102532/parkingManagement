@@ -5,16 +5,13 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.*;
 import lk.sliit.parkingmanagement.oopapp.model.*;
-import lk.sliit.parkingmanagement.oopapp.config.FileConfig;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "BookingServlet", value = "/book/create")
 public class BookingServlet extends HttpServlet {

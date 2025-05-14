@@ -8,17 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
 
-    <link rel="stylesheet" href="../assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="../assets/css/floatingbutton.css">
-    <link rel="stylesheet" href="../assets/css/search.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/floatingbutton.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/search.css">
 
     <title>park.me | search insta</title>
 </head>
@@ -57,10 +57,10 @@
     <img src="${pageContext.request.contextPath}assets/images/fi-rs-grid.svg" alt="Park Me Insta" class="menu-icon">
 </button>
 <div class="menu" id="menu">
-    <button onclick="location.href='./dashboard'">dashboard</button>
-    <button onclick="location.href='./search'">search</button>
-    <button onclick="location.href='./insta'">insta</button>
-    <button onclick="location.href='./profile'">profile</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/dashboard'">dashboard</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/search'">search</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/insta'">insta</button>
+    <button onclick="location.href='${pageContext.request.contextPath}/profile'">profile</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/search_insta_ajax.js"></script>

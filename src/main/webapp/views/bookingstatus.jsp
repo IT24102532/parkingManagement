@@ -11,12 +11,12 @@
 %>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-    <link rel="manifest" href="/assets/images/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
 
-    <link rel="stylesheet" href="/assets/css/checkout.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/checkout.css">
 
     <title>park.me | continue →</title>
 </head>
@@ -76,10 +76,10 @@ body {
 <% } %>
 <script>
     document.getElementById("successfwd").addEventListener('click', () => {
-        window.location.href = "../dashboard";
+        window.location.href = "${pageContext.request.contextPath}/dashboard";
     });
     document.getElementById("failurefwd").addEventListener('click', () => {
-        window.location.href = "../search";
+        window.location.href = "${pageContext.request.contextPath}/search";
     });
 </script>
 </body>

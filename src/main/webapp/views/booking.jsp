@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-  <link rel="manifest" href="../assets/images/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+  <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
 
-  <link rel="stylesheet" href="../assets/css/booking.css">
-  <link rel="stylesheet" href="../assets/css/dual_container_global.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/booking.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
 
   <title>park.me | booking</title>
 </head>
@@ -28,7 +28,7 @@
     <h2 class="title">book your spot</h2>
     <p class="desc">your choice~</p>
 
-    <form method="post" action="/checkout">
+    <form method="post" action="${pageContext.request.contextPath}/checkout">
       <table class="booking-details">
         <tr><td>location</td><td id="location"></td></tr>
         <tr><td>type</td><td id="slotType"></td></tr>

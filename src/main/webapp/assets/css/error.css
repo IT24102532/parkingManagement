@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background-image: url("../images/pexels-pixabay-163792.jpg");
+  background-size: cover;
+  padding: 50px;
+  font-family: "Inter", sans-serif;
+}
+body .container {
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  background: #000000;
+  grid-template-rows: 1fr;
+  padding: 50px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(241, 196, 95, 0.13);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+body .container button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-weight: 500;
+  background: hsl(250, 100%, 69%);
+  cursor: pointer;
+}

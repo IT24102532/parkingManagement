@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Park.me - Search </title>
-    <link rel="stylesheet" href="../assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="../assets/css/serchSpots.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/serchSpots.css">
 </head>
 <body>
 <div class="container">

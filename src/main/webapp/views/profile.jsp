@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-    <link rel="manifest" href="/assets/images/site.webmanifest">
-    <link rel="stylesheet" href="/assets/css/profiile.css">
-    <link rel="stylesheet" href="/assets/css/dashboard_global.css">
-    <link rel="stylesheet" href="/assets/css/user-dashboard.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profiile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user-dashboard.css">
 
 
     <title>park.me | @me</title>
@@ -24,7 +24,7 @@
 <div class="container">
     <div class="sidebar">
         <%--        dashboard icon--%>
-            <a href="./dashboard">
+            <a href="${pageContext.request.contextPath}/dashboard">
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg" class="dash-icon">
                     <rect width="11" height="14" rx="3" fill="#F1D521"/>
                     <rect x="13" y="12" width="11" height="14" rx="3" fill="#F1D521"/>
@@ -33,7 +33,7 @@
                 </svg>
             </a>
         <%--        user icon--%>
-            <a href="./profile">
+            <a href="${pageContext.request.contextPath}/profile">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="user-icon">
                     <g clip-path="url(#clip0_200_1350)">
                         <path d="M12 12C13.1867 12 14.3467 11.6481 15.3334 10.9888C16.3201 10.3295 17.0892 9.39246 17.5433 8.2961C17.9974 7.19975 18.1162 5.99335 17.8847 4.82946C17.6532 3.66558 17.0818 2.59648 16.2426 1.75736C15.4035 0.918247 14.3344 0.346802 13.1705 0.115291C12.0067 -0.11622 10.8003 0.00259972 9.7039 0.456726C8.60754 0.910851 7.67047 1.67989 7.01118 2.66658C6.35189 3.65328 6 4.81331 6 6C6.00159 7.59081 6.63424 9.11602 7.75911 10.2409C8.88399 11.3658 10.4092 11.9984 12 12ZM12 2C12.7911 2 13.5645 2.2346 14.2223 2.67412C14.8801 3.11365 15.3928 3.73836 15.6955 4.46927C15.9983 5.20017 16.0775 6.00444 15.9231 6.78036C15.7688 7.55629 15.3878 8.26902 14.8284 8.82843C14.269 9.38784 13.5563 9.7688 12.7804 9.92314C12.0044 10.0775 11.2002 9.99827 10.4693 9.69552C9.73836 9.39277 9.11365 8.88008 8.67412 8.22228C8.2346 7.56449 8 6.79113 8 6C8 4.93914 8.42143 3.92172 9.17157 3.17158C9.92172 2.42143 10.9391 2 12 2V2Z" fill="#374957"/>
@@ -157,11 +157,11 @@
 <script>
     document.getElementById("newBookBtn").addEventListener("click", () => {
         console.log("Button clicked!")
-        window.location.href = "./search";
+        window.location.href = "${pageContext.request.contextPath}/search";
     });
     document.getElementById("newInstaBtn").addEventListener("click", () => {
         console.log("Button clicked!")
-        window.location.href = "./insta";
+        window.location.href = "${pageContext.request.contextPath}/insta";
     });
 </script>
 </body>

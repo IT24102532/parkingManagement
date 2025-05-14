@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-    <link rel="manifest" href="/assets/images/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
 
-    <link rel="stylesheet" href="/assets/css/checkout.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/checkout.css">
 
     <title>park.me | continue →</title>
 </head>
@@ -78,7 +78,7 @@
                 <p class="card-number">1234 5678 **** ****</p>
             </div>
 
-            <form name="checkout" action="./book/create" method="post" id="checkout-form">
+            <form name="checkout" action="${pageContext.request.contextPath}/book/create" method="post" id="checkout-form">
                 <button class="pay-btn" id="contBtn" type="submit" name="contBtn">pay and finalise</button>
                 <p class="change-mind">← changed your mind?</p>
             </form>

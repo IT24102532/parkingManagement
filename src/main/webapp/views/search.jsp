@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Park.me - Search </title>
-    <link rel="stylesheet" href="../assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="../assets/css/form_group.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/form_group.css">
 
 
 </head>
@@ -14,7 +14,7 @@
 <div class="container">
     <div class="left">
         <div class="logo">Park.me</div>
-        <img src="../assets/images/bg3.jpg" alt="Luxury blue sports car" class="bg-img">
+        <img src="${pageContext.request.contextPath}/assets/images/bg3.jpg" alt="Luxury blue sports car" class="bg-img">
 
     </div>
     <div class="right">
