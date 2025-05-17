@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: hsl(52, 88%, 54%);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+.floating-button:active {
+  transform: scale(0.9);
+}
+
+.blur {
+  filter: blur(5px);
+}
+
+.menu {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.menu.show {
+  opacity: 1;
+  visibility: visible;
+}
+.menu button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+  font-family: "Inter", sans-serif;
+}
+.menu button:hover {
+  background: hsl(250, 100%, 69%);
+  color: white;
+}

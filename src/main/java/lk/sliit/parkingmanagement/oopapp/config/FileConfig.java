@@ -12,6 +12,7 @@ public enum FileConfig {
     private String transactionPath;
     private String bookingsPath;
     private String slotPath;
+    private String managerPath;
 
     FileConfig() {
         Properties prop = new Properties();
@@ -23,6 +24,7 @@ public enum FileConfig {
             transactionPath = prop.getProperty("transaction.file.path");
             bookingsPath = prop.getProperty("booking.file.path");
             slotPath = prop.getProperty("slots.file.path");
+            managerPath = prop.getProperty("manager.file.path");
 
             validatePaths();
 
@@ -30,6 +32,7 @@ public enum FileConfig {
             ensureFileExists(transactionPath);
             ensureFileExists(bookingsPath);
             ensureFileExists(slotPath);
+            ensureFileExists(managerPath);
 
         }
         catch (IOException ex) {
@@ -68,4 +71,5 @@ public enum FileConfig {
     public String getTransactionPath() {return transactionPath;}
     public String getBookingsPath() {return bookingsPath;}
     public String getSlotPath() {return slotPath;}
+    public String getManagerPath() {return managerPath;}
 }

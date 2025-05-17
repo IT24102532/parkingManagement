@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Transaction {
     // Attributes
@@ -28,8 +29,8 @@ public class Transaction {
     // Constructors
     public Transaction() {}
 
-    public Transaction(String transactionId, String bookingId, String userId, double amount, double overdueAmount, boolean payStatus) {
-        this.transactionId = transactionId;
+    public Transaction(String bookingId, String userId, double amount, double overdueAmount, boolean payStatus) {
+        this.transactionId = UUID.randomUUID().toString();
         this.bookingId = bookingId;
         this.userId = userId;
         this.amount = amount;

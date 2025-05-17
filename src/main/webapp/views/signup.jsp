@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>park.me | Sign Up</title>
-    <link rel="stylesheet" href="../assets/css/dual_container_global.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <div class="container">
     <!-- Left Side -->
     <div class="left">
-        <img src="../assets/images/logo_purple.png" alt="Logo" class="logo" />
-        <img src="../assets/images/bg2.jpg" alt="Background" class="bg-img" />
+        <img src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="Logo" class="logo" />
+        <img src="${pageContext.request.contextPath}/assets/images/bg2.jpg" alt="Background" class="bg-img" />
     </div>
 
     <!-- Right Side (Sign Up Form) -->
     <div class="right">
         <h2 class="title text-2xl font-semibold mb-10">let's create your account</h2>
-        <form action="..//signup" method="post" class="flex flex-col w-[400px] items-center">
+        <form action="${pageContext.request.contextPath}/signup" method="post" class="flex flex-col w-[400px] items-center">
             <input type="hidden" name="step" value="user">
             <div class="flex gap-2">
                 <div class="w-full mb-6">

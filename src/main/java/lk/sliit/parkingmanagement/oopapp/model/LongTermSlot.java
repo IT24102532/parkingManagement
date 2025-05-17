@@ -16,8 +16,8 @@ public class LongTermSlot extends ParkingSlot {
 
     // Constructors
     public LongTermSlot() {}
-    public LongTermSlot(String slotId, String location, String managerId, boolean lotType, String locationName, boolean isAvailable, double price, double overstayCharge) {
-        super(slotId, location, managerId, lotType, locationName, isAvailable);
+    public LongTermSlot(String location, String managerId, String lotType, String locationName, String slotName, boolean isAvailable, double price, double overstayCharge) {
+        super(location, managerId, lotType, locationName, slotName, isAvailable);
         this.price = price;
         this.overstayCharge = overstayCharge;
         this.bookedDates = new ArrayList<>();

@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.right {
+  min-width: 0 !important;
+  overflow: scroll;
+}
+.right .scroll-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  margin: 10px 0;
+}
+.right .scroll-buttons button {
+  background-color: hsl(52, 88%, 54%);
+  border: none;
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+}
+.right .scroll-buttons button:hover {
+  background-color: #ffb300;
+}
+
+.result-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+.result {
+  flex: 0 0 300px;
+  font-family: "Inter", sans-serif;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: fit-content;
+}
+.result:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.result .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+.result .location_name {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+.result .dates {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.result .dates p {
+  font-size: 0.85rem;
+  color: #444;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+.result .promoCode {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+  border: 1px dashed #ccc;
+  padding: 10px;
+}
+.result .amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: green;
+  margin-bottom: 1.5rem;
+}
+.result .btn.continue {
+  font-family: "Inter", sans-serif;
+  background: hsl(52, 88%, 54%);
+  color: black;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.result .btn.continue:hover {
+  background: hsl(52, 88%, 46%);
+}
+.result .btn.continue:active {
+  transform: scale(0.98);
+}
+.result .btn.sec-btn {
+  font-family: "Inter", sans-serif;
+  background: #f0f0f0;
+  color: #3a3a3a;
+  padding: 15px 20px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+.result .btn.sec-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}

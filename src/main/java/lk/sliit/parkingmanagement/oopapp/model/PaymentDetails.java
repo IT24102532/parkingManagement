@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class PaymentDetails {
     // Attributes
@@ -16,7 +17,7 @@ public class PaymentDetails {
     @SerializedName("card_type")
     private String cardType;
     @SerializedName("card_number")
-    private int cardNumber;
+    private String cardNumber;
     @SerializedName("created_at")
     private LocalDateTime createdAt;
     @SerializedName("updated_at")
@@ -24,8 +25,8 @@ public class PaymentDetails {
 
     // Constructors
     public PaymentDetails() {}
-    public PaymentDetails(String cardId, String holderName, String expiryDate, String cardType, int cardNumber) {
-        this.cardId = cardId;
+    public PaymentDetails(String holderName, String expiryDate, String cardType, String cardNumber) {
+        this.cardId = UUID.randomUUID().toString();
         this.holderName = holderName;
         this.expiryDate = expiryDate;
         this.cardType = cardType;
@@ -47,8 +48,8 @@ public class PaymentDetails {
     public String getCardType() {return cardType;}
     public void setCardType(String cardType) {this.cardType = cardType;}
 
-    public int getCardNumber() {return cardNumber;}
-    public void setCardNumber(int cardNumber) {this.cardNumber = cardNumber;}
+    public String getCardNumber() {return cardNumber;}
+    public void setCardNumber(String cardNumber) {this.cardNumber = cardNumber;}
 
     public LocalDateTime getCreatedAt() {return createdAt;}
     public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
@@ -64,7 +65,7 @@ public class PaymentDetails {
                 ", holder_name='" + holderName + '\'' +
                 ", expiry_date='" + expiryDate + '\'' +
                 ", card_type='" + cardType + '\'' +
-                ", card_number=" + cardNumber +
+                ", card_number=" + cardNumber + '\'' +
                 ", created_at=" + createdAt +
                 ", updated_at=" + updatedAt +
                 '}';

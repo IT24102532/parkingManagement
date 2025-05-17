@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Vehicle {
     // Attributes
@@ -24,8 +25,8 @@ public class Vehicle {
 
     // Constructors
     public Vehicle() {}
-    public Vehicle(String vehicleId, String vehicleType, String regCountry, String regState, String regNumber) {
-        this.vehicleId = vehicleId;
+    public Vehicle(String vehicleType, String regCountry, String regState, String regNumber) {
+        this.vehicleId = UUID.randomUUID().toString();
         this.vehicleType = vehicleType;
         this.regCountry = regCountry;
         this.regState = regState;

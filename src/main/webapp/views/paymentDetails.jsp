@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Payment Details | park.me</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="images/site.webmanifest">
-    <link rel="stylesheet" href="assets/css/dual_container_global.css">
-    <link rel="stylesheet" href="assets/css/paymentdetails.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="${pageContext.request.contextPath}/images/site.webmanifest">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dual_container_global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/paymentdetails.css">
 </head>
 <body>
 <div class="container">
@@ -23,12 +23,20 @@
     <div class="right">
         <h1 class="title">add your payment details</h1>
 
-        <form action="./signup" method="post" class="form">
+        <form action="${pageContext.request.contextPath}/signup" method="post" class="form">
             <input type="hidden" name="step" value="payment">
 
             <label for="cardHolder">name on the card</label>
             <input type="text" id="cardHolder" name="cardHolder" required
                    class="input" placeholder="John Doe">
+
+            <label for="cardType">card provider</label>
+            <select id="cardType" name="cardType" class="input">
+                <option value="Master">Master</option>
+                <option value="Visa">Visa</option>
+                <option value="American Express">American Express</option>
+                <option value="Other">Other</option>
+            </select>
 
             <label for="cardNumber">card number</label>
             <input type="text" id="cardNumber" name="cardNumber" required
@@ -50,5 +58,35 @@
         </form>
     </div>
 </div>
+<script>
+    const cardInput = document.getElementById('cardNumber');
+    const expiryInput = document.getElementById('expiry');
+    const cvvInput = document.getElementById('cvv');
+    const form = document.querySelector('form');
+
+    cardInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0, 16);
+        e.target.value = value.match(/.{1,4}/g)?.join(' ') || '';
+    });
+
+    expiryInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0,4);
+        e.target.value = value.match(/.{1,2}/g)?.join('/') || '';
+    });
+
+    cvvInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.substring(0,3);
+        e.target.value = value;
+    });
+
+    form.addEventListener('submit', (e) => {
+        const rawValue = cardInput.value.replace(/\s/g, '');
+        const lastFour = rawValue.slice(-4);
+        cardInput.value = '**** **** **** ' + lastFour;
+    });
+</script>
 </body>
 </html>
