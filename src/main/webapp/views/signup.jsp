@@ -15,6 +15,7 @@
         <img src="${pageContext.request.contextPath}/assets/images/logo_purple.png" alt="Logo" class="logo" />
         <img src="${pageContext.request.contextPath}/assets/images/bg2.jpg" alt="Background" class="bg-img" />
     </div>
+    <!-- left side -->
 
     <!-- Right Side (Sign Up Form) -->
     <div class="right">
