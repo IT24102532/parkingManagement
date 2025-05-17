@@ -28,6 +28,12 @@ body {
     -webkit-backdrop-filter: blur( 4px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 
+    & img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+    }
+
     button {
       width: 100%;
       padding: 15px;

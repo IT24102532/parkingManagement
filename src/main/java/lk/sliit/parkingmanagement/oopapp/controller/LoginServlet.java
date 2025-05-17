@@ -51,6 +51,12 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", user.getUserId());
         String userId = user.getUserId();
         System.out.println(user.getUserId());
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+        String redirect = (String) session.getAttribute("redirectAfterLogin");
+        if (redirect != null) {
+            session.removeAttribute("redirectAfterLogin");
+            response.sendRedirect(request.getContextPath() + redirect);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/dashboard");
+        }
     }
 }

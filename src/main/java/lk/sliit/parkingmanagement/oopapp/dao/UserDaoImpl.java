@@ -5,10 +5,7 @@ import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -101,7 +98,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAll() throws Exception {
-        return List.of();
+        try {
+            return userJsonHelper.readAll();
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error finding all Users", e);
+        }
+        return new ArrayList<>();
     }
 
     @Override
