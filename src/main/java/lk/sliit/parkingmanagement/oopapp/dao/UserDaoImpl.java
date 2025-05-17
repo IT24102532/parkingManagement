@@ -116,6 +116,7 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error saving user", e);
             throw  new Exception("Failed to save user");
         }
+
         userJsonHelper.create(object);
     }
 
