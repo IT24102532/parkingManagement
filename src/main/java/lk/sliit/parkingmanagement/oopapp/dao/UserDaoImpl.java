@@ -7,10 +7,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
-=======
 import java.util.Map;
->>>>>>> 8d42ba5331ed2479b9c5da66e4aeccc97a9c3bfa
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,10 +116,7 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error saving user", e);
             throw  new Exception("Failed to save user");
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 8d42ba5331ed2479b9c5da66e4aeccc97a9c3bfa
         userJsonHelper.create(object);
     }
 
