@@ -43,7 +43,9 @@ public class SignUpServlet extends HttpServlet {
                 session.setAttribute("l_name", lName);
                 session.setAttribute("email", email);
                 session.setAttribute("hashedPassword", hashedPassword);
-                System.out.println("user registerd succesfully");
+
+                System.out.println("user registerd successfully ");
+
                 request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
             } else if ("vehicle".equalsIgnoreCase(step)) {
@@ -57,7 +59,7 @@ public class SignUpServlet extends HttpServlet {
                 session.setAttribute("regLocation", regLocation);
                 session.setAttribute("regState", regState);
                 session.setAttribute("licensePlate", licensePlate);
-                System.out.println("car  register  successfully");
+                System.out.println("vehicle register  successfully");
 
 
                 request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
