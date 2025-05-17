@@ -10,7 +10,9 @@
     <link rel="manifest" href="${pageContext.request.contextPath}/assets/images/site.webmanifest">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin-dashboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profiile.css">
-    <title>park.me | dashboard</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin_dashboard_layout.css">
+
+    <title>park.me | admin dashboard</title>
 </head>
 <body>
 <div class="container">

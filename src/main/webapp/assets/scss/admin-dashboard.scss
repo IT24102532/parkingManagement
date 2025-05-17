@@ -1,202 +1,105 @@
 @use "variables" as *;
 
-/* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: $global-font-family;
+.dash-top {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+
+  .section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+
+    &.sc-gray {
+      background: #F3F3F3;
+      border: 1px solid gainsboro;
+
+      .section-sc-gray-title {
+        margin: 10px;
+        text-align: center;
+      }
+    }
+
+    &.sc {
+      border: 1px solid gainsboro;
+      display: grid;
+      grid-template-columns: 1fr;
+
+      p {
+        text-align: center;
+      }
+    }
+
+    &.sc-white {
+      background: white;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      border: none;
+      display: flex;
+      gap: 20px;
+
+      .sc-earning, .earning-chart {
+        height: 100%;
+      }
+
+      .sc-earning {
+        display: grid;
+        grid-template-rows: auto;
+        align-content: space-between;
+
+        p:nth-child(2) {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #2C3E50;
+        }
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+  }
 }
 
-/* Layout Grid */
-.container {
-  width: 100%;
-  height: 100vh;
+.dash-bottom {
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 60px auto;
-  background: #f5f6fa;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 15px;
 
-  .sidebar {
-    width: 60px;
-    height: 100vh;
-    background: #FDFBF4;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-    display: grid;
-    place-content: center;
-    padding: 20px 0;
-    gap: 30px;
-    z-index: 100;
+  .chart, .customers {
+    grid-row: 1 / 3;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   }
 
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto repeat(3, 1fr);
-    gap: 15px;
+  .chart {
+    grid-column: 1 / 3;
+  }
+
+  .customers {
+    grid-column: 3;
+    grid-row: 1/ span 2;
+  }
+
+  .info-panel {
+    background: white;
     padding: 20px;
-    height: 100vh;
-    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 
-    .action-bar {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-
-      .action-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-
-        .title {
-          font-size: 24px;
-          color: #2c3e50;
-        }
-
-        .location-info {
-          display: flex;
-          align-items: center;
-          color: #7f8c8d;
-        }
-      }
-
-      .action-right {
-        display: flex;
-        align-items: center;
-        gap: 25px;
-
-        .new-slot-btn {
-          padding: 10px 20px;
-          display: flex;
-          gap: 10px;
-          background: $global-primary;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-
-        .feather-bell {
-          color: #7f8c8d;
-          cursor: pointer;
-        }
-
-        .profile-btn {
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          border: 2px solid $global-primary;
-          object-fit: cover;
-          cursor: pointer;
-        }
-      }
+    &:nth-child(3) {
+      grid-column: 1;
+      grid-row: 3;
     }
 
-    .dash-top {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-
-      .section {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-
-        &.sc-gray {
-          background: #F3F3F3;
-          border: 1px solid gainsboro;
-
-          .section-sc-gray-title {
-            margin: 10px;
-            text-align: center;
-          }
-        }
-
-        &.sc {
-          border: 1px solid gainsboro;
-          display: grid;
-          grid-template-columns: 1fr;
-
-          p {
-            text-align: center;
-          }
-        }
-
-        &.sc-white {
-          background: white;
-          box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-          border: none;
-          display: flex;
-          gap: 20px;
-
-          .sc-earning, .earning-chart {
-            height: 100%;
-          }
-
-          .sc-earning {
-            display: grid;
-            grid-template-rows: auto;
-            align-content: space-between;
-
-            p:nth-child(2) {
-              font-size: 1.5rem;
-              font-weight: bold;
-              color: #2C3E50;
-            }
-          }
-
-          p {
-            text-align: center;
-          }
-        }
-      }
-    }
-
-    .dash-bottom {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
-      gap: 15px;
-
-      .chart, .customers {
-        grid-row: 1 / 3;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .chart {
-        grid-column: 1 / 3;
-      }
-
-      .customers {
-        grid-column: 3;
-        grid-row: 1/ span 2;
-      }
-
-      .info-panel {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-
-        &:nth-child(3) {
-          grid-column: 1;
-          grid-row: 3;
-        }
-
-        &:nth-child(4) {
-          grid-column: 2;
-          grid-row: 3;
-        }
-      }
+    &:nth-child(4) {
+      grid-column: 2;
+      grid-row: 3;
     }
   }
 }
@@ -254,15 +157,6 @@
   max-height: calc(100vh - 220px);
   overflow-y: auto;
 
-  .customers::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .customers::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-  }
-
   .booking-pill {
     display: flex;
     padding: 20px;
@@ -275,21 +169,16 @@
     }
 
     .booking-pill-left {
-      height: 100%;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      justify-content: space-between;
 
       .booking-pill-title {
         font-weight: 500;
       }
 
+      .booking-pill-slot,
       .booking-pill-right {
-        font-size: 0.8rem;
-      }
-
-      .booking-pill-slot {
         font-size: 0.8rem;
       }
 
@@ -311,14 +200,10 @@
   }
 }
 
-h1, h2, h3, p {
-  color: #2C3E50;
-}
-
 .items {
   display: flex;
-  width: 100%;
   justify-content: space-around;
+  width: 100%;
 
   .vacant-details {
     .sc-detail-title {
@@ -336,38 +221,30 @@ h1, h2, h3, p {
 
 .occupation-chart {
   display: flex;
-  gap: 0;
-  overflow: hidden;
   width: 100%;
-}
+  overflow: hidden;
 
-.bar {
-  height: 100%;
-  border-radius: 2.5px;
+  .bar {
+    height: 100%;
+    border-radius: 2.5px;
+  }
 }
 
 .vacant {
   border-left: 5px solid $global-primary;
-  border-radius: 2px;
 }
 .vacant-bar {
   background: $global-primary;
 }
-
 .occupied {
   border-left: 5px solid $global-secondary-strong;
-  border-radius: 2px;
 }
-
 .occupied-bar {
   background: $global-secondary-strong;
 }
-
 .not-ready {
   border-left: 5px solid $global-secondary;
-  border-radius: 2px;
 }
-
 .not-ready-bar {
   background: $global-secondary;
 }
@@ -405,7 +282,6 @@ h1, h2, h3, p {
   }
 }
 
-/* Tooltip */
 .settings-container {
   position: relative;
   display: flex;
@@ -459,7 +335,6 @@ h1, h2, h3, p {
   }
 }
 
-/* Tables */
 .user-table {
   width: 100%;
   border-collapse: collapse;
@@ -480,7 +355,6 @@ h1, h2, h3, p {
   }
 }
 
-/* Modal */
 .edit-modal {
   display: none;
   position: fixed;
@@ -510,7 +384,6 @@ h1, h2, h3, p {
   cursor: pointer;
 }
 
-/* Forms */
 .form-group {
   margin-bottom: 1.5rem;
 

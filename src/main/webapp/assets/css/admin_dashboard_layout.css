@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+h1, h2, h3, p {
+  color: #2C3E50;
+}
+
+/* Layout Grid */
+.container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 60px auto;
+  background: #f5f6fa;
+}
+.container .sidebar {
+  width: 60px;
+  height: 100vh;
+  background: #FDFBF4;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  display: grid;
+  place-content: center;
+  padding: 20px 0;
+  gap: 30px;
+  z-index: 100;
+}
+.container .dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 15px;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+.container .dashboard .action-bar {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+.container .dashboard .action-bar .action-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.container .dashboard .action-bar .action-left .title {
+  font-size: 24px;
+  color: #2c3e50;
+}
+.container .dashboard .action-bar .action-left .location-info {
+  display: flex;
+  align-items: center;
+  color: #7f8c8d;
+}
+.container .dashboard .action-bar .action-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.container .dashboard .action-bar .action-right .new-slot-btn {
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  background: hsl(52, 88%, 54%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.container .dashboard .action-bar .action-right .feather-bell {
+  color: #7f8c8d;
+  cursor: pointer;
+}
+.container .dashboard .action-bar .action-right .profile-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid hsl(52, 88%, 54%);
+  object-fit: cover;
+  cursor: pointer;
+}
