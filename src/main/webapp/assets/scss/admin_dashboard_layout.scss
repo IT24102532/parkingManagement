@@ -74,7 +74,7 @@ h1, h2, h3, p {
         align-items: center;
         gap: 25px;
 
-        .new-slot-btn {
+        .new-slot-btn, .print-btn {
           padding: 10px 20px;
           display: flex;
           gap: 10px;
@@ -82,6 +82,10 @@ h1, h2, h3, p {
           border: none;
           border-radius: 5px;
           cursor: pointer;
+        }
+
+        .print-btn {
+          background: $global-primary;
         }
 
         .feather-bell {
@@ -101,3 +105,44 @@ h1, h2, h3, p {
     }
   }
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle, .print-btn {
+  padding: 8px 12px;
+  background-color: $global-secondary;
+  border: 1px solid $global-secondary-strong;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 140px;
+}
+
+.dropdown-menu div {
+  padding: 10px 15px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdown-menu div:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+

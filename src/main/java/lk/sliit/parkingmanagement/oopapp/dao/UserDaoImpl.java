@@ -31,6 +31,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findById(String id) {
+        try {
+            return userJsonHelper.findOne(
+                    u -> u.getUserId().equalsIgnoreCase(id)
+            );
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error Findng User by Email" + id, e);
+            return null;
+        }
+    }
+
+    @Override
     public boolean validatePasswordByEmail(String email, String password) throws Exception {
         try {
             User user = this.findByEmail(email);

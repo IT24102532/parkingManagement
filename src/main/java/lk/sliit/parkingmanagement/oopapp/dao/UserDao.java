@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 public interface UserDao extends DAO<User>{
     User findByEmail(String email);
+    User findById(String id);
     boolean validatePasswordByEmail(String email, String password) throws Exception;
     boolean validatePasswordById(String id, String password) throws Exception;
     String getUserId(String email) throws Exception;
