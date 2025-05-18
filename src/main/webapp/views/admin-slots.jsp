@@ -188,7 +188,7 @@
                                                 <label>Parking Lot Type</label>
                                                 <select name="lotType" required>
                                                     <option value="long_term">Long Term</option>
-                                                    <option value="insa">Insta</option>
+                                                    <option value="insta">Insta</option>
                                                 </select>
                                             </div>
                                             <div class="slot-form-group">
@@ -403,7 +403,7 @@
 
         const form = e.target;
         const formData = {
-            location: form.managerName.value,
+            name: form.managerName.value,
             commission:  Math.max(0, parseFloat(form.commission.value))
         };
 
