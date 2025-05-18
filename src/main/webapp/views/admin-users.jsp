@@ -16,6 +16,7 @@
     <title>park.me | admin dashboard</title>
 </head>
 <body>
+<input type="hidden" id="adminId" value="${user}">
 <div class="container">
     <div class="sidebar">
         <a href="${pageContext.request.contextPath}/admin/dashboard">
@@ -200,10 +201,14 @@
 
             <div class="right-section">
                 <div class="search" id="search">
-                    <input type="text" id="searchInput" placeholder="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F8C8DFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="searchInput" placeholder="search users">
                 </div>
                 <div class="card user-details">
                     <div id="loader" class="loader" style="display:none;">Loading...</div>
+                    <div class="no-results" id="errorMsg">
+                        <p>No users found.</p>
+                    </div>
                     <div id="usersContainer"></div>
                 </div>
 

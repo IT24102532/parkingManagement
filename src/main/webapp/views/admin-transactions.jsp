@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+<input type="hidden" id="adminId" value="${user}">
 </body>
 </html>

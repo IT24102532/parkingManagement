@@ -16,6 +16,6 @@
     <title>park.me | slots</title>
 </head>
 <body>
-
+<input type="hidden" id="adminId" value="${user}">
 </body>
 </html>

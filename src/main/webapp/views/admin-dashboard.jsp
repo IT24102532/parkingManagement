@@ -15,6 +15,7 @@
     <title>park.me | admin dashboard</title>
 </head>
 <body>
+<input type="hidden" id="adminId" value="${user}">
 <div class="container">
     <div class="sidebar">
         <a href="${pageContext.request.contextPath}/admin/dashboard">

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const adminId = "sam";
     fetch("/get/user/all") // Replace with your actual API endpoint
         .then(res => res.json())
         .then(data => {
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userContainer = document.getElementById("user-container");
             userContainer.innerHTML = "";
 
-            users.slice(0, 5).forEach(u => {
+            users.reverse().slice(0, 5).forEach(u => {
                 console.log(u);
                 const userPill = document.createElement("div");
                 userPill.className = "user-pill";
@@ -67,11 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(url);
             const data = await response.json();
             const users = data.users || (data.user ? [data.user] : []);
-            renderUsers(users);
+            renderUsers(users)
         } catch (error) {
             console.error('Error fetching users:', error);
         } finally {
             loader.style.display = 'none';
+
         }
     }
 
@@ -105,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lastnameInput.value = user.lname;
 
             form.dataset.userId = user.id;
+            form.dataset.adminId = adminId;
 
             // Accordion toggle
             header.addEventListener('click', () => {
@@ -148,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const formData = {
                         id: form.dataset.userId,
+                        adminId: form.dataset.adminId,
                         username: usernameInput.value,
                         email: emailInput.value,
                         location: locationInput.value,
@@ -155,17 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         lastname: lastnameInput.value
                     };
 
-                    fetch(`/api/users/${formData.id}`, {
-                        method: 'PUT',
+                    fetch(`/post/user/${formData.id}/edit`, {
+                        method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(formData)
                     })
                         .then(response => {
                             if (response.ok) {
-                                [usernameInput, emailInput, locationInput].forEach(i => i.disabled = true);
+                                [usernameInput, emailInput, locationInput, firstnameInput, lastnameInput].forEach(i => i.disabled = true);
                                 editBtn.textContent = 'Edit';
                                 editBtn.style.backgroundColor = '#4CAF50';
                                 form.querySelector('.cancel-btn')?.remove();
+                                alert("successfully edited");
                             }
                         })
                         .catch(error => console.error('Error updating user:', error));
@@ -175,9 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Ban functionality
             form.querySelector('.ban-btn').addEventListener('click', () => {
                 if (confirm('Are you sure you want to ban this user?')) {
-                    fetch(`/api/users/${user.id}/ban`, { method: 'POST' })
+                    fetch(`/post/user/${user.id}/ban`, { method: 'POST' })
                         .then(response => {
-                            if (response.ok) accordion.remove();
+                            if (response.ok) alert(`${user.id} user has been banned!`);
                         })
                         .catch(error => console.error('Error banning user:', error));
                 }

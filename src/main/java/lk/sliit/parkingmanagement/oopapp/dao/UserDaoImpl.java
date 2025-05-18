@@ -5,7 +5,10 @@ import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -124,8 +127,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User object) throws Exception {
-
+    public void update(User updatedUser) throws Exception {
+        try {
+            userJsonHelper.partialUpdate(
+                    u -> u.getUserId().equals(updatedUser.getUserId()),
+                    extractNonNullFields(updatedUser)
+            );
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error updating user", e);
+        }
     }
 
     @Override
@@ -143,4 +153,46 @@ public class UserDaoImpl implements UserDao {
         }
 
     }
+
+    @Override
+    public void ban(String id) throws Exception {
+        try {
+            userJsonHelper.partialUpdate(
+                    u -> u.getUserId().equalsIgnoreCase(id),
+                    Map.of("banned", true)
+            );
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error banning user", e);
+        }
+    }
+
+    @Override
+    public void partialUpdate(Predicate<User> predicate, Map<String, Object> updates) throws Exception {
+        try {
+            userJsonHelper.partialUpdate(predicate, updates);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error updating user", e);
+        }
+    }
+
+
+    private Map<String, Object> extractNonNullFields(User user) {
+        Map<String, Object> updates = new HashMap<>();
+        try {
+            for (Field field : User.class.getDeclaredFields()) {
+                field.setAccessible(true);
+                Object value = field.get(user);
+                if (value != null && !field.getName().equals("created_at")) {
+                    updates.put(field.getName(), value);
+                }
+            }
+            updates.put("updated_at", LocalDateTime.now());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Failed to extract fields from User", e);
+        }
+        return updates;
+    }
+
 }
