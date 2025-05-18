@@ -212,7 +212,7 @@
                         <p>No transactions found.</p>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h3>Recent Transactions</h3>
+                        <h3>All Transactions</h3>
 
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <div class="dropdown">
