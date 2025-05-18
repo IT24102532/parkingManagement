@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import lk.sliit.parkingmanagement.oopapp.model.*;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -182,12 +184,15 @@ public class JsonHelper<T> {
         throw new NoSuchFieldException(name);
     }
 
-     private void applyUpdates(T entry, Map<String, Object> updates) {
+    private void applyUpdates(T entry, Map<String, Object> updates) {
         updates.forEach((key, value) -> {
             try {
                 Field field = findField(entry.getClass(), key);
+                if (field == null) {
+                    Log.type(LogType.WARN).message("No such field: " + key).print();
+                    return;
+                }
                 field.setAccessible(true);
-
                 if ((key.equals("bookedDates") || key.equals("bookedTimes")) && value instanceof List) {
                     List<?> newValues = (List<?>) value;
                     Object current = field.get(entry);
@@ -207,12 +212,13 @@ public class JsonHelper<T> {
                     field.set(entry, value);
                 }
 
+            } catch (NoSuchFieldException e) {
+                Log.type(LogType.WARN).message("Skipping unknown field: " + key).print();
             } catch (Exception e) {
                 throw new RuntimeException("Failed to update field '" + key + "'", e);
             }
         });
     }
-
 
 }
 

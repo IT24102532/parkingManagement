@@ -10,7 +10,7 @@
 ## Get Started
 Get the project up and running with npm
 ```bash
-npx create-parkme "project_name"
+npx parkme
 ```
 
 

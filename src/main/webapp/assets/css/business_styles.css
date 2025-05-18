@@ -110,7 +110,7 @@ body {
   justify-content: space-between;
   padding: 12px 24px;
   background-color: white;
-  border-radius: 9999px;
+  border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   z-index: 1000;
   width: 90%;
@@ -151,8 +151,8 @@ body {
   gap: 12px;
 }
 .floating-navbar .auth-buttons .login-btn {
-  padding: 6px 16px;
-  border-radius: 9999px;
+  padding: 10px 20px;
+  border-radius: 5px;
   border: 1px solid hsl(52, 88%, 54%);
   color: hsl(52, 88%, 54%);
   background-color: transparent;
@@ -160,8 +160,8 @@ body {
   font-size: 14px;
 }
 .floating-navbar .auth-buttons .signup-btn {
-  padding: 6px 16px;
-  border-radius: 9999px;
+  padding: 10px 20px;
+  border-radius: 5px;
   background-color: hsl(52, 88%, 54%);
   color: white;
   text-decoration: none;

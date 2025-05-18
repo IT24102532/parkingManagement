@@ -57,7 +57,7 @@ public class UserBookingsServlet extends HttpServlet {
                             entry.put("bookingId", booking.getBookingId());
                             entry.put("slotId", booking.getSlotId());
                             entry.put("startDateTime", booking.getStartDateTime());
-                            System.out.println(entry.toString());
+                            System.out.println(entry);
                             joinedData.add(entry);
                         });
             }

@@ -154,7 +154,12 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
 
     @Override
     public void create(ParkingSlot object) throws Exception {
-
+        try {
+            slotJsonHelper.create(object);
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error creating object @create", e);
+        }
     }
 
     @Override

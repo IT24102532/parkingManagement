@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.container .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .container .right .title {
   margin-bottom: 20px !important;
 }
@@ -7,6 +13,7 @@
 }
 .container .right .booking-details {
   width: 90%;
+  max-width: 500px;
   border-collapse: separate;
   margin-bottom: 40px;
   border-spacing: 0;
@@ -41,6 +48,8 @@
 .container .right .checkout-btn {
   font-family: "Inter", sans-serif;
   width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
   padding: 12px;
   border: none;
   border-radius: 5px;

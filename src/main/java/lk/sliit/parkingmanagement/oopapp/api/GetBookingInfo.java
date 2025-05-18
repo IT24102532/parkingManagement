@@ -66,7 +66,7 @@ public class GetBookingInfo extends HttpServlet {
             entry.put("slotId", booking.getSlotId());
             entry.put("startDateTime", booking.getStartDateTime());
             entry.put("endTime", booking.getTimeOut());
-            System.out.println(entry.toString());
+            System.out.println(entry);
             joinedData.add(entry);
             response.getWriter().write(gson.toJson(joinedData));
             Log.type(LogType.SUCCESS).message("[get/booking/info] Successfully delivered data").print();
