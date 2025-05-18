@@ -18,7 +18,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 @WebServlet(name = "test", value = "/test1")
 public class HelloServlet extends HttpServlet {
     private String message;
-    private String userFilePath = FileConfig.INSTANCE.getUsersPath();
+    private final String userFilePath = FileConfig.INSTANCE.getUsersPath();
 
     public void init() {
         message = "User Doesn't exist";
@@ -38,7 +38,7 @@ public class HelloServlet extends HttpServlet {
             if (user != null) {
                 System.out.println("Actual class of user: " + user.getClass().getSimpleName());
                 if (user instanceof Customer) {
-                    request.setAttribute("user", (Customer) user);  // Cast User to Customer
+                    request.setAttribute("user", user);  // Cast User to Customer
                     System.out.println("Forwarding a Customer object to JSP");
                 } else {
                     request.setAttribute("user", user);

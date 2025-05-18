@@ -48,9 +48,21 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         assert user != null;
+
+        if (user.getBanned()) {
+            request.getRequestDispatcher("/WEB-INF/banned.jsp").forward(request, response);
+            return;
+        }
+
         session.setAttribute("user", user.getUserId());
         String userId = user.getUserId();
         System.out.println(user.getUserId());
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+        String redirect = (String) session.getAttribute("redirectAfterLogin");
+        if (redirect != null) {
+            session.removeAttribute("redirectAfterLogin");
+            response.sendRedirect(request.getContextPath() + redirect);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/dashboard");
+        }
     }
 }

@@ -79,6 +79,8 @@ public class User {
     public Boolean getBanned() {return banned;}
     public void setBanned(Boolean banned) {this.banned = banned;}
 
+    public String getUsername() {return this.f_name + " " + this.l_name;}
+
     // Overrides
     @Override
     public String toString() {
@@ -107,4 +109,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(user_uuid);
     }
+
 }

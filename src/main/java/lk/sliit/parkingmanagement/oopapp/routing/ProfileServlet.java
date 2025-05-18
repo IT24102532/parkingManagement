@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebServlet(name = "ProfileServlet", value = "/profile")
-public class ProfileServlet extends HttpServlet {;
+public class ProfileServlet extends HttpServlet {
     private final Logger LOGGER = Logger.getLogger(ProfileServlet.class.getName());
 
     @Override

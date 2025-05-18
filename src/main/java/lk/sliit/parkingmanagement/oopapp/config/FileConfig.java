@@ -13,6 +13,7 @@ public enum FileConfig {
     private String bookingsPath;
     private String slotPath;
     private String managerPath;
+    private String logsPath;
 
     FileConfig() {
         Properties prop = new Properties();
@@ -25,6 +26,7 @@ public enum FileConfig {
             bookingsPath = prop.getProperty("booking.file.path");
             slotPath = prop.getProperty("slots.file.path");
             managerPath = prop.getProperty("manager.file.path");
+            logsPath = prop.getProperty("log.file.path");
 
             validatePaths();
 
@@ -33,6 +35,7 @@ public enum FileConfig {
             ensureFileExists(bookingsPath);
             ensureFileExists(slotPath);
             ensureFileExists(managerPath);
+            ensureFileExists(logsPath);
 
         }
         catch (IOException ex) {
@@ -53,6 +56,9 @@ public enum FileConfig {
         if (slotPath == null || slotPath.isBlank()) {
             throw new RuntimeException("slots.file.path is missing in config.properties");
         }
+        if (managerPath == null || managerPath.isBlank()) {
+            throw new RuntimeException("manager.file.path is missing in config.properties");
+        }
     }
 
     private void ensureFileExists(String path) {
@@ -72,4 +78,5 @@ public enum FileConfig {
     public String getBookingsPath() {return bookingsPath;}
     public String getSlotPath() {return slotPath;}
     public String getManagerPath() {return managerPath;}
+    public String getLogsPath() {return logsPath;}
 }

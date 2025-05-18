@@ -23,6 +23,8 @@ public class TestServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Test expectionEmpty Error");
         } else if ("expectionInvalid".equals(test)) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Test expectionInvalid Error");
+        } else if ("banned".equalsIgnoreCase(test)) {
+            request.getRequestDispatcher("/WEB-INF/banned.jsp").forward(request, response);
         }
 
         response.getWriter().println("Normal Response");

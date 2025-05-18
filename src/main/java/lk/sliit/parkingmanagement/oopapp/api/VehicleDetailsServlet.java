@@ -27,8 +27,6 @@ public class VehicleDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user");
-
-
         User user = null;
         try {
             user = userDao.getById(userId);
@@ -51,7 +49,6 @@ public class VehicleDetailsServlet extends HttpServlet {
             vehicleDto.setVehicleId(vehicle.getVehicleId());
             vehicleDto.setRegNumber(vehicle.getRegNumber());
         }
-
         String json = gson.toJson(vehicleDto);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

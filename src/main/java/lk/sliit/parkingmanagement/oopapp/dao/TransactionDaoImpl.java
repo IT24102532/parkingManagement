@@ -16,6 +16,14 @@ public class TransactionDaoImpl implements TransactionDao {
 
     @Override
     public Transaction getById(String id) throws Exception {
+        try {
+            return jsonHelper.findOne(
+                    t -> t.getTransactionId().equalsIgnoreCase(id)
+            );
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
         return null;
     }
 
@@ -47,5 +55,18 @@ public class TransactionDaoImpl implements TransactionDao {
     @Override
     public void delete(int id) throws Exception {
 
+    }
+
+    @Override
+    public Transaction getByBookingId(String bookingId) {
+        try {
+            return jsonHelper.findOne(
+                    t -> t.getBookingId().equals(bookingId)
+            );
+        }
+        catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+        return null;
     }
 }
