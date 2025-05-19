@@ -65,11 +65,13 @@ public class GetBookingInfo extends HttpServlet {
         try {
             //Retrieve booking details by bookingID
             booking = bookingDao.getById(bookingId);
+            //Find the transaction
             transaction = transactionDao.findAll().stream()
                     .filter(t -> t.getBookingId().equalsIgnoreCase(bookingId))
                     .collect(Collectors.toList())
                     .get(0);
             List<Map<String, Object>> joinedData = new ArrayList<>();
+            //Getting user and parking slot details
             user = userDao.getById(transaction.getUserId());
             parkingSlot = parkingSlotDao.getById(booking.getSlotId());
 
@@ -89,6 +91,7 @@ public class GetBookingInfo extends HttpServlet {
             Log.type(LogType.SUCCESS).message("[get/booking/info] Successfully delivered data").print();
         }
         catch (Exception e) {
+            //handle and log any errors 
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch bookings.");
             Log.type(LogType.ERROR).message("[get/booking/info] Failed to deliver bookings.").print();
         }
