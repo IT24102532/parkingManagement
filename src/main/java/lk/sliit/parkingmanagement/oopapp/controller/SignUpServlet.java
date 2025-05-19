@@ -122,7 +122,7 @@ public class SignUpServlet extends HttpServlet {
             }
         } catch (Exception e) {
             //handle unexpected errors
-            Log.type(LogType.ERROR).message("Something went wrong"+ e.getMessage());
+            Log.type(LogType.ERROR).message("Something went wrong"+ e.getMessage()).print();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong.");
         }
     }

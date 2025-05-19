@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (Exception e) {
             //log exception if failure
-            Log.type(LogType.ERROR).message("Error: "+e.getMessage());
+            Log.type(LogType.ERROR).message("Error: "+e.getMessage()).print();
         }
 
         //create a new session for logged-in user
