@@ -50,7 +50,7 @@ public class GeSlotSearchServlet extends HttpServlet {
     //convert LocalDateTime to readable string format by FORMATTER
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd @HH:mm");
 
-    //Using custom adaptors 
+    //Using custom adaptors
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -62,6 +62,7 @@ public class GeSlotSearchServlet extends HttpServlet {
         Map<String, Object> result;
 
         try {
+            //Determine the requested endpoint and assign to handler method
             result = switch (request.getServletPath()) {
                 case "/get/slot/all" -> handleAllSlots(request);
                 case "/get/slot/search" -> handleSlotSearch(request);
@@ -70,12 +71,14 @@ public class GeSlotSearchServlet extends HttpServlet {
                 default -> Map.of("status", "error", "message", "Invalid endpoint");
             };
         } catch (Exception e) {
+            //Log errors and prepare and error response
             LOGGER.log(Level.SEVERE, "Error processing request", e);
             result = Map.of("status", "error", "message", "Internal server error");
         }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        //writing data map as a JSON response
         response.getWriter().write(gson.toJson(result));
     }
 
