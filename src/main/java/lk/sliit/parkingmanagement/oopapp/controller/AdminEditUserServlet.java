@@ -35,6 +35,7 @@ public class AdminEditUserServlet extends HttpServlet {
     private final AdminLogDao adminlog = new AdminLogDaoImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //disallow GET requests for this servlet
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET method is not supported for this endpoint.");
         Log.type(LogType.INFO).message("Get request not allowed");
     }
@@ -42,6 +43,8 @@ public class AdminEditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
+
+        //handle user ban request
         if (pathInfo != null && pathInfo.matches("^/[^/]+/ban$")) {
             String[] tokens = pathInfo.split("/");
             String userId = tokens[1];
@@ -50,6 +53,7 @@ public class AdminEditUserServlet extends HttpServlet {
             String approvedParam = request.getParameter("approved");
             boolean approved = "true".equalsIgnoreCase(approvedParam);
 
+            //validate admin approval
             if (adminId == null || !approved) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized or malformed request.");
                 return;
@@ -58,6 +62,7 @@ public class AdminEditUserServlet extends HttpServlet {
             try {
                 userDao.ban(userId);
 
+                //create a log entry for the admin
                 AdminLogs log = new AdminLogs();
                 log.setAdminId(adminId);
                 log.setAction("{\"action\":\"BAN_USER\",\"admin\":\"" + adminId + "\",\"target\":\"" + userId + "\"}");
@@ -68,6 +73,7 @@ public class AdminEditUserServlet extends HttpServlet {
                     Log.type(LogType.ERROR).message("Couldn't create admin log: " + e.getMessage()).print();
                 }
 
+                //send success response
                 Map<String, String> result = new HashMap<>();
                 result.put("action", "BAN_USER");
                 result.put("admin", adminId);
@@ -82,6 +88,8 @@ public class AdminEditUserServlet extends HttpServlet {
                 Log.type(LogType.ERROR).message("Ban failed: " + e.getMessage()).print();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ban operation failed.");
             }
+
+            //handle user edit request
         } else if (pathInfo != null && pathInfo.matches("^/[^/]+/edit$")) {
             String[] tokens = pathInfo.split("/");
             String userId = tokens[1];
@@ -103,6 +111,7 @@ public class AdminEditUserServlet extends HttpServlet {
                     return;
                 }
 
+                //prepare a map of fields to be updated
                 Map<String, Object> updates = new HashMap<>();
                 if (jsonBody.has("username")) updates.put("username", jsonBody.get("username").getAsString());
                 if (jsonBody.has("email")) updates.put("email", jsonBody.get("email").getAsString());
@@ -110,8 +119,10 @@ public class AdminEditUserServlet extends HttpServlet {
                 if (jsonBody.has("firstname")) updates.put("f_name", jsonBody.get("firstname").getAsString());
                 if (jsonBody.has("lastname")) updates.put("l_name", jsonBody.get("lastname").getAsString());
 
+
                 userDao.partialUpdate(u -> u.getUserId().equals(userId), updates);
 
+                //log the admin edit action
                 AdminLogs log = new AdminLogs(adminId, String.format(
                         "{\"action\":\"EDIT_USER\",\"admin\":\"%s\",\"target\":\"%s\"}", adminId, userId
                 ));
@@ -121,6 +132,7 @@ public class AdminEditUserServlet extends HttpServlet {
                     Log.type(LogType.ERROR).message("Couldn't create admin log: " + e.getMessage()).print();
                 }
 
+                //send the success response
                 Map<String, String> result = new HashMap<>();
                 result.put("action", "EDIT_USER");
                 result.put("admin", adminId);
