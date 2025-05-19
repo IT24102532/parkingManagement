@@ -19,11 +19,25 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+*Servlet designed  to retrieve vehicle details for a specific customer
+*
+* @param user - to identify and fetch vehicle details
+* Only listens to GET requests and returns vehicle info for the customer
+*
+* Reads data from the user table using provided user
+*
+* Vehicle info and the user is mapped into DTO
+* and returned as a formatted JSON object
+*/
+
 @WebServlet(name = "VehicleDetailsServlet", value = "/get/vehicle")
 public class VehicleDetailsServlet extends HttpServlet {
+    //DAO Access
     private final UserDao userDao = new UserDaoImpl();
     private final Logger LOGGER = Logger.getLogger(VehicleDetailsServlet.class.getName());
 
+    //handles GET requests to get vehicle details for a specific customer
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user");
@@ -31,6 +45,7 @@ public class VehicleDetailsServlet extends HttpServlet {
         try {
             user = userDao.getById(userId);
         } catch (Exception e) {
+            //log any exceptions during data retrival 
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
