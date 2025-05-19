@@ -45,7 +45,7 @@ public class VehicleDetailsServlet extends HttpServlet {
         try {
             user = userDao.getById(userId);
         } catch (Exception e) {
-            //log any exceptions during data retrival
+            //log any exceptions during data retrieval
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
@@ -55,7 +55,8 @@ public class VehicleDetailsServlet extends HttpServlet {
                 .setPrettyPrinting()
                 .create();
 
-        VehicleDto vehicleDto = new VehicleDto();// prepare a DTO to hold vehicle data for response
+        // prepare a DTO to hold vehicle data for response
+        VehicleDto vehicleDto = new VehicleDto();
         assert user != null;
         Vehicle vehicle;
         vehicleDto.setUserId(user.getUserId());
