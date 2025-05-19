@@ -23,6 +23,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+/*
+*Servlet designed to retrieve detailed information for a specific booking
+*
+* @param id
+*
+*Only listens to get requests and returns an errors for any other method
+*This servlet reads data from booking,transaction,parkingSlot and user tables
+*It retrieves the booking and finds the associated transaction and user
+*
+*The all collected data is merged into a single map and returned as a structured JSON object
+*/
 
 @WebServlet(name = "GetBookingInfo", value = "/get/booking/info")
 public class GetBookingInfo extends HttpServlet {
