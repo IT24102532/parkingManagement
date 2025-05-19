@@ -91,7 +91,7 @@ public class GetBookingInfo extends HttpServlet {
             Log.type(LogType.SUCCESS).message("[get/booking/info] Successfully delivered data").print();
         }
         catch (Exception e) {
-            //handle and log any errors 
+            //handle and log any errors
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch bookings.");
             Log.type(LogType.ERROR).message("[get/booking/info] Failed to deliver bookings.").print();
         }

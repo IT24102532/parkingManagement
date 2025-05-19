@@ -24,16 +24,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/*
+*Servlet designed to retrieve the total number of current active bookings
+*
+* Only listens to GET requests and error for any other method
+*
+* reads data from the booking table and filter them
+* The count of active bookings returned as a JSON object
+*
+*/
 @WebServlet(name = "GetBookingsActive", value = "/get/bookings/active")
 public class GetBookingsActive extends HttpServlet {
+    //DAO Access
     private final UserDao userDao = new UserDaoImpl();
     private final BookingDao bookingDao = new BookingDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
-        // TODO: validation at production to check if the user is an admin
 
+        //fetch all bookings filter those haven't been checked out
         List<Booking> bookings = bookingDao.getAllBookings().stream()
                 .filter(b -> b.getCheckOutTime() == null)
                 .collect(Collectors.toList());
@@ -44,6 +54,7 @@ public class GetBookingsActive extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        //Converting results map to JSON
         Gson gson = new Gson();
         response.getWriter().write(gson.toJson(result));
     }
