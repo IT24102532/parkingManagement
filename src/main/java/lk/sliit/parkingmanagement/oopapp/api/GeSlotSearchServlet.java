@@ -200,10 +200,12 @@ public class GeSlotSearchServlet extends HttpServlet {
                     slots = slots.subList(0, limit);
                 }
             } catch (NumberFormatException e) {
+                //log a warning if the limit parameter is not a valid integer
                 LOGGER.warning("Invalid limit parameter: " + limitParam + " from " + request.getRemoteAddr());
             }
         }
 
+        //mapping the each slot while filter out any null mappings
         List<Map<String, Object>> mappedSlots = slots.stream()
                 .map(this::safeMapSlot)
                 .filter(Objects::nonNull)
@@ -216,6 +218,7 @@ public class GeSlotSearchServlet extends HttpServlet {
         try {
             return mapSlot(slot);
         } catch (Exception e) {
+            //log the error and return null to skip this slot
             LOGGER.warning("Failed to map slot ID " + slot.getSlotId() + ": " + e.getMessage());
             return null;
         }
@@ -223,12 +226,14 @@ public class GeSlotSearchServlet extends HttpServlet {
 
     private Map<String, Object> mapSlot(ParkingSlot slot) {
         Map<String, Object> entry = new HashMap<>();
+        //Basic slot details
         entry.put("id", slot.getSlotId());
         entry.put("availability", slot.isAvailable());
         entry.put("location", slot.getLocationName());
         entry.put("slot", slot.getSlotName());
         entry.put("manager", slot.getLocationName());
 
+        //Adding pricing based on slot type
         if (slot instanceof InstaSlot) {
             entry.put("amount", ((InstaSlot) slot).getPrice());
         } else if (slot instanceof LongTermSlot) {
@@ -238,6 +243,7 @@ public class GeSlotSearchServlet extends HttpServlet {
         return entry;
     }
 
+    //formats a LocalDateTime object into a readable string using above defined pattern
     private String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DATE_FORMATTER);
     }
