@@ -5,6 +5,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.*;
 import lk.sliit.parkingmanagement.oopapp.model.*;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 @WebServlet(name = "BookingServlet", value = "/book/create")
 public class BookingServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(BookingServlet.class.getName());
@@ -20,6 +23,12 @@ public class BookingServlet extends HttpServlet {
     private final ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
     private final BookingDao bookingDao = new BookingDaoImpl();
     private final TransactionDao transactionDao = new TransactionDaoImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        Log.type(LogType.INFO).message("Get request not allowed");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -156,6 +165,7 @@ public class BookingServlet extends HttpServlet {
     private boolean isSlotStillAvailable(java.util.List<ParkingSlot> availableSlots, String targetSlotId) {
         return availableSlots.stream().anyMatch(slot -> slot.getSlotId().equals(targetSlotId));
     }
+
 
     private void sendError(HttpServletResponse response, int statusCode, String message) throws IOException {
         LOGGER.warning(message);

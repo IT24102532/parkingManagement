@@ -20,6 +20,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+    This servlet handles admin operations for managing user accounts by admin
+    It has two main functionalities:
+        - Ban a user
+        - Edit user details
+
+    Only listen for POST requests
+ */
+
 @WebServlet(name = "AdminEditServlet", value = "/post/user/*")
 public class AdminEditUserServlet extends HttpServlet {
     private final UserDao userDao = new UserDaoImpl();
@@ -27,7 +36,7 @@ public class AdminEditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET method is not supported for this endpoint.");
-
+        Log.type(LogType.INFO).message("Get request not allowed");
     }
 
     @Override

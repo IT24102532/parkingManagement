@@ -6,15 +6,20 @@ import jakarta.servlet.annotation.*;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.IOException;
+
+
 
 @WebServlet(name = "UpdateAccountServlet", value = "/update")
 public class UpdateAccountServlet extends HttpServlet {
     private final UserDao userDao = new UserDaoImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        Log.type(LogType.INFO).message("Get request not allowed");
     }
 
     @Override

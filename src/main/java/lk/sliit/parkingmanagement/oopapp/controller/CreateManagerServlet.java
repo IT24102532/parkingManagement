@@ -18,6 +18,8 @@ import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+
+
 @WebServlet(name = "CreateManagerServlet", value = "/post/manager/add")
 public class CreateManagerServlet extends HttpServlet {
     private final String file = FileConfig.INSTANCE.getManagerPath();
@@ -26,6 +28,7 @@ public class CreateManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET method is not supported for this endpoint.");
+        Log.type(LogType.INFO).message("Get request not allowed");
     }
 
     @Override
