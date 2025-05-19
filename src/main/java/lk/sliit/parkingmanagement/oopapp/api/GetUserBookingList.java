@@ -14,6 +14,7 @@ import lk.sliit.parkingmanagement.oopapp.utils.LocalDateTimeAdapter;
 import lk.sliit.parkingmanagement.oopapp.utils.LocalTimeAdapter;
 import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
 import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
+import lk.sliit.parkingmanagement.oopapp.utils.Sort.GlobalSort;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -44,7 +45,7 @@ public class GetUserBookingList extends HttpServlet {
             List<Transaction> userTransactions = transactionDao.findAll().stream()
                     .filter(t -> t.getUserId().equals(userId))
                     .collect(Collectors.toList());
-            insertionSortByCreatedAt(userTransactions);
+            GlobalSort.insertionSortByDates(userTransactions);
             Set<String> bookingIds = userTransactions.stream()
                     .map(Transaction::getBookingId)
                     .collect(Collectors.toSet());
@@ -82,16 +83,16 @@ public class GetUserBookingList extends HttpServlet {
         }
     }
 
-    private void insertionSortByCreatedAt(List<Transaction> list) {
-        for (int i = 1; i < list.size(); i++) {
-            Transaction key = list.get(i);
-            LocalDateTime kt = key.getCreatedAt();
-            int j = i - 1;
-            while (j >= 0 && list.get(j).getCreatedAt().isBefore(kt)) {
-                list.set(j + 1, list.get(j));
-                j--;
-            }
-            list.set(j + 1, key);
-        }
-    }
+//    private void insertionSortByCreatedAt(List<Transaction> list) {
+//        for (int i = 1; i < list.size(); i++) {
+//            Transaction key = list.get(i);
+//            LocalDateTime kt = key.getCreatedAt();
+//            int j = i - 1;
+//            while (j >= 0 && list.get(j).getCreatedAt().isBefore(kt)) {
+//                list.set(j + 1, list.get(j));
+//                j--;
+//            }
+//            list.set(j + 1, key);
+//        }
+//    }
 }

@@ -243,7 +243,7 @@ public class GeSlotSearchServlet extends HttpServlet {
         return entry;
     }
 
-    //formats a LocalDateTime object into a readable string using above defined pattern
+    //formats a LocalDateTime object into a readable string using above defined0 pattern
     private String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DATE_FORMATTER);
     }

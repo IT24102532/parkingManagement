@@ -157,7 +157,7 @@ public class GetUserSearchServlet extends HttpServlet {
         entry.put("id", user.getUserId());
         entry.put("joined", formatDateTime(user.getCreatedAt()));
         entry.put("email", user.getEmail());
-        entry.put("location", "Sri Lanka"); // TODO: replace if you add a real location field
+        entry.put("location", "Sri Lanka");
         entry.put("status", user.getBanned() ? "Banned" : "Active");
         entry.put("fname", user.getFirstName());
         entry.put("lname", user.getLastName());
