@@ -12,6 +12,13 @@ import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 import java.io.IOException;
 
 
+/*
+    This servlet handles the process of updating a user's account information
+    (first name and last name) in the parking management system.
+
+    Only listen for POST request
+ */
+
 
 @WebServlet(name = "UpdateAccountServlet", value = "/update")
 public class UpdateAccountServlet extends HttpServlet {
