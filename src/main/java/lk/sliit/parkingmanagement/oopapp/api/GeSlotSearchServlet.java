@@ -138,7 +138,7 @@ public class GeSlotSearchServlet extends HttpServlet {
 
             result.put("locations", locationNames);
         } catch (Exception e) {
-            //if failure return the error status 
+            //if failure return the error status
             result.put("status", "error");
             result.put("message", "Failed to fetch slot locations");
             Log.type(LogType.ERROR).message(e.getMessage()).print();
@@ -151,21 +151,23 @@ public class GeSlotSearchServlet extends HttpServlet {
 
         try {
             List<Map<String, Object>> managersList = new ArrayList<>();
+            //fetch all managers,eliminate duplicate and sort alphabetically
             List<Manager> managers = managerDao.findAll().stream()
                     .filter(Objects::nonNull)
                     .distinct()
                     .sorted(Comparator.comparing(Manager::getName))
                     .collect(Collectors.toList());
-
+            //mapping each manager data structure with ID and name
             for (Manager manager : managers) {
                 Map<String, Object> managerMap = new HashMap<>();
                 managerMap.put("id", manager.getManagerId());
                 managerMap.put("name", manager.getName());
                 managersList.add(managerMap);
             }
-
+            //add the list of managers to the result map
             result.put("managers", managersList);
         } catch (Exception e) {
+            //In case of error, display the result with error message
             result.put("status", "error");
             result.put("message", "Failed to fetch slot managers");
             Log.type(LogType.ERROR).message(e.getMessage()).print();
