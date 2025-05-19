@@ -17,7 +17,16 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+    This servlet handles the multistep user registration process in the parking management system
+    It consists of three steps:
+        - user details
+        - vehicle details
+        - payment information
 
+     Only listen for POST request
+
+ */
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
