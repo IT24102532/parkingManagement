@@ -15,6 +15,17 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+    This servlet handles the creation of parking slot bookings for users
+    It has two types of bookings:
+           - InstaSlot booking
+                + Used for short term bookings or hourly bookings
+
+           - LongTermSlot booking
+                + Used for long term bookings or daily bookings
+
+     Only listen for POST requests
+ */
 
 @WebServlet(name = "BookingServlet", value = "/book/create")
 public class BookingServlet extends HttpServlet {
