@@ -28,6 +28,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/*
+  This servlet handles the creation of new parking slots
+  (either long-term or instant) in the system by admin
+
+  Only listen for POST requests at the endpoint
+ */
+
 @WebServlet(name = "CreateSlotServlet", value = "/post/slot/create")
 public class CreateSlotServlet extends HttpServlet {
     private final ParkingSlotDao slotDao = new ParkingSlotDaoImpl();
