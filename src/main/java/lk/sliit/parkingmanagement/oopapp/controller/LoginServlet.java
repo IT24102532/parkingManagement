@@ -12,6 +12,11 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+  This servlet handles user login functionality for the parking management system
+
+  Listen to both POST and GET requests
+ */
 
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {

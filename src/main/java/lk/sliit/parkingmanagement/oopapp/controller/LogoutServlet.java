@@ -6,6 +6,11 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
+/*
+    This servlet handles user logout functionality for the parking management system
+
+    This only listen for GET request
+ */
 
 @WebServlet(name = "LogoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
