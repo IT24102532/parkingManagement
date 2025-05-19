@@ -144,6 +144,7 @@ public class AdminEditUserServlet extends HttpServlet {
                 response.getWriter().print(new Gson().toJson(result));
 
             } catch (Exception e) {
+                //respond with an error if user edit fails
                 Log.type(LogType.ERROR).message("User edit failed: " + e.getMessage()).print();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Edit operation failed.");
             }
