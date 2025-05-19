@@ -180,14 +180,18 @@ public class GeSlotSearchServlet extends HttpServlet {
     private Map<String, Object> handleAllSlots(HttpServletRequest request) {
         List<ParkingSlot> slots = null;
         try {
+            //Retrieve all parking slots
             slots = parkingSlotDao.findAll();
         } catch (Exception e) {
+            Log.type(LogType.ERROR).message("Failed to fetch slot all").print();
+            //if retrieval fails throw a runtime exception
             throw new RuntimeException(e);
         }
 
         // Sort by created date (newest first)
         slots.sort(Comparator.comparing(ParkingSlot::getCreatedAt).reversed());
 
+        //checking the 'limit' parameter
         String limitParam = request.getParameter("limit");
         if (limitParam != null) {
             try {
