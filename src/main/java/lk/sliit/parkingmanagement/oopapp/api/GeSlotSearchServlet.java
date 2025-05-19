@@ -24,14 +24,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/*
+*servlet designed to handle multiple GET endpoints related to parking slot data
+* for admin panels or client-side slot management features.
+*
+* Only listens to GET requests and returns an error for POST requests.
+*
+*This servlet supports several endpoints
+*       -get/slot/all : retrieving all parking slots
+*       -get/slot/search : Searching slots
+*       -get/slots/locations : Returns a list of all slot locations
+*       -get/slot/manager : Returns a list of all registered slot users
+*
+* Maps the results into structured JSON responses and handles errors
+*
+*/
+
 @WebServlet(name = "GetSlotSearchServlet", value = {"/get/slot/all", "/get/slot/search", "/get/slot/locations", "/get/slot/manager"})
 public class GeSlotSearchServlet extends HttpServlet {
+    //DAO Access
     private final ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
     private final ManagerDao managerDao = new ManagerDaoImpl();
     private final Logger LOGGER = Logger.getLogger(GeSlotSearchServlet.class.getName());
 
+    //convert LocalDateTime to readable string format by FORMATTER
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd @HH:mm");
 
+    //Using custom adaptors 
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
