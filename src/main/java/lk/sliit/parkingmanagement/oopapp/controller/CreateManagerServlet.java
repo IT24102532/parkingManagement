@@ -18,7 +18,11 @@ import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/*
+    This servlet handles the creation of new manager accounts in the system by the admin
+    - Only listen for POST requests at the endpoint /post/manager/add.
 
+ */
 
 @WebServlet(name = "CreateManagerServlet", value = "/post/manager/add")
 public class CreateManagerServlet extends HttpServlet {
