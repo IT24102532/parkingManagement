@@ -12,7 +12,11 @@ import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+/*
+  This servlet handles the deletion of the user account from the system
 
+  Only listen for POST requests at the endpoint /delete.
+ */
 
 @WebServlet(name = "DeleteAccountServlet", value = "/delete")
 public class DeleteAccountServlet extends HttpServlet {
