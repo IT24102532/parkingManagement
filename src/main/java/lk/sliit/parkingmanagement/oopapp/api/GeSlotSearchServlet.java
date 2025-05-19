@@ -126,8 +126,9 @@ public class GeSlotSearchServlet extends HttpServlet {
         Map<String, Object> result = new HashMap<>();
 
         try {
+            //fetch all parking slots and their locations
             List<String> locationNames = parkingSlotDao.findAll().stream()
-                    .map(ParkingSlot::getLocationName)
+                    .map(ParkingSlot::getLocationName)//getting locations from each slots
                     .filter(Objects::nonNull)
                     .map(String::trim)
                     .filter(s -> !s.isEmpty())
@@ -137,6 +138,7 @@ public class GeSlotSearchServlet extends HttpServlet {
 
             result.put("locations", locationNames);
         } catch (Exception e) {
+            //if failure return the error status 
             result.put("status", "error");
             result.put("message", "Failed to fetch slot locations");
             Log.type(LogType.ERROR).message(e.getMessage()).print();
