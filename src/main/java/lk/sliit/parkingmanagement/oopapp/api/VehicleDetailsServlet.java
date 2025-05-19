@@ -45,28 +45,33 @@ public class VehicleDetailsServlet extends HttpServlet {
         try {
             user = userDao.getById(userId);
         } catch (Exception e) {
-            //log any exceptions during data retrival 
+            //log any exceptions during data retrival
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
+        //create Gson instance with a custom LocalDateTime adaptor
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .setPrettyPrinting()
                 .create();
 
-        VehicleDto vehicleDto = new VehicleDto();
+        VehicleDto vehicleDto = new VehicleDto();// prepare a DTO to hold vehicle data for response
         assert user != null;
         Vehicle vehicle;
         vehicleDto.setUserId(user.getUserId());
+        //if user is a customer retrieve their vehicle
         if (user instanceof Customer) {
             vehicle = (((Customer) user).getVehicle());
+
+            //map vehicle details to the DTO
             vehicleDto.setVehicleType(vehicle.getVehicleType());
             vehicleDto.setVehicleId(vehicle.getVehicleId());
             vehicleDto.setRegNumber(vehicle.getRegNumber());
         }
-        String json = gson.toJson(vehicleDto);
+        String json = gson.toJson(vehicleDto); //convert the DTO to a JSON string
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+        response.getWriter().write(json);//send the JSON response to the client
     }
 }
