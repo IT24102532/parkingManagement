@@ -87,10 +87,13 @@ public class GeSlotSearchServlet extends HttpServlet {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "POST method is not supported for this endpoint.");
     }
 
+    //Handling the /get/slot/search endpoint to find slots
     private Map<String, Object> handleSlotSearch(HttpServletRequest request) {
+        //Getting the search parameter from the request,trim and convert into lowercase
         String param = Optional.ofNullable(request.getParameter("param")).orElse("").trim().toLowerCase();
         Map<String, Object> result = new HashMap<>();
 
+        //If the search parameter missing or empty return the result
         if (param.isEmpty()) {
             result.put("error", "Missing or empty search parameter");
             return result;
@@ -98,20 +101,23 @@ public class GeSlotSearchServlet extends HttpServlet {
 
         List<ParkingSlot> matchedSlots = null;
         try {
+            //fetch all parking slots and filter the slots contains the search keyword
             matchedSlots = parkingSlotDao.findAll().stream()
                     .filter(slot ->
                             (slot.getLocationName() + " " + slot.getSlotName()).toLowerCase().contains(param)
                     )
                     .collect(Collectors.toList());
         } catch (Exception e) {
+            Log.type(LogType.ERROR).message("Error processing request"+e.getMessage()).print();
             throw new RuntimeException(e);
         }
 
+        //conver matched slots to a list of safe and mapped representations
         List<Map<String, Object>> mapped = matchedSlots.stream()
                 .map(this::safeMapSlot)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
+        //add the mapped slot into result
         result.put("slots", mapped);
         return result;
     }
