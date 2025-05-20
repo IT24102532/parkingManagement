@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpSession;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.IOException;
 
@@ -42,6 +44,23 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
+        String userId = (String) session.getAttribute("user");
+        if (requestedPath.startsWith("/admin")) {
+            try {
+                User user = userDao.getById(userId);
+                if (user == null) {
+                    response.sendRedirect(request.getContextPath() + "/login");
+                    return;
+                }
+                if (!"admin".equals(user.getUserType())) {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
+                    return;
+                }
+            } catch (Exception e) {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User lookup failed");
+                return;
+            }
+        }
         chain.doFilter(request, response);
     }
 }
