@@ -11,7 +11,6 @@ import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -44,7 +43,7 @@ public class SignUpServlet extends HttpServlet {
                 session.setAttribute("email", email);
                 session.setAttribute("hashedPassword", hashedPassword);
 
-                System.out.println("user registerd successfully ");
+                System.out.println("user registered successfully ");
 
                 request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
