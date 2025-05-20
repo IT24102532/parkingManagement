@@ -16,9 +16,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
+/*
+*Servlet designs to retrieve the most recent booking made by a user
+*
+* param id - to fetch the user transactions and associated bookings
+*
+* Reads data from transaction and booking
+* first filters all transactions by user ID to collect booking IDs,
+* and retrieves bookings to those IDs
+*
+* after sorting bookings , the most
+* recent booking is selected and returned in JSON format
+*/
 
 @WebServlet(name = "RecentBookingInfoServlet", value = "/get/booking/recent")
 public class RecentBookingInfoServlet extends HttpServlet {
+    //DAO Access
     private final BookingDao bookingDao = new BookingDaoImpl();
     private final TransactionDao transactionDao = new TransactionDaoImpl();
     private final Gson gson = new GsonBuilder()
@@ -35,7 +48,7 @@ public class RecentBookingInfoServlet extends HttpServlet {
             return;
         }
 
-        // 1) Fetch all transactions for user, grab their booking IDs
+        //  Fetch all transactions for user, grab their booking IDs
         List<String> bookingIds = null;
         try {
             bookingIds = transactionDao.findAll().stream()
@@ -54,7 +67,7 @@ public class RecentBookingInfoServlet extends HttpServlet {
             return;
         }
 
-        // 2) Fetch all those bookings in one go
+        //  Fetch all those bookings in one go
         List<Booking> bookings = null;
         try {
             List<String> finalBookingIds = bookingIds;
@@ -66,11 +79,11 @@ public class RecentBookingInfoServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // 3) Sort by createdAt, pick the most recent
+        //  Sort by createdAt, pick the most recent
         insertionSortByCreatedAt(bookings);
         Booking recent = bookings.get(bookings.size() - 1);
 
-        // 4) Return it
+        // Return it
         response.setContentType("application/json");
         System.out.println("writing recent booking");
         response.setCharacterEncoding("UTF-8");

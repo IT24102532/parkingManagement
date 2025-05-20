@@ -54,7 +54,7 @@ public class LongTermSlotsGetServlet extends HttpServlet {
             response.getWriter().write("{\"success\": false, \"error\": \"Slot not found!\"}");
             return;
         }
-        //if the slot is successfully retrieved,return its details as a JSON response 
+        //if the slot is successfully retrieved,return its details as a JSON response
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(gson.toJson(slot));
