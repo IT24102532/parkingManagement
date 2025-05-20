@@ -97,7 +97,7 @@ public class GetAllBookingServlet extends HttpServlet {
             // Return the retrieved data
             Log.type(LogType.NOTE).message("@/get/booking/list -> finalized data").print();
             response.getWriter().write(gson.toJson(joinedData));
-            Log.type(LogType.INFO).message("[/get/booking/list] successfully sent data").print();
+            Log.type(LogType.SUCCESS).message("[/get/booking/list] successfully sent data").print();
         } catch (Exception e) {
             response.setContentType("application/json");
             response.getWriter().write("{\"error\":\"Failed to fetch bookings.\"}");

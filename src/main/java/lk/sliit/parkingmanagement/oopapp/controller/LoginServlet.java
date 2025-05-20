@@ -62,7 +62,10 @@ public class LoginServlet extends HttpServlet {
             session.removeAttribute("redirectAfterLogin");
             response.sendRedirect(request.getContextPath() + redirect);
         } else {
-            response.sendRedirect(request.getContextPath() + "/dashboard");
+            String redirectUrl = user.getUserType().equalsIgnoreCase("admin")
+                    ? "/admin/dashboard"
+                    : "/dashboard";
+            response.sendRedirect(request.getContextPath() + redirectUrl);
         }
     }
 }
