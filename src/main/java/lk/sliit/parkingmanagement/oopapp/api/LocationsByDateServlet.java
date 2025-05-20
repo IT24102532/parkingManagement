@@ -21,11 +21,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
+/*
+*servlet designed to retrieve available parking slot info
+* @param
+*/
 
 @WebServlet(name = "LocationsByDateServlet", value = "/get/slot")
 public class LocationsByDateServlet extends HttpServlet {
+    //DAO Access
     private final ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
 
+    //Gson instance
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -37,6 +43,7 @@ public class LocationsByDateServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
+        //retrieve parameters from the request
         String type     = req.getParameter("type");
         String location = req.getParameter("location");
         String start    = req.getParameter("startDate");
@@ -77,6 +84,7 @@ public class LocationsByDateServlet extends HttpServlet {
                     jsonResponse.add("locations", gson.toJsonTree(locMap));
 
                 } else {
+                    //specific location requested
                     List<ParkingSlot> slots = parkingSlotDao
                             .getAvailableSlotsByDates(startDate, endDate, location);
                     jsonResponse.add("slots", gson.toJsonTree(slots));
@@ -120,10 +128,12 @@ public class LocationsByDateServlet extends HttpServlet {
 
             resp.getWriter().write(gson.toJson(jsonResponse));
         } catch (Exception e) {
+            //catch any unhandled exception
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.getWriter().write("{\"success\": false, \"error\": \"Internal server error\"}");
         }
     }
+    //Handles initial insta slot requests
     private void handleInitialRequest(HttpSession session, String location, String requestedTime, JsonObject jsonResponse, HttpServletResponse resp) throws Exception {
         List<ParkingSlot> slotsByLoc = parkingSlotDao.findAll().stream()
                 .filter(slot -> "insta".equalsIgnoreCase(slot.getLotType()))
@@ -139,6 +149,7 @@ public class LocationsByDateServlet extends HttpServlet {
 
         quickSort(slotsByLoc, 0, slotsByLoc.size() - 1);
 
+        //push into a stack
         List<ParkingSlot> topFive = slotsByLoc.subList(0, Math.min(5, slotsByLoc.size()));
         Stack<ParkingSlot> stack = new Stack<>();
         for (int i = topFive.size() - 1; i >= 0; i--) {
@@ -150,12 +161,14 @@ public class LocationsByDateServlet extends HttpServlet {
             return;
         }
 
+        //send the first slot
         ParkingSlot currentSlot = stack.pop();
         session.setAttribute("slotStack", stack);
         jsonResponse.add("slot", gson.toJsonTree(currentSlot));
         jsonResponse.addProperty("remaining", stack.size());
     }
 
+    //handles "next" action
     private void handleNextSlot(HttpSession session, JsonObject jsonResponse, HttpServletResponse resp) throws IOException {
         Stack<ParkingSlot> stack = (Stack<ParkingSlot>) session.getAttribute("slotStack");
         if (stack == null || stack.isEmpty()) {
@@ -169,6 +182,7 @@ public class LocationsByDateServlet extends HttpServlet {
         jsonResponse.addProperty("remaining", stack.size());
     }
 
+    //custom quicksort
     private void quickSort(List<ParkingSlot> slots, int low, int high) {
         if (low < high) {
             int pivotIndex = partition(slots, low, high);
@@ -177,6 +191,7 @@ public class LocationsByDateServlet extends HttpServlet {
         }
     }
 
+    //partition logic for quick sort
     private int partition(List<ParkingSlot> slots, int low, int high) {
         ParkingSlot pivot = slots.get(high);
         int i = low - 1;
@@ -190,6 +205,7 @@ public class LocationsByDateServlet extends HttpServlet {
         return i + 1;
     }
 
+    //custom comparator
     private int compare(ParkingSlot a, ParkingSlot b) {
         int dateCompare = a.getCreatedAt().compareTo(b.getCreatedAt());
 
@@ -199,6 +215,7 @@ public class LocationsByDateServlet extends HttpServlet {
         return dateCompare != 0 ? dateCompare : Double.compare(priceA, priceB);
     }
 
+    //send error responses 
     private void sendError(HttpServletResponse resp, String error, int status) throws IOException {
         resp.setStatus(status);
         resp.getWriter().write("{\"success\": false, \"error\": \"" + error + "\"}");
