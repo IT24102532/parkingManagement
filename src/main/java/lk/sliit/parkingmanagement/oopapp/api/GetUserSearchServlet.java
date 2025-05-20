@@ -18,12 +18,24 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+/*
+*Servlet designed to handle multiple user related data requests
+* such as user search,fetching and counting all users
+*
+* This servlet reads data from the user
+* and ID and parameter based user searches
+*
+* The data is formatted into a JSON structure, making it suitable
+* for dynamic rendering in admin panels
+*/
 
 @WebServlet(name = "GetUserSearchServlet", value = {"/get/user/search", "/get/user/all", "/get/user/count"})
 public class GetUserSearchServlet extends HttpServlet {
+    //DAO access
     private final UserDao userDao = new UserDaoImpl();
     private final Logger LOGGER = Logger.getLogger(GetUserSearchServlet.class.getName());
 
+    // Gson instance configured to handle Java
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -35,6 +47,7 @@ public class GetUserSearchServlet extends HttpServlet {
         Map<String, Object> result;
 
         try {
+            //route the request along with its path
             switch (request.getServletPath()) {
                 case "/get/user/search":
                     result = handleUserSearch(request);
@@ -46,9 +59,11 @@ public class GetUserSearchServlet extends HttpServlet {
                     result = getCount(request);
                     break;
                 default:
+                    //handle invalid paths
                     result = Map.of("status", "error", "message", "Invalid endpoint");
             }
         } catch (Exception e) {
+            //log unexpected errors
             LOGGER.log(Level.SEVERE, "Error processing request", e);
             result = Map.of("status", "error", "message", "Internal server error");
         }
@@ -63,6 +78,7 @@ public class GetUserSearchServlet extends HttpServlet {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "POST method is not supported for this endpoint.");
     }
 
+    //Count total users, users created today, and users created this month
     private Map<String, Object> getCount(HttpServletRequest request) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<User> users = userDao.findAll();
@@ -84,6 +100,7 @@ public class GetUserSearchServlet extends HttpServlet {
                 newUsersMonth++;
             }
         }
+        //return the results
         result.put("status", "success");
         result.put("totalUsers", totalUsers);
         result.put("newUsersToday", newUsersToday);
@@ -91,7 +108,7 @@ public class GetUserSearchServlet extends HttpServlet {
         return result;
     }
 
-
+    //search users by exact ID
     private Map<String, Object> handleUserSearch(HttpServletRequest request) throws Exception {
         String id = request.getParameter("id");
         String param = request.getParameter("param");
@@ -99,6 +116,7 @@ public class GetUserSearchServlet extends HttpServlet {
         Map<String, Object> result = new HashMap<>();
 
         if (id != null) {
+            //search by exact user id
             User matchedUser = users.stream()
                     .filter(u -> u.getUserId().equalsIgnoreCase(id))
                     .findFirst()
@@ -111,6 +129,7 @@ public class GetUserSearchServlet extends HttpServlet {
             }
 
         } else if (param != null) {
+            //match on username or email
             List<Map<String, Object>> matchedUsers = users.stream()
                     .filter(u -> u.getUsername().toLowerCase().contains(param.toLowerCase()) ||
                             u.getEmail().toLowerCase().contains(param.toLowerCase()))
@@ -126,6 +145,7 @@ public class GetUserSearchServlet extends HttpServlet {
         return result;
     }
 
+    //retrieve all users
     private Map<String, Object> handleAllUsers(HttpServletRequest request) throws Exception {
         List<User> users = userDao.findAll();
         String limitParam = request.getParameter("limit");
@@ -134,6 +154,7 @@ public class GetUserSearchServlet extends HttpServlet {
         if (limitParam != null) {
             try {
                 int limit = Integer.parseInt(limitParam);
+                //sort and limit users
                 limitedUsers = users.stream()
                         .sorted(Comparator.comparing(User::getCreatedAt).reversed())
                         .limit(limit)
@@ -143,6 +164,7 @@ public class GetUserSearchServlet extends HttpServlet {
             }
         }
 
+        //map users and return
         List<Map<String, Object>> mappedUsers = limitedUsers.stream()
                 .map(this::mapUser)
                 .collect(Collectors.toList());
@@ -150,7 +172,7 @@ public class GetUserSearchServlet extends HttpServlet {
         return Map.of("users", mappedUsers);
     }
 
-
+    //mapping the user objects
     private Map<String, Object> mapUser(User user) {
         Map<String, Object> entry = new HashMap<>();
         entry.put("name", user.getFirstName() + " " + user.getLastName());
@@ -164,6 +186,7 @@ public class GetUserSearchServlet extends HttpServlet {
         return entry;
     }
 
+    //format into readable string format
     private String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd @HH:mm"));
     }

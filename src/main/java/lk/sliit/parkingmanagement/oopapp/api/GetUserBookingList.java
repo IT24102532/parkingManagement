@@ -98,7 +98,7 @@ public class GetUserBookingList extends HttpServlet {
             //log success
             Log.type(LogType.INFO).message("[/get/booking/list] successfully sent data").print();
         } catch (Exception e) {
-            //catch the error 
+            //catch the error
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to fetch bookings.");
             Log.type(LogType.ERROR).message("[/get/booking/list] failed to deliver data").print();
         }

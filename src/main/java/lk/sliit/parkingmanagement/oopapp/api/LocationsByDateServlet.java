@@ -82,7 +82,7 @@ public class LocationsByDateServlet extends HttpServlet {
                     jsonResponse.add("slots", gson.toJsonTree(slots));
                 }
 
-            } else { // type == insta
+            } else {// type == insta
                 HttpSession session = req.getSession(true);
                 List<ParkingSlot> allInsta = parkingSlotDao.findAll().stream()
                         .filter(slot -> "insta".equalsIgnoreCase(slot.getLotType()))
