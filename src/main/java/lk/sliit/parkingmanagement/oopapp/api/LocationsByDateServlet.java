@@ -23,7 +23,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 /*
 *servlet designed to retrieve available parking slot info
-* @param
+* @parameters to filter , fetching and availability checks
+*
+* for long term slots actions will perform regarding
+* if a slot is available or a slot is not available
+*
+* for insta slots returns available slots and filters them according
+* to location and time
 */
 
 @WebServlet(name = "LocationsByDateServlet", value = "/get/slot")
@@ -215,7 +221,7 @@ public class LocationsByDateServlet extends HttpServlet {
         return dateCompare != 0 ? dateCompare : Double.compare(priceA, priceB);
     }
 
-    //send error responses 
+    //send error responses
     private void sendError(HttpServletResponse resp, String error, int status) throws IOException {
         resp.setStatus(status);
         resp.getWriter().write("{\"success\": false, \"error\": \"" + error + "\"}");
