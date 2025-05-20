@@ -1,4 +1,10 @@
-<%@ page isErrorPage="true" %>
+<%@ page isErrorPage="true" %><%
+    String referer = request.getHeader("referer");
+    if (referer == null) {
+        referer = request.getContextPath() + "/"; // fallback to home if no referer
+    }
+%>
+
 <html>
 <head>
     <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
@@ -19,7 +25,7 @@
 </body>
 <script>
     document.getElementById("backHome").addEventListener('click', () => {
-        window.location.href = "${pageContext.request.contextPath}/dashboard";
+        window.location.href = "${pageContext.request.contextPath}/<%= referer %>";
     });
 </script>
 </html>
