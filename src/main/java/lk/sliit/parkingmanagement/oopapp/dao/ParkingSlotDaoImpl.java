@@ -13,15 +13,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/** * ParkingSlotDao interface implementation for parking slot management manages both
+ *  hourly InstaSlots and daily LongTermSlots parking.
+ */
+
 public class ParkingSlotDaoImpl implements ParkingSlotDao {
+    // Logger for tracking errors and information
     private final Logger LOGGER = Logger.getLogger(ParkingSlotDaoImpl.class.getName());
+    // File path for storing parking slot data
     private final String filePath = FileConfig.INSTANCE.getSlotPath();
+    // Helper for JSON operations on ParkingSlot objects
     JsonHelper<ParkingSlot> slotJsonHelper = new JsonHelper<>(filePath, ParkingSlot.class);
+
+    /** * Returns every parking space for a given address.
+     * param location The address by which slots should be filtered
+     * * @return List of ParkingSlot objects that match the address, or null if an error occurs
+     **/
 
     @Override
     public List<ParkingSlot> getAllSlotsByLocation(String location) {
         try {
             return slotJsonHelper.findAll(
+
                     s -> s.getLocation().equalsIgnoreCase(location)
             );
         }
@@ -31,6 +44,16 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
         }
     }
 
+    /** * Locates long-term slots at a given location for a range of dates
+     * * startDate The desired period's start date
+     * endDate The desired period's end date
+     * *  location Where to use
+     *return to filter slots List of LongTermSlot objects that are available,
+     * or an empty list in the event of an error
+     * */
+
+
+    /** Find available long-term slots for date range at location**/
     @Override
     public List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate, String location) {
         try {
@@ -47,6 +70,8 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
         }
     }
 
+
+    /** Find available hourly slots for time range at location**/
     @Override
     public List<ParkingSlot> getAvailableSlotsByHours(LocalDateTime startTime, LocalDateTime endTime, String location) {
         try {
@@ -77,7 +102,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
         }
     }
 
-
+    /** Find available hourly slots (all locations)**/
     @Override
     public List<ParkingSlot> getAvailableSlotsByDates(LocalDate startDate, LocalDate endDate) {
         try {
@@ -91,12 +116,12 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
             return Collections.emptyList();
         }
     }
-
+    /**Find slots matching query parameters**/
     @Override
     public List getSlotDetails(Map query) {
        return  slotJsonHelper.findByFields(query);
     }
-
+     /**Update booked dates for a slot**/
     @Override
     public void updateDates(String id, LocalDate startDate, LocalDate endDate) {
         List<String> newDates = new ArrayList<>();
@@ -112,7 +137,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
                 Map.of("bookedDates", newDates)
         );
     }
-
+    /**Update booked hours for a slot**/
     @Override
     public void updateHours(String id, LocalDateTime startTime, LocalDateTime endTime) {
         List<String> newTimes = new ArrayList<>();
@@ -128,7 +153,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
                 Map.of("bookedTimes", newTimes)
         );
     }
-
+    // Get slot by ID
     @Override
     public ParkingSlot getById(String id) throws Exception {
         try {
@@ -140,6 +165,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
             return null;
         }
     }
+/**Get all slots**/
 
     @Override
     public List<ParkingSlot> findAll() throws Exception {
@@ -171,7 +197,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
     public void delete(int id) throws Exception {
 
     }
-
+    /** Check if long-term slot is available for dates**/
     private boolean isSlotAvailable(LongTermSlot slot, LocalDate startDate, LocalDate endDate) {
         for (String booked : slot.getBookedDates()) {
             LocalDate bookedDate = LocalDate.parse(booked.substring(0, 10));
@@ -181,7 +207,7 @@ public class ParkingSlotDaoImpl implements ParkingSlotDao {
         }
         return true;
     }
-
+    /**Check if hourly slot is available for times**/
     private boolean isSlotAvailableByHour(InstaSlot slot, LocalDateTime startTime, LocalDateTime endTime) {
         Set<String> bookedTimes = slot.getBookedTimes() != null ? new HashSet<>(slot.getBookedTimes()) : Set.of();
 

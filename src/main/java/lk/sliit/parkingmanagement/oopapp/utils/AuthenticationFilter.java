@@ -42,20 +42,19 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-//        String userId = (String) session.getAttribute("user");
-//        if (requestedPath.contains("/admin")) {
-//            try {
-//                User user = userDao.getById(userId);
-//                if (!"admin".equals(user.getUserType())) {
-//                    // Redirect non-admins from admin-only pages
-//                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
-//                    return;
-//                }
-//            } catch (Exception e) {
-//                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User lookup failed");
-//                return;
-//            }
-//        }
+        String userId = (String) session.getAttribute("user");
+        if (requestedPath.contains("/admin")) {
+            try {
+               User user = userDao.getById(userId);
+               if (!"admin".equals(user.getUserType())) {
+                   // Redirect non-admins from admin-only pages
+                   response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");                    return;
+               }
+           } catch (Exception e) {
+              response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User lookup failed");
+               return;
+           }
+        }
         chain.doFilter(request, response);
     }
 }
