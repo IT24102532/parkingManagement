@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpSession;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDao;
 import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.User;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 
 import java.io.IOException;
 
@@ -43,11 +45,14 @@ public class AuthenticationFilter implements Filter {
         }
 
         String userId = (String) session.getAttribute("user");
-        if (requestedPath.contains("/admin")) {
+        if (requestedPath.startsWith("/admin")) {
             try {
                 User user = userDao.getById(userId);
+                if (user == null) {
+                    response.sendRedirect(request.getContextPath() + "/login");
+                    return;
+                }
                 if (!"admin".equals(user.getUserType())) {
-                    // Redirect non-admins from admin-only pages
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
                     return;
                 }
