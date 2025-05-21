@@ -24,7 +24,7 @@ public class JsonHelper<T> {
 
     public JsonHelper(String filePath, Class<T> type) {
         this.filePath = filePath;
-
+        // Set up polymorphic type handling
         RuntimeTypeAdapterFactory<User> userFactory = RuntimeTypeAdapterFactory
                 .of(User.class, "user_type")
                 .registerSubtype(Customer.class, "user")
