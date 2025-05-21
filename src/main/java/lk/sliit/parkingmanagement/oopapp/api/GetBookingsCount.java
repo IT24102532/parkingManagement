@@ -21,25 +21,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+/*
+*Servlet designed to retrieve the number of booking grouped by date
+*
+* Reads data from the booking table,filters out null dates
+*
+*the grouped booking counts are formatted into list of maps
+* finally return as a structured JSON object
+*/
 @WebServlet(name = "GetBookingsCount", value = "/get/bookings/count")
 public class GetBookingsCount extends HttpServlet {
+    //DAO Access
     private final BookingDao bookingDao = new BookingDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
-        // TODO: validation at production to check if the user is an admin
 
+        //retrieving all booking records
         List<Booking> bookings = bookingDao.getAllBookings();
 
+        //group booking by their creation date
         Map<LocalDate, Long> grouped = bookings.stream()
                 .filter(b -> b.getCreatedAt() != null)
                 .collect(Collectors.groupingBy(
                         b -> b.getCreatedAt().toLocalDate(),
                         Collectors.counting()
                 ));
-
+        //prepare the group data into list of maps
         List<Map<String, Object>> bookingData = new ArrayList<>();
         grouped.forEach((date, count) -> {
             Map<String, Object> entry = new HashMap<>();
@@ -51,11 +60,13 @@ public class GetBookingsCount extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        //create a Gson instance with adapters
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
                 .create();
+        //writing the JSON response
         response.getWriter().write(gson.toJson(bookingData));
     }
 
