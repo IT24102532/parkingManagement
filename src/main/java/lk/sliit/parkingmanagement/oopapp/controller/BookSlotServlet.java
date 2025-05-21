@@ -23,6 +23,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @WebServlet(name = "BookSlotServlet", value = "/book")
 public class BookSlotServlet extends HttpServlet {
     ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();

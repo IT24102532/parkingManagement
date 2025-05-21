@@ -6,6 +6,12 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 
+/*
+    This servlet handles user logout functionality for the parking management system
+
+    This only listen for GET request
+ */
+
 @WebServlet(name = "LogoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
@@ -13,6 +19,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String action = request.getParameter("action");
 
+        // If the action is 'switch', log out the current user and redirect to login page
         if ("switch".equals(action)) {
             if (session != null) {
                 session.invalidate();
@@ -21,9 +28,12 @@ public class LogoutServlet extends HttpServlet {
             return;
         }
 
+        //default logout
         if (session != null) {
             session.invalidate();
         }
+
+        //redirect to home page
         response.sendRedirect(request.getContextPath() + "/");
     }
 }
