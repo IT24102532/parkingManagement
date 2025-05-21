@@ -2,13 +2,62 @@ package lk.sliit.parkingmanagement.oopapp.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+// Data Transfer Object (DTO) for Vehicle information
+// Used to transfer vehicle data between application layers
+
 public class VehicleDto {
+
     @SerializedName("user_uuid")
     private String userId;
+
     @SerializedName("vehicle_id")
     private String vehicleId;
+
     @SerializedName("vehicle_type")
     private String vehicleType;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     @SerializedName("reg_number")
     private String regNumber;
 

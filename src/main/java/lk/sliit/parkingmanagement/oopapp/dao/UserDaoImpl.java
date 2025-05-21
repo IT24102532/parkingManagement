@@ -12,11 +12,17 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Implementation of UserDao interface for user data operations
+
 public class UserDaoImpl implements UserDao {
+    // Logger for error tracking
     private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class.getName());
+    // Path to the users data file
     private final String filePath = FileConfig.INSTANCE.getUsersPath();
+    // Helper for JSON operations with User objects
     JsonHelper<User> userJsonHelper = new JsonHelper<>(filePath, User.class);
 
+    // Find a user by their ID
     @Override
     public User findByEmail(String email) {
        try {
@@ -29,7 +35,7 @@ public class UserDaoImpl implements UserDao {
             return null;
        }
     }
-
+// Check if password matches for a given email//
     @Override
     public User findById(String id) {
         try {
@@ -56,7 +62,7 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
-
+// Check if password matches for a given user ID//
     @Override
     public boolean validatePasswordById(String id, String password) throws Exception {
         try {
@@ -72,7 +78,7 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
-
+    // Get user ID by email//
     @Override
     public String getUserId(String email) throws Exception {
         try {
@@ -88,7 +94,7 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
-
+    // Update user's first and last name
     @Override
     public void updateAccountDetails(String fname, String lname, String userId) throws Exception {
         try {
@@ -101,7 +107,7 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error Findng User by Id" + userId, e);
         }
     }
-
+    // Get user by ID
     @Override
     public User getById(String id) throws Exception {
         try {
@@ -122,7 +128,7 @@ public class UserDaoImpl implements UserDao {
         }
         return new ArrayList<>();
     }
-
+// Get all users//
     @Override
     public void create(User object) throws Exception {
         try{
@@ -138,6 +144,7 @@ public class UserDaoImpl implements UserDao {
 
         userJsonHelper.create(object);
     }
+    // Update an existing user
 
     @Override
     public void update(User updatedUser) throws Exception {
@@ -150,12 +157,12 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.SEVERE, "Error updating user", e);
         }
     }
-
+    // Delete user by integer ID
     @Override
     public void delete(int id) throws Exception {
 
     }
-
+    // Delete user by string ID
     @Override
     public void delete(String id) throws Exception {
         try {
@@ -166,7 +173,7 @@ public class UserDaoImpl implements UserDao {
         }
 
     }
-
+    // Ban a user by ID
     @Override
     public void ban(String id) throws Exception {
         try {
@@ -180,6 +187,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    // Partial update of user fields
     @Override
     public void partialUpdate(Predicate<User> predicate, Map<String, Object> updates) throws Exception {
         try {
@@ -190,7 +198,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
+    // Helper method to get all non-null fields from a User object
     private Map<String, Object> extractNonNullFields(User user) {
         Map<String, Object> updates = new HashMap<>();
         try {
