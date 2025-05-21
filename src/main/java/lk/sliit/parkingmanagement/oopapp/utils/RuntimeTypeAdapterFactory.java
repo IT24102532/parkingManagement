@@ -15,17 +15,17 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     private final Map<String, Class<?>> labelToSubtype = new HashMap<>();
     private final Map<Class<?>, String> subtypeToLabel = new HashMap<>();
     private final boolean maintainType;
-
+    // Private constructor used internally.
     private RuntimeTypeAdapterFactory(Class<?> baseType, String typeFieldName, boolean maintainType) {
         this.baseType = baseType;
         this.typeFieldName = typeFieldName;
         this.maintainType = maintainType;
     }
-
+    // Static factory method to create a new instance of the factory.
     public static <T> RuntimeTypeAdapterFactory<T> of(Class<T> baseType, String typeFieldName) {
         return new RuntimeTypeAdapterFactory<>(baseType, typeFieldName, false);
     }
-
+    // Creates the custom TypeAdapter based on the registered subtypes
     public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> subtype, String label) {
         labelToSubtype.put(label, subtype);
         subtypeToLabel.put(subtype, label);
@@ -35,10 +35,10 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     @Override
     public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
         if (type.getRawType() != baseType) return null;
-
+// Map label strings to TypeAdapters
         final Map<String, TypeAdapter<?>> labelToAdapter = new HashMap<>();
         final Map<Class<?>, TypeAdapter<?>> subtypeToAdapter = new HashMap<>();
-
+// Populate adapter maps from registered subtypes
         for (Map.Entry<String, Class<?>> entry : labelToSubtype.entrySet()) {
             TypeAdapter<?> adapter = gson.getDelegateAdapter(this, TypeToken.get(entry.getValue()));
             labelToAdapter.put(entry.getKey(), adapter);
@@ -85,7 +85,7 @@ public class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
                 if (delegate == null) {
                     throw new JsonParseException("Unknown type: " + label);
                 }
-
+// Deserialize into the correct subtype
                 return delegate.fromJsonTree(jsonObject);
             }
         }.nullSafe();

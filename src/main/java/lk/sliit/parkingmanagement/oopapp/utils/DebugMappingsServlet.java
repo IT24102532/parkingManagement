@@ -12,13 +12,19 @@ import java.util.Map;
 
 @WebServlet("/debug/mappings")
 public class DebugMappingsServlet extends HttpServlet {
+    /**
+     * Handles GET requests to display component mappings
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    // Set response type to plain text
+
         response.setContentType("text/plain");
         ServletContext context = getServletContext();
 
+        // Section 1: Display registered servlets
         response.getWriter().println("=== SERVLETS ===");
         Map<String, ? extends ServletRegistration> servlets = context.getServletRegistrations();
         for (Map.Entry<String, ? extends ServletRegistration> entry : servlets.entrySet()) {
@@ -30,7 +36,7 @@ public class DebugMappingsServlet extends HttpServlet {
             }
             response.getWriter().println();
         }
-
+        // Section 2: Display registered filters and their associations
         response.getWriter().println("=== FILTERS ===");
         Map<String, ? extends FilterRegistration> filters = context.getFilterRegistrations();
         for (Map.Entry<String, ? extends FilterRegistration> entry : filters.entrySet()) {
@@ -48,6 +54,7 @@ public class DebugMappingsServlet extends HttpServlet {
             Field listenersField = context.getClass().getDeclaredField("eventListenersList");
             listenersField.setAccessible(true);
             @SuppressWarnings("unchecked")
+            // List all registered event listeners
             List<EventListener> listeners = (List<EventListener>) listenersField.get(context);
             for (EventListener listener : listeners) {
                 response.getWriter().println("Listener: " + listener.getClass().getName());
