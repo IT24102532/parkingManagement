@@ -20,9 +20,21 @@ import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.*;
 import java.util.stream.Collectors;
+/*
+* Servlet designed to retrieve and summarize transactions
+* calculates each day of the week
+*
+* Main operations followed
+*   - Retrieve all transactions
+*   - Groups transaction amount by day
+*   - Final Entry to show total earnings of the week
+*
+* The output gives analytics dashboard and weekly revenue charts
+*/
 
 @WebServlet(name = "GetTransactionAmount", value = "/get/transaction/data")
 public class GetTransactionAmount extends HttpServlet {
+    //DAO Access
     private final TransactionDao transactionDao = new TransactionDaoImpl();
     private final BookingDao bookingDao = new BookingDaoImpl();
 
@@ -30,13 +42,14 @@ public class GetTransactionAmount extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
 
-        // TODO: validate admin user for production
+        //start of the current week
         LocalDateTime startOfWeek = LocalDate.now()
                 .with(DayOfWeek.MONDAY)
                 .atStartOfDay();
 
         List<Transaction> transactions;
         try {
+            // Fetch all transactions
             transactions = transactionDao.findAll().stream()
                     .filter(t -> t.getCreatedAt() != null && t.getCreatedAt().isAfter(startOfWeek))
                     .collect(Collectors.toList());
@@ -45,12 +58,14 @@ public class GetTransactionAmount extends HttpServlet {
             return;
         }
 
+        // Group transactions by day
         Map<DayOfWeek, Double> groupedTotals = transactions.stream()
                 .collect(Collectors.groupingBy(
                         t -> t.getCreatedAt().getDayOfWeek(),
                         Collectors.summingDouble(Transaction::getAmount)
                 ));
 
+        //Define the proper order of days
         List<DayOfWeek> weekOrder = List.of(
                 DayOfWeek.MONDAY,
                 DayOfWeek.TUESDAY,
@@ -70,10 +85,12 @@ public class GetTransactionAmount extends HttpServlet {
             transactionData.add(entry);
         }
 
+        //Calculate the total earnings for the week
         double totalAmount = groupedTotals.values().stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
+        //add the weekly earnings
         Map<String, Object> earningsEntry = new HashMap<>();
         earningsEntry.put("earnings", totalAmount);
         transactionData.add(earningsEntry);
@@ -81,6 +98,7 @@ public class GetTransactionAmount extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        //Create a Gson instance
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())

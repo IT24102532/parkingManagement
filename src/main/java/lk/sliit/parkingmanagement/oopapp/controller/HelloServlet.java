@@ -15,6 +15,8 @@ import lk.sliit.parkingmanagement.oopapp.model.User;
 import lk.sliit.parkingmanagement.oopapp.utils.JsonHelper;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
+
+
 @WebServlet(name = "test", value = "/test1")
 public class HelloServlet extends HttpServlet {
     private String message;

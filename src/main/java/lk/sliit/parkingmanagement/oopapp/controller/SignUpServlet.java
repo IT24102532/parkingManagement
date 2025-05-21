@@ -8,6 +8,8 @@ import lk.sliit.parkingmanagement.oopapp.dao.UserDaoImpl;
 import lk.sliit.parkingmanagement.oopapp.model.Customer;
 import lk.sliit.parkingmanagement.oopapp.model.PaymentDetails;
 import lk.sliit.parkingmanagement.oopapp.model.Vehicle;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.Log;
+import lk.sliit.parkingmanagement.oopapp.utils.Log.LogType;
 import lk.sliit.parkingmanagement.oopapp.utils.PasswordHasher;
 
 import java.io.IOException;
@@ -16,6 +18,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/*
+    This servlet handles the multistep user registration process in the parking management system
+    It consists of three steps:
+        - user details
+        - vehicle details
+        - payment information
+
+     Only listen for POST request
+
+ */
 
 @WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
@@ -38,6 +51,7 @@ public class SignUpServlet extends HttpServlet {
                 String userUuid = UUID.randomUUID().toString();
                 String hashedPassword = PasswordHasher.hashPassword(password);
 
+                //store user info in session
                 session.setAttribute("user_uuid", userUuid);
                 session.setAttribute("f_name", fName);
                 session.setAttribute("l_name", lName);
@@ -46,6 +60,7 @@ public class SignUpServlet extends HttpServlet {
 
                 System.out.println("user registerd successfully ");
 
+                //forward to vehicle details form
                 request.getRequestDispatcher("/views/vehicleDetails.jsp").forward(request, response);
 
             } else if ("vehicle".equalsIgnoreCase(step)) {
@@ -55,26 +70,27 @@ public class SignUpServlet extends HttpServlet {
                 String regState = request.getParameter("regState");
                 String licensePlate = request.getParameter("licensePlate");
 
+                //store vehicle info in session
                 session.setAttribute("carType", carType);
                 session.setAttribute("regLocation", regLocation);
                 session.setAttribute("regState", regState);
                 session.setAttribute("licensePlate", licensePlate);
                 System.out.println("vehicle register  successfully");
 
-
+                //forward to payment details form
                 request.getRequestDispatcher("/views/paymentDetails.jsp").forward(request, response);
 
             } else if ("payment".equalsIgnoreCase(step)) {
-                // Step 3: Final registration with payment
+                // Step 3: Collect payment information
                 String cardHolder = request.getParameter("cardHolder");
                 String cardNumber = request.getParameter("cardNumber");
                 String expiry = request.getParameter("expiry");
                 String cardType = request.getParameter("cardType");
 
-                // Create payment details
+                // Create paymentDetails object
                 PaymentDetails paymentDetails = new PaymentDetails(cardHolder, expiry, cardType, cardNumber);
 
-                // Create vehicle details
+                // retrieve vehicle details from session
                 String carType = (String) session.getAttribute("carType");
                 String regLocation = (String) session.getAttribute("regLocation");
                 String regState = (String) session.getAttribute("regState");
@@ -105,7 +121,8 @@ public class SignUpServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Something went wrong", e);
+            //handle unexpected errors
+            Log.type(LogType.ERROR).message("Something went wrong"+ e.getMessage()).print();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Something went wrong.");
         }
     }
