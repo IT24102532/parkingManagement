@@ -96,14 +96,14 @@
       <p class="role">Developer | IT24104018</p>
     </div>
     <div class="team-member card">
-      <img src="${pageContext.request.contextPath}/assets/images/bg4.jpg" alt="Team Member">
-      <h3>John Doe</h3>
-      <p class="role">CEO & Founder</p>
+      <img src="${pageContext.request.contextPath}/assets/images/team-savina.jpg" alt="Team Member">
+      <h3>Savina Vinmath</h3>
+      <p class="role">Developer | IT24104173</p>
     </div>
     <div class="team-member card">
-      <img src="${pageContext.request.contextPath}/assets/images/bg4.jpg" alt="Team Member">
-      <h3>John Doe</h3>
-      <p class="role">CEO & Founder</p>
+      <img src="${pageContext.request.contextPath}/assets/images/team-geenuth.jpg" alt="Team Member">
+      <h3>Geenuth Dulnitha</h3>
+      <p class="role">Developer | IT24103910</p>
     </div>
   </div>
 </section>

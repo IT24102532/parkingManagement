@@ -3,6 +3,7 @@ package lk.sliit.parkingmanagement.oopapp.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Admin extends User {
     // Attributes
@@ -13,8 +14,8 @@ public class Admin extends User {
 
     // Constructors
     public Admin() {}
-    public Admin(String user_uuid, String f_name, String l_name, String email, String hashedPassword, String user_type, List<String> bookings, int secClearance, String role) {
-        super(user_uuid, f_name, l_name, email, hashedPassword, user_type, bookings);
+    public Admin(String f_name, String l_name, String email, String hashedPassword, String user_type, List<String> bookings, int secClearance, String role) {
+        super(UUID.randomUUID().toString(), f_name, l_name, email, hashedPassword, user_type, bookings);
         this.secClearance = secClearance;
         this.role = role;
     }
