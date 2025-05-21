@@ -23,17 +23,30 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
+/*
+* Servlet designed to manage transaction-related data
+* for display and analytics purposes
+*
+* Filters and maps transactions
+* sort transactions by creation date
+* calculates and summarize transactions
+* handles invalid/missing search parameters
+*
+* The response is structured as JSON and ready for direct use in frontend views or charts.
+*/
 @WebServlet(name = "GetTransactionSearchServlet", value = {"/get/transactions/all","/get/transactions/search", "/get/transactions/count"})
 public class GetTransactionSearchServlet extends HttpServlet {
+    //DAO Access
     private final UserDao userDao = new UserDaoImpl();
     private final TransactionDao transactionDao = new TransactionDaoImpl();
     private final BookingDao bookingDao = new BookingDaoImpl();
     private final ParkingSlotDao parkingSlotDao = new ParkingSlotDaoImpl();
     private final Logger LOGGER = Logger.getLogger(GetTransactionSearchServlet.class.getName());
 
+    //Formatter for date and time
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd @HH:mm");
 
+    //Gson instance
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalTimeAdapter())
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -45,6 +58,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
         Map<String, Object> result;
 
         try {
+            //Handles requests
             result = switch (request.getServletPath()) {
                 case "/get/transactions/all" -> handleAllTransactions(request);
                 case "/get/transactions/count" -> getCount(request);
@@ -66,6 +80,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "POST method is not supported for this endpoint.");
     }
 
+    // Handle transaction earnings by date
     private Map<String, Object> getCount(HttpServletRequest request) throws Exception {
         Map<String, Object> result = new HashMap<>();
         List<Transaction> transactions = transactionDao.findAll();
@@ -91,6 +106,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
             }
         }
 
+        //Return summarized transactions
         result.put("status", "success");
         result.put("totalTransactions", totalTransactions);
         result.put("newTransactionsToday", newTransactionsToday);
@@ -98,6 +114,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
         return result;
     }
 
+    //Search transactions by user's full name
     private Map<String, Object> handleUserSearch(HttpServletRequest request) throws Exception {
         String param = request.getParameter("param");
         Map<String, Object> result = new HashMap<>();
@@ -107,6 +124,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
             return result;
         }
 
+        //find users
         List<User> users = userDao.findAll().stream()
                 .filter(u -> (u.getFirstName() + " " + u.getLastName())
                         .toLowerCase()
@@ -118,8 +136,10 @@ public class GetTransactionSearchServlet extends HttpServlet {
             return result;
         }
 
+
         List<Map<String, Object>> allTransactions = new ArrayList<>();
 
+        //For each matched user, fetch and map their transactions
         for (User user : users) {
             List<Transaction> transactions = transactionDao.findAll().stream()
                     .filter(t -> t.getUserId().equalsIgnoreCase(user.getUserId()))
@@ -133,6 +153,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
             }
         }
 
+        //Sort transactions by date
         allTransactions.sort((a, b) -> {
             String dateA = (String) a.get("date");
             String dateB = (String) b.get("date");
@@ -162,6 +183,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
             }
         }
 
+        //Retrieve and map all transactions
         List<Map<String, Object>> mappedTransactions = transactions.stream()
                 .map(this::safeMapTransaction)
                 .filter(Objects::nonNull)
@@ -170,6 +192,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
         return Map.of("transactions", mappedTransactions);
     }
 
+    // skip failed entries
     private Map<String, Object> safeMapTransaction(Transaction transaction) {
         try {
             return mapTransaction(transaction);
@@ -179,6 +202,7 @@ public class GetTransactionSearchServlet extends HttpServlet {
         }
     }
 
+    //Convert a transaction into map
     private Map<String, Object> mapTransaction(Transaction transaction) throws Exception {
         User user = userDao.findById(transaction.getUserId());
         if (user == null) throw new Exception("User not found for ID " + transaction.getUserId());

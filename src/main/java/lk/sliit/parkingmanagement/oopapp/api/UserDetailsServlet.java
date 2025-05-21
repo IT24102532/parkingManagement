@@ -19,9 +19,19 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/*
+*Servlet designed to retrieve detailed user info and return it
+*
+* @param user - to fetch the corresponding user details
+*Only listens to GET requests and returns user profile data.
+*
+*user id maps basic user information into user DTO object
+*
+*final user data is serialized into a JSON object and returned to the client.
+*/
 @WebServlet(name = "UserDetailsServlet", value = "/get/user")
 public class UserDetailsServlet extends HttpServlet {
+    //DAO Access
     private final UserDao userDao = new UserDaoImpl();
     private final Logger LOGGER = Logger.getLogger(UserDetailsServlet.class.getName());
 
@@ -32,14 +42,17 @@ public class UserDetailsServlet extends HttpServlet {
         try {
             user = userDao.getById(userId);
         } catch (Exception e) {
+            //log any exceptions during data retrieval
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
+        //create Gson instance with a custom LocalDateTime adaptor
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .setPrettyPrinting()
                 .create();
 
+        // prepare a DTO to hold user data for response
         UserDTO userDTO = new UserDTO();
         assert user != null;
         userDTO.setF_name(user.getFirstName());
@@ -47,16 +60,18 @@ public class UserDetailsServlet extends HttpServlet {
         userDTO.setEmail(user.getEmail());
         userDTO.setUser_uuid(user.getUserId());
 
+        //if retrieved user is an instance of Customer
         if (user instanceof Customer) {
             Customer customer = (Customer) user;
+            //map vehicle and payment details into DTO
             userDTO.setVehicle(customer.getVehicle());
             userDTO.setPaymentDetails(customer.getPaymentDetails());
         }
 
 
-        String gsonRes = gson.toJson(userDTO);
+        String gsonRes = gson.toJson(userDTO);//convert the DTO to a JSON string
 
         response.setContentType("application/json");
-        response.getWriter().write(gsonRes);
+        response.getWriter().write(gsonRes);//Write the JSON response to the output stream
     }
 }
